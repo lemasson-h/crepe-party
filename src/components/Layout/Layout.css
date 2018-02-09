@@ -1,0 +1,33 @@
+body {
+  background: #fff9ef;
+}
+
+.Layout {
+  display: flex;
+  flex-direction: column;
+  width:auto;
+}
+
+.Layout .Navigation {
+  height: 50px;
+  background-color: #c19343;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Layout .Navigation a {
+  margin: 0px 0px 0px 15px;
+  padding: 0 2px;
+  text-decoration: none;
+    color: #4c3b1d;
+}
+
+.Layout .Navigation a:hover {
+  color: #ffe7bc;
+}
+
+.Layout .Navigation a.active {
+  border-bottom: 4px solid #ffe7bc;
+  box-sizing: border-box;
+}

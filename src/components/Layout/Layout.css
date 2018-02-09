@@ -1,7 +1,3 @@
-body {
-  background: #fff9ef;
-}
-
 .Layout {
   display: flex;
   flex-direction: column;
@@ -23,7 +19,8 @@ body {
     color: #4c3b1d;
 }
 
-.Layout .Navigation a:hover {
+.Layout .Navigation a:hover,
+.Layout .Navigation a:active {
   color: #ffe7bc;
 }
 

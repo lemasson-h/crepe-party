@@ -1,0 +1,48 @@
+.Login {
+  margin: auto;
+  border: 1px solid #ffdda0;
+  background-color: #fff9ef;
+  width: 40%;
+  margin-top: 30px;
+
+}
+
+.Login form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Login form input {
+  width: 70%;
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid #c19343;
+}
+
+.Login form button {
+  margin: 20px 0;
+  padding: 10px 40px;
+  background-color: #c19343;
+  border: 1px solid #c19343;
+  font-size: 15px;
+  color: #4c3b1d;
+}
+
+.Login form .Error {
+  color: red;
+  margin-bottom: 0px;
+}
+
+.Login form button:hover,
+.Login form button:active {
+  color: #ffe7bc;
+  cursor: pointer;
+}
+
+@media (max-width: 401px) {
+  .Login {
+    width: 80%;
+  }
+}

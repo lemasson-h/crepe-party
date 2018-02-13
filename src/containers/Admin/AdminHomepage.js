@@ -10,12 +10,16 @@ class AdminHomepage extends Component {
     this.props.onLoadMenu();
   }
 
+  deleteCrepeHandler = (crepeId) => {
+    this.props.onDeleteCrepe(crepeId, this.props.token);
+  }
+
   render() {
     let content = <Spinner />
 
     if (!this.props.loading) {
       if (!this.props.error) {
-        content = <AdminMenu menu={this.props.menu}/>;
+        content = <AdminMenu menu={this.props.menu} deleteCrepe={this.deleteCrepeHandler}/>;
       } else {
         content = <div>Error</div>;
       }
@@ -37,6 +41,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLoadMenu: () => dispatch(actionCreators.loadMenu()),
+    onDeleteCrepe: (crepeId, token) => dispatch(actionCreators.deleteCrepeFromMenu(crepeId, token)),
   }
 }
 

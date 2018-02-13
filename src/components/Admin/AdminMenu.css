@@ -1,5 +1,17 @@
-.AdminMenu h1 {
+.AdminMenu {
   width: 100%;
-  margin: 20px auto;
+  margin: 0 auto;
   text-align: center;
+}
+
+.AdminMenu h1 {
+  margin: 30px auto;
+}
+
+.AdminMenu nav a {
+  text-decoration: none;
+  color: white;
+  background-color: #c19343;
+  padding: 15px 20px;
+  border-radius: 5px;
 }

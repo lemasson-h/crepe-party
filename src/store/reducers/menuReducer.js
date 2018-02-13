@@ -1,9 +1,16 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  loading: false,
-  error: null,
+  menu_loading: false,
+  menu_error: null,
+  add_loading: false,
+  add_error: null,
+  add_finished: false,
+  delete_loading: false,
+  delete_error: null,
+  delete_finished: false,
   menu: [],
+  flashMessage: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +21,18 @@ const reducer = (state = initialState, action) => {
       return loadMenuSuccess(state, action);
     case actionTypes.LOAD_MENU_FAIL:
       return loadMenuFail(state, action);
+    case actionTypes.ADD_CREPE_TO_MENU_START:
+      return addCrepeToMenuStart(state, action);
+    case actionTypes.ADD_CREPE_TO_MENU_SUCCESS:
+      return addCrepeToMenuSuccess(state, action);
+    case actionTypes.ADD_CREPE_TO_MENU_FAIL:
+      return addCrepeToMenuFail(state, action);
+    case actionTypes.DELETE_CREPE_FROM_MENU_START:
+      return deleteCrepeFromMenuStart(state, action);
+    case actionTypes.DELETE_CREPE_FROM_MENU_SUCCESS:
+      return deleteCrepeFromMenuSuccess(state, action);
+    case actionTypes.DELETE_CREPE_FROM_MENU_FAIL:
+      return deleteCrepeFromMenuFail(state, action);
     default:
       return state;
   }
@@ -22,8 +41,9 @@ const reducer = (state = initialState, action) => {
 const loadMenuStart = (state, action) => {
   return {
     ...state,
-    loading: true,
-    error: null,
+    menu_loading: true,
+    menu_error: null,
+    flashMessage: null,
   };
 }
 
@@ -38,8 +58,62 @@ const loadMenuSuccess = (state, action) => {
 const loadMenuFail = (state, action) => {
   return {
     ...state,
-    loading: false,
-    error: true,
+    menu_loading: false,
+    menu_error: true,
+  };
+}
+
+const addCrepeToMenuStart = (state, action) => {
+  return {
+    ...state,
+    add_loading: true,
+    add_error: false,
+    add_finished: false,
+    flashMessage: null,
+  };
+}
+
+const addCrepeToMenuSuccess = (state, action) => {
+  return {
+    ...state,
+    add_loading: false,
+    add_finished: true,
+    flashMessage: action.flashMessage,
+  };
+};
+
+const addCrepeToMenuFail = (state, action) => {
+  return {
+    ...state,
+    add_loading: false,
+    add_error: true,
+  };
+}
+
+const deleteCrepeFromMenuStart = (state, action) => {
+  return {
+    ...state,
+    delete_loading: true,
+    delete_error: false,
+    delete_finished: false,
+    flashMessage: null,
+  };
+}
+
+const deleteCrepeFromMenuSuccess = (state, action) => {
+  return {
+    ...state,
+    delete_loading: false,
+    delete_finished: true,
+    flashMessage: action.flashMessage,
+  };
+}
+
+const deleteCrepeFromMenuFail = (state, action) => {
+  return {
+    ...state,
+    delete_loading: false,
+    delete_error: true,
   };
 }
 

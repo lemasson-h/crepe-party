@@ -6,4 +6,6 @@ export {
 
 export {
   loadMenu,
+  addCrepeToMenu,
+  deleteCrepeFromMenu,
 } from './menuCreators';

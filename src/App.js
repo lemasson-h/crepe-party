@@ -31,7 +31,6 @@ class App extends Component {
           {adminRoutes}
           <Route component={NotFound} />
         </Switch>
-        <p>Echo</p>
       </Layout>
     );
   }

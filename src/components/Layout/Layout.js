@@ -6,7 +6,7 @@ import './Layout.css';
 const layout = (props) => {
   return (
     <div className="Layout">
-      <Navigation isAuthenticated={props.isAuthenticated} />
+      <Navigation isAuthenticated={props.isAuthenticated} isAdmin={props.isAdmin} />
       {props.children}
     </div>
   );

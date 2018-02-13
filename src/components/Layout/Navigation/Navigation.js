@@ -6,6 +6,7 @@ const navigation = (props) => {
     <div className="Navigation">
       <NavLink to="/" exact>Homepage</NavLink>
       <NavLink to="/menu">Menu</NavLink>
+      {props.isAdmin ? <NavLink to="/admin">Admin</NavLink> : null }
       {props.isAuthenticated ? <NavLink to="/logout">Logout</NavLink> : <NavLink to="/login">Login</NavLink> }
     </div>
   );

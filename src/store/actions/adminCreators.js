@@ -1,57 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const loadMenu = () => {
-  return dispatch => {
-    dispatch(loadMenuStart());
-
-    axios.get(
-      'https://crepe-party.firebaseio.com/menu.json'
-    )
-      .then(response => {
-        let data = response.data;
-
-        if (null === data) {
-          data = [];
-        } else {
-          data = Object.keys(response.data).map(
-            crepeId => {
-              return {
-                ...response.data[crepeId],
-                id: crepeId,
-              };
-            }
-          );
-        }
-
-        dispatch(loadMenuSuccess(data));
-      })
-      .catch(error => {
-        console.log(error);
-        dispatch(loadMenuFail());
-      });
-  }
-}
-
-const loadMenuStart = () => {
-  return {
-    type: actionTypes.LOAD_MENU_START,
-  };
-}
-
-const loadMenuSuccess = (menu) => {
-  return {
-    type: actionTypes.LOAD_MENU_SUCCESS,
-    menu: menu,
-  };
-}
-
-const loadMenuFail = () => {
-  return {
-    type: actionTypes.LOAD_MENU_FAIL,
-  };
-}
-
 export const adminAddCrepe = (crepe, token) => {
   return dispatch => {
     dispatch(adminAddCrepeStart());
@@ -87,6 +36,12 @@ const adminAddCrepeFail = () => {
   };
 }
 
+export const adminAddCrepeReset = () => {
+  return {
+    type: actionTypes.ADMIN_ADD_CREPE_RESET,
+  };
+}
+
 export const adminDeleteCrepe = (crepeId, token) => {
     return dispatch => {
       dispatch(adminDeleteCrepeStart());
@@ -117,5 +72,11 @@ const adminDeleteCrepeSuccess = (flashMessage) => {
 const adminDeleteCrepeFail = () => {
   return {
     type: actionTypes.ADMIN_DELETE_CREPE_FAIL,
+  };
+}
+
+export const adminDeleteCrepeReset = () => {
+  return {
+    type: actionTypes.ADMIN_DELETE_CREPE_RESET,
   };
 }

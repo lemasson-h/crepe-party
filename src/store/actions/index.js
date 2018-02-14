@@ -6,6 +6,11 @@ export {
 
 export {
   loadMenu,
-  addCrepeToMenu,
-  deleteCrepeFromMenu,
 } from './menuCreators';
+
+export {
+  adminAddCrepe,
+  adminAddCrepeReset,
+  adminDeleteCrepe,
+  adminDeleteCrepeReset
+} from './adminCreators'

@@ -5,7 +5,6 @@ import AdminCrepe from './AdminCrepe';
 import './AdminMenu.css';
 
 const adminMenu = (props) => {
-  console.log(props.menu);
   const items = props.menu
     .map(
       crepe => {

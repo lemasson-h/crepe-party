@@ -5,26 +5,81 @@
 }
 
 .Layout .Navigation {
-  height: 50px;
   background-color: #c19343;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-items: center;
+  flex: none; */
+  list-style: none;
+  position: relative;
 }
 
-.Layout .Navigation a {
-  margin: 0px 0px 0px 15px;
-  padding: 0 2px;
+.Layout .Navigation .NavLink {
+  display: inline-block;
+}
+
+.Layout .Navigation .NavLink a {
+  padding: 0 10px;
   text-decoration: none;
-    color: #4c3b1d;
+  color: #4c3b1d;
+  line-height: 50px;
+  display: block;
 }
 
-.Layout .Navigation a:hover,
-.Layout .Navigation a:active {
+.Layout .Navigation .NavLink a:hover,
+.Layout .Navigation .NavLink a:active {
   color: #ffe7bc;
 }
 
 .Layout .Navigation a.active {
-  border-bottom: 4px solid #ffe7bc;
-  box-sizing: border-box;
+  font-weight: bold;
 }
+
+.Layout .Navigation .Navigation {
+  display: none;
+  position: absolute;
+  top: 50px;
+}
+
+.Layout .Navigation .NavLink:hover > .NavLinkWrapper > a,
+.Layout .Navigation .NavLink:hover > a {
+    color: #ffe7bc;
+}
+
+.Layout .Navigation .NavLink:hover > .Navigation {
+  display: inherit;
+  border: 1px solid #4c3b1d;
+  border-top: none;
+}
+
+.Layout .Navigation .Navigation .NavLink  {
+  width: 170px;
+  float: none;
+  display: list-item;
+  position: relative;
+}
+
+/* .NavLink > a:after { content:  ' >'; }
+.NavLink > a:only-child:after { content: ''; } */
+
+/* .Layout .NavigationChildren.hover {
+  /* display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 16px;
+  border: 1px solid #4c3b1d;
+  border-top: none;
+  box-sizing: border-box;
+  margin: 0;
+  margin-left: -2px;
+  /* padding: 0 2px;
+  background-color: #ce9f4e;
+} */
+
+/* .Layout .NavigationChildren a {
+  padding: 0;
+  margin: 0;
+} */
+
+/* .Navigation>a {
+} */

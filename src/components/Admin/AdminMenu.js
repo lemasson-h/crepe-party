@@ -12,13 +12,15 @@ const adminMenu = (props) => {
       }
     );
 
-  return <div className="AdminMenu">
-    <h1>Menu</h1>
-    <nav>
-      <NavLink to="/admin/crepe/add">Add crepe</NavLink>
-    </nav>
-    {items}
-  </div>;
+  return (
+    <div className="AdminPage">
+      <h1>Menu</h1>
+      <nav>
+        <NavLink to="/admin/crepe/add">Add crepe</NavLink>
+      </nav>
+      {items}
+    </div>
+  );
 }
 
 export default adminMenu;

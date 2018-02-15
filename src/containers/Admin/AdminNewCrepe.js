@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 
 import * as actionCreators from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import '../../components/Admin/AdminMenu';
 
 class AdminNewCrepe extends Component {
   state = {
@@ -35,7 +36,7 @@ class AdminNewCrepe extends Component {
   render() {
     if (this.props.loading) {
       return (
-        <div>
+        <div className="AdminPage">
           <h1>Saving New crepe</h1>
           <Spinner />
         </div>
@@ -47,12 +48,12 @@ class AdminNewCrepe extends Component {
     }
 
     return (
-      <div>
+      <div className="AdminPage">
         <h1>New Crepe</h1>
         <form onSubmit={this.submitFormHandler}>
           <input type="text" value={this.state.crepe.name} onChange={this.changedCrepeNameHandler} placeholder="name"/>
           <h2>Ingredients</h2>
-          <button>Add</button>
+          <button className="Submit">Add</button>
         </form>
       </div>
     );

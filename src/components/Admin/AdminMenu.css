@@ -1,17 +1,66 @@
-.AdminMenu {
+.AdminPage {
   width: 100%;
   margin: 0 auto;
   text-align: center;
 }
 
-.AdminMenu h1 {
+.AdminPage h1 {
   margin: 30px auto;
 }
 
-.AdminMenu nav a {
+.AdminPage nav a {
   text-decoration: none;
   color: white;
   background-color: #c19343;
   padding: 15px 20px;
   border-radius: 5px;
+}
+
+.AdminPage button.Submit {
+  text-decoration: none;
+  color: white;
+  background-color: #c19343;
+  border-radius: 5px;
+  border: none;
+  padding: 10px 25px;
+  font-size: 15px;
+}
+
+.AdminPage form {
+  margin: auto;
+  border: 1px solid #ffdda0;
+  background-color: #fff9ef;
+  width: 40%;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.AdminPage form input {
+  width: 70%;
+  margin-top: 20px;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid #c19343;
+}
+
+.AdminPage form button.Submit {
+  margin: 20px 0;
+  padding: 10px 40px;
+  background-color: #c19343;
+  border: 1px solid #c19343;
+  font-size: 15px;
+  color: #4c3b1d;
+}
+
+.AdminPage form .Error {
+  color: red;
+  margin-bottom: 0px;
+}
+
+.AdminPage form button.Submit:hover,
+.AdminPage form button.Submit:active {
+  color: #ffe7bc;
+  cursor: pointer;
 }

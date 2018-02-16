@@ -9,7 +9,7 @@ const adminList = (props) => {
   let mainContent = <Spinner />;
 
   if (props.error) {
-    mainContent = <div className="Content">Unable to load {props.entityName}.</div>
+    mainContent = <p>Unable to load {props.entityName}.</p>
   } else if (!props.loading) {
     mainContent = props.entityList
       .map(
@@ -18,7 +18,7 @@ const adminList = (props) => {
         }
       );
     if (mainContent.length === 0) {
-      mainContent = <div className="Content">No {props.entityName} yet, start adding some.</div>
+      mainContent = <p>No {props.entityName} yet, start adding some.</p>
     }
   }
 
@@ -28,7 +28,9 @@ const adminList = (props) => {
       <nav>
         { props.entityAddLink ? <NavLink to={props.entityAddLink}>Add {props.entityName}</NavLink> : null }
       </nav>
-      {mainContent}
+      <div className="Content">
+        {mainContent}
+      </div>
     </div>
   );
 }

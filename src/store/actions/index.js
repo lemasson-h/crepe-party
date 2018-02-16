@@ -5,6 +5,10 @@ export {
   adminDeleteCrepeReset,
   adminAddIngredient,
   adminAddIngredientReset,
+  adminCrepeNameChanged,
+  adminAddIngredientToCrepe,
+  adminRemoveIngredientToCrepe,
+  adminInitIngredientsToCrepe,
 } from './adminCreators';
 
 export {

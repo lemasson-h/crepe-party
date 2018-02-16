@@ -7,9 +7,23 @@ export const adminAddCrepe = (crepe, token) => {
   return dispatch => {
     dispatch(adminAddCrepeStart());
 
+    const cleanIngredients = {};
+    Object.keys(crepe.ingredients).forEach(
+      ingredientId => {
+        if (crepe.ingredients[ingredientId] > 0) {
+          cleanIngredients[ingredientId] = crepe.ingredients[ingredientId];
+        }
+      }
+    );
+
+    const updatedCrepe = {
+      ...crepe,
+      ingredients: cleanIngredients,
+    };
+
     axios.post(
       'https://crepe-party.firebaseio.com/crepes.json?auth=' + token,
-      crepe
+      updatedCrepe
     ).then(response => {
         dispatch(adminAddCrepeSuccess('New crepe added!'));
     })
@@ -123,5 +137,33 @@ const adminAddIngredientFail = () => {
 export const adminAddIngredientReset = () => {
   return {
     type: actionTypes.ADMIN_ADD_INGREDIENT_RESET,
+  };
+}
+
+export const adminCrepeNameChanged = (name) => {
+  return {
+    type: actionTypes.ADMIN_CREPE_NAME_CHANGED,
+    name: name,
+  };
+}
+
+export const adminAddIngredientToCrepe = (ingredientId) => {
+  return {
+    type: actionTypes.ADMIN_ADD_INGREDIENT_TO_CREPE,
+    ingredientId: ingredientId,
+  };
+}
+
+export const adminRemoveIngredientToCrepe = (ingredientId) => {
+  return {
+    type: actionTypes.ADMIN_REMOVE_INGREDIENT_TO_CREPE,
+    ingredientId: ingredientId,
+  };
+}
+
+export const adminInitIngredientsToCrepe = (ingredients) => {
+  return {
+    type: actionTypes.ADMIN_INIT_INGREDIENTS_TO_CREPE,
+    ingredients: ingredients,
   };
 }

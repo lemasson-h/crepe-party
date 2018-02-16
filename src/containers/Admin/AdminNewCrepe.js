@@ -9,11 +9,7 @@ import '../../components/Admin/Admin.css';
 
 class AdminNewCrepe extends Component {
   state = {
-      crepe: {
-        name: '',
-        ingredients: {},
-      },
-      ingredients_synchronized: false,
+      ingredientsSynchronized: false,
   };
 
   componentWillUnmount() {
@@ -21,20 +17,11 @@ class AdminNewCrepe extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.ingredients.length > 0 && !this.state.ingredients_synchronized) {
-      const updatedIngredients = {};
-      this.props.ingredients.forEach(
-        ingredient => {
-          updatedIngredients[ingredient.id] =  0;
-        }
-      );
+    if (this.props.ingredients.length > 0 && !this.state.ingredientsSynchronized) {
+      this.props.onInitIngredients(this.props.ingredients);
 
       this.setState({
-        crepe: {
-          ...this.state.crepe,
-          ingredients: updatedIngredients,
-        },
-        ingredients_synchronized: true,
+        ingredientsSynchronized: true,
       });
     }
   }
@@ -44,18 +31,13 @@ class AdminNewCrepe extends Component {
   }
 
   changedCrepeNameHandler = (event) => {
-    this.setState({
-      crepe: {
-        ...this.state.crepe,
-        name: event.target.value,
-      }
-    });
+    this.props.onNameChanged(event.target.value);
   }
 
   submitFormHandler = (event) => {
     event.preventDefault();
 
-    this.props.onAddCrepe(this.state.crepe, this.props.token);
+    this.props.onAddCrepe(this.props.crepe, this.props.token);
   }
 
   cancelAddCrepeHandler = (event) => {
@@ -67,37 +49,13 @@ class AdminNewCrepe extends Component {
   addIngredientHandler = (event, id) => {
     event.preventDefault();
 
-    if (undefined === this.state.crepe.ingredients[id]) {
-      return ;
-    }
-
-    this.setState({
-      crepe: {
-        ...this.state.crepe,
-        ingredients: {
-          ...this.state.crepe.ingredients,
-          [id]: this.state.crepe.ingredients[id] + 1,
-        }
-      }
-    });
+    this.props.onAddIngredient(id);
   }
 
   removeIngredientHandler = (event, id) => {
     event.preventDefault();
 
-    if (undefined === this.state.crepe.ingredients[id] || this.state.crepe.ingredients[id] < 1) {
-      return ;
-    }
-
-    this.setState({
-      crepe: {
-        ...this.state.crepe,
-        ingredients: {
-          ...this.state.crepe.ingredients,
-          [id]: this.state.crepe.ingredients[id] - 1,
-        }
-      }
-    });
+    this.props.onRemoveIngredient(id);
   }
 
   render() {
@@ -118,10 +76,10 @@ class AdminNewCrepe extends Component {
       <div className="AdminPage">
         <h1>New Crepe</h1>
         <form onSubmit={this.submitFormHandler}>
-          <input type="text" value={this.state.crepe.name} onChange={this.changedCrepeNameHandler} placeholder="name"/>
+          <input type="text" value={this.props.crepe.name} onChange={this.changedCrepeNameHandler} placeholder="name"/>
           <h2>Ingredients</h2>
           <AdminCrepeIngredients
-            crepe={this.state.crepe}
+            crepe={this.props.crepe}
             adminIngredients={this.props.ingredients}
             addIngredient={this.addIngredientHandler}
             removeIngredient={this.removeIngredientHandler}/>
@@ -137,17 +95,22 @@ class AdminNewCrepe extends Component {
 
 const mapStateToProps = state => {
   return {
-    finished: state.admin.crepe.add.finished,
-    loading: state.admin.crepe.add.loading,
-    token: state.auth.token,
+    crepe: state.admin.crepe.addOrEdit.currentElement,
+    finished: state.admin.crepe.addOrEdit.finished,
     ingredients: state.ingredients.ingredients,
+    loading: state.admin.crepe.addOrEdit.loading,
+    token: state.auth.token,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onAddCrepe: (crepe, token) => dispatch(actionCreators.adminAddCrepe(crepe, token)),
+    onAddIngredient: ingredientId => dispatch(actionCreators.adminAddIngredientToCrepe(ingredientId)),
+    onInitIngredients: ingredients => dispatch(actionCreators.adminInitIngredientsToCrepe(ingredients)),
     onLoadIngredients: () => dispatch(actionCreators.loadIngredients()),
+    onNameChanged: (name) => dispatch(actionCreators.adminCrepeNameChanged(name)),
+    onRemoveIngredient: ingredientId => dispatch(actionCreators.adminRemoveIngredientToCrepe(ingredientId)),
     onReset: () => dispatch(actionCreators.adminAddCrepeReset()),
   }
 }

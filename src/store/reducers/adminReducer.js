@@ -2,10 +2,15 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   crepe: {
-    add: {
+    addOrEdit: {
       loading: false,
       error: null,
       finished: false,
+      currentElement: {
+        id: null,
+        name: '',
+        ingredients: {},
+      },
     },
     delete: {
       loading: false,
@@ -38,6 +43,14 @@ const reducer = (state = initialState, action) => {
       return addCrepeFail(state, action);
     case actionTypes.ADMIN_ADD_CREPE_RESET:
       return addCrepeReset(state, action);
+    case actionTypes.ADMIN_CREPE_NAME_CHANGED:
+      return crepeNameChanged(state, action);
+    case actionTypes.ADMIN_ADD_INGREDIENT_TO_CREPE:
+      return addIngredientToCrepe(state, action);
+    case actionTypes.ADMIN_REMOVE_INGREDIENT_TO_CREPE:
+      return removeIngredientToCrepe(state, action);
+    case actionTypes.ADMIN_INIT_INGREDIENTS_TO_CREPE:
+      return initIngredientsToCrepe(state, action);
     case actionTypes.ADMIN_DELETE_CREPE_START:
       return deleteCrepeStart(state, action);
     case actionTypes.ADMIN_DELETE_CREPE_SUCCESS:
@@ -64,8 +77,8 @@ const addCrepeStart = (state, action) => {
     ...state,
     crepe: {
       ...state.crepe,
-      add: {
-        ...state.crepe.add,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
         loading: true,
         error: false,
         finished: false,
@@ -80,8 +93,8 @@ const addCrepeSuccess = (state, action) => {
     ...state,
     crepe: {
       ...state.crepe,
-      add: {
-        ...state.crepe.add,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
         loading: false,
         finished: true,
       }
@@ -95,8 +108,8 @@ const addCrepeFail = (state, action) => {
     ...state,
     crepe: {
       ...state.crepe,
-      add: {
-        ...state.crepe.add,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
         loading: false,
         error: true,
       }
@@ -109,12 +122,17 @@ const addCrepeReset = (state, action) => {
     ...state,
     crepe: {
       ...state.crepe,
-      add: {
-        ...state.crepe.add,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
         loading: false,
         finished: false,
         error: null,
-      }
+        currentElement: {
+          id: null,
+          name: '',
+          ingredients: {},
+        },
+      },
     },
     flashMessage: null,
   }
@@ -240,6 +258,98 @@ const addIngredientReset = (state, action) => {
     },
     flashMessage: null,
   }
+}
+
+const crepeNameChanged = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit:{
+        ...state.crepe.addOrEdit,
+        currentElement: {
+          ...state.crepe.addOrEdit.currentElement,
+          name: action.name,
+        },
+      },
+    },
+  };
+}
+
+const addIngredientToCrepe = (state, action) => {
+    if (undefined === state.crepe.addOrEdit.currentElement.ingredients[action.ingredientId]) {
+      return state;
+    }
+
+    return {
+      ...state,
+      crepe: {
+        ...state.crepe,
+        addOrEdit:{
+          ...state.crepe.addOrEdit,
+          currentElement: {
+            ...state.crepe.addOrEdit.currentElement,
+            ingredients: {
+              ...state.crepe.addOrEdit.currentElement.ingredients,
+              [action.ingredientId]: state.crepe.addOrEdit.currentElement.ingredients[action.ingredientId] + 1,
+            },
+          },
+        },
+      },
+    };
+}
+
+const removeIngredientToCrepe = (state, action) => {
+  let quantity = 0;
+
+  if (undefined === state.crepe.addOrEdit.currentElement.ingredients[action.ingredientId]
+    || state.crepe.addOrEdit.currentElement.ingredients[action.ingredientId] < 1
+  ) {
+    quantity = 0;
+  } else {
+    quantity = state.crepe.addOrEdit.currentElement.ingredients[action.ingredientId] - 1;
+  }
+
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit:{
+        ...state.crepe.addOrEdit,
+        currentElement: {
+          ...state.crepe.addOrEdit.currentElement,
+          ingredients: {
+            ...state.crepe.addOrEdit.currentElement.ingredients,
+            [action.ingredientId]: quantity,
+          },
+        },
+      },
+    },
+  };
+}
+
+const initIngredientsToCrepe = (state, action) => {
+  const updatedIngredients = {};
+
+  action.ingredients.forEach(
+    ingredient => {
+      updatedIngredients[ingredient.id] =  0;
+    }
+  );
+
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit:{
+        ...state.crepe.addOrEdit,
+        currentElement: {
+          ...state.crepe.addOrEdit.currentElement,
+          ingredients: updatedIngredients,
+        },
+      },
+    },
+  };
 }
 
 export default reducer;

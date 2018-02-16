@@ -1,12 +1,14 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+//ADMIN CREPE
+
 export const adminAddCrepe = (crepe, token) => {
   return dispatch => {
     dispatch(adminAddCrepeStart());
 
     axios.post(
-      'https://crepe-party.firebaseio.com/menu.json?auth=' + token,
+      'https://crepe-party.firebaseio.com/crepes.json?auth=' + token,
       crepe
     ).then(response => {
         dispatch(adminAddCrepeSuccess('New crepe added!'));
@@ -46,7 +48,7 @@ export const adminDeleteCrepe = (crepeId, token) => {
     return dispatch => {
       dispatch(adminDeleteCrepeStart());
 
-      axios.delete('https://crepe-party.firebaseio.com/menu/' + crepeId + '.json?auth=' + token)
+      axios.delete('https://crepe-party.firebaseio.com/crepes/' + crepeId + '.json?auth=' + token)
         .then(response => {
             dispatch(adminDeleteCrepeSuccess());
         })
@@ -78,5 +80,48 @@ const adminDeleteCrepeFail = () => {
 export const adminDeleteCrepeReset = () => {
   return {
     type: actionTypes.ADMIN_DELETE_CREPE_RESET,
+  };
+}
+
+//ADMIN INGREDIENT
+
+export const adminAddIngredient = (ingredient, token) => {
+  return dispatch => {
+    dispatch(adminAddIngredientStart());
+
+    axios.post(
+      'https://crepe-party.firebaseio.com/ingredients.json?auth=' + token,
+      ingredient
+    ).then(response => {
+        dispatch(adminAddIngredientSuccess('New ingredient added!'));
+    })
+    .catch(error => {
+      dispatch(adminAddIngredientFail());
+    });
+  }
+}
+
+const adminAddIngredientStart = () => {
+  return {
+    type: actionTypes.ADMIN_ADD_INGREDIENT_START,
+  };
+}
+
+const adminAddIngredientSuccess = (flashMessage) => {
+  return {
+    type: actionTypes.ADMIN_ADD_INGREDIENT_SUCCESS,
+    flashMessage: flashMessage,
+  };
+}
+
+const adminAddIngredientFail = () => {
+  return {
+    type: actionTypes.ADMIN_ADD_INGREDIENT_FAIL,
+  };
+}
+
+export const adminAddIngredientReset = () => {
+  return {
+    type: actionTypes.ADMIN_ADD_INGREDIENT_RESET,
   };
 }

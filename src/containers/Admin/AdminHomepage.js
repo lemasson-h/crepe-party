@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
 
 import * as actionCreators from '../../store/actions';
-import AdminMenu from '../../components/Admin/AdminMenu';
-import Spinner from '../../components/UI/Spinner/Spinner';
+import AdminList from '../../components/Admin/AdminList';
 
 class AdminHomepage extends Component {
   componentDidMount() {
@@ -23,17 +21,13 @@ class AdminHomepage extends Component {
   }
 
   render() {
-    let content = <Spinner />
-
-    if (!this.props.loading) {
-      if (!this.props.error) {
-        content = <AdminMenu menu={this.props.menu} deleteCrepe={this.deleteCrepeHandler}/>;
-      } else {
-        content = <div>Error</div>;
-      }
-    }
-
-    return content;
+      return <AdminList
+          entityName="crepes"
+          entityAddLink="/admin/crepes/add"
+          entityList={this.props.menu}
+          deleteEntity={this.deleteCrepeHandler}
+          error={this.props.error}
+          loading={this.props.loading} />;
   }
 }
 
@@ -43,8 +37,8 @@ const mapStateToProps = state => {
     menu: state.menu.menu,
     loading: state.menu.loading,
     error: state.menu.error,
-    delete_loading: state.admin.delete_loading,
-    delete_finished: state.admin.delete_finished,
+    delete_loading: state.admin.crepe.delete.loading,
+    delete_finished: state.admin.crepe.delete.finished,
   };
 }
 
@@ -56,4 +50,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminHomepage));
+export default connect(mapStateToProps, mapDispatchToProps)(AdminHomepage);

@@ -1,16 +1,22 @@
 export {
+  adminAddCrepe,
+  adminAddCrepeReset,
+  adminDeleteCrepe,
+  adminDeleteCrepeReset,
+  adminAddIngredient,
+  adminAddIngredientReset,
+} from './adminCreators';
+
+export {
   authLogin,
   authLogout,
   authAutoLogin,
 } from './authCreators';
 
 export {
-  loadMenu,
-} from './menuCreators';
+  loadIngredients
+} from './ingredientCreators';
 
 export {
-  adminAddCrepe,
-  adminAddCrepeReset,
-  adminDeleteCrepe,
-  adminDeleteCrepeReset
-} from './adminCreators'
+  loadMenu,
+} from './menuCreators';

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 import * as actionCreators from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import '../../components/Admin/AdminMenu';
+import '../../components/Admin/Admin.css';
 
 class AdminNewCrepe extends Component {
   state = {
@@ -33,6 +33,12 @@ class AdminNewCrepe extends Component {
     this.props.onAddCrepe(this.state.crepe, this.props.token);
   }
 
+  cancelAddCrepeHandler = (event) => {
+    event.preventDefault();
+
+    this.props.history.push("/admin");
+  }
+
   render() {
     if (this.props.loading) {
       return (
@@ -53,7 +59,10 @@ class AdminNewCrepe extends Component {
         <form onSubmit={this.submitFormHandler}>
           <input type="text" value={this.state.crepe.name} onChange={this.changedCrepeNameHandler} placeholder="name"/>
           <h2>Ingredients</h2>
-          <button className="Submit">Add</button>
+          <div className="FormActions">
+            <button className="Submit" onClick={this.cancelAddCrepeHandler}>Cancel</button>
+            <button className="Submit">Add</button>
+          </div>
         </form>
       </div>
     );
@@ -62,8 +71,8 @@ class AdminNewCrepe extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.admin.add_loading,
-    finished: state.admin.add_finished,
+    finished: state.admin.crepe.add.finished,
+    loading: state.admin.crepe.add.loading,
     token: state.auth.token,
   }
 }
@@ -75,4 +84,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminNewCrepe);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminNewCrepe));

@@ -16,6 +16,10 @@
   border-radius: 5px;
 }
 
+.AdminPage .FormActions button:not(:first-child) {
+  margin-left: 15px;
+}
+
 .AdminPage button.Submit {
   text-decoration: none;
   color: white;
@@ -63,4 +67,8 @@
 .AdminPage form button.Submit:active {
   color: #ffe7bc;
   cursor: pointer;
+}
+
+.AdminPage .Content {
+  margin-top: 50px;
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 
+import Aux from '../../../hoc/Aux';
+
 const adminIngredient = (props) => {
   return (
-    <div>
-      <h2>{props.ingredient.name}</h2>
+    <Aux>
       <p>Quantity: {props.ingredient.quantity}</p>
-      <button onClick={() => props.deleteIngredient(props.ingredient.id) }>Delete</button>
-    </div>
+    </Aux>
   );
 }
 

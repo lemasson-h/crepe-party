@@ -1,12 +1,30 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  add_loading: false,
-  add_error: null,
-  add_finished: false,
-  delete_loading: false,
-  delete_error: null,
-  delete_finished: false,
+  crepe: {
+    add: {
+      loading: false,
+      error: null,
+      finished: false,
+    },
+    delete: {
+      loading: false,
+      error: null,
+      finished: false,
+    }
+  },
+  ingredient: {
+    add: {
+      loading: false,
+      error: null,
+      finished: false,
+    },
+    delete: {
+      loading: false,
+      error: null,
+      finished: false,
+    }
+  },
   flashMessage: false,
 };
 
@@ -28,6 +46,14 @@ const reducer = (state = initialState, action) => {
       return deleteCrepeFail(state, action);
     case actionTypes.ADMIN_DELETE_CREPE_RESET:
       return deleteCrepeReset(state, action);
+    case actionTypes.ADMIN_ADD_INGREDIENT_START:
+      return addIngredientStart(state, action);
+    case actionTypes.ADMIN_ADD_INGREDIENT_SUCCESS:
+      return addIngredientSuccess(state, action);
+    case actionTypes.ADMIN_ADD_INGREDIENT_FAIL:
+      return addIngredientFail(state, action);
+    case actionTypes.ADMIN_ADD_INGREDIENT_RESET:
+      return addIngredientReset(state, action);
     default:
       return state;
   }
@@ -36,9 +62,15 @@ const reducer = (state = initialState, action) => {
 const addCrepeStart = (state, action) => {
   return {
     ...state,
-    add_loading: true,
-    add_error: false,
-    add_finished: false,
+    crepe: {
+      ...state.crepe,
+      add: {
+        ...state.crepe.add,
+        loading: true,
+        error: false,
+        finished: false,
+      }
+    },
     flashMessage: null,
   };
 }
@@ -46,8 +78,14 @@ const addCrepeStart = (state, action) => {
 const addCrepeSuccess = (state, action) => {
   return {
     ...state,
-    add_loading: false,
-    add_finished: true,
+    crepe: {
+      ...state.crepe,
+      add: {
+        ...state.crepe.add,
+        loading: false,
+        finished: true,
+      }
+    },
     flashMessage: action.flashMessage,
   };
 };
@@ -55,17 +93,29 @@ const addCrepeSuccess = (state, action) => {
 const addCrepeFail = (state, action) => {
   return {
     ...state,
-    add_loading: false,
-    add_error: true,
+    crepe: {
+      ...state.crepe,
+      add: {
+        ...state.crepe.add,
+        loading: false,
+        error: true,
+      }
+    }
   };
 }
 
 const addCrepeReset = (state, action) => {
   return {
     ...state,
-    add_loading: false,
-    add_finished: false,
-    add_error: null,
+    crepe: {
+      ...state.crepe,
+      add: {
+        ...state.crepe.add,
+        loading: false,
+        finished: false,
+        error: null,
+      }
+    },
     flashMessage: null,
   }
 }
@@ -73,9 +123,15 @@ const addCrepeReset = (state, action) => {
 const deleteCrepeStart = (state, action) => {
   return {
     ...state,
-    delete_loading: true,
-    delete_error: false,
-    delete_finished: false,
+    crepe: {
+      ...state.crepe,
+      delete: {
+        ...state.crepe.delete,
+        loading: true,
+        error: false,
+        finished: false,
+      }
+    },
     flashMessage: null,
   };
 }
@@ -83,8 +139,14 @@ const deleteCrepeStart = (state, action) => {
 const deleteCrepeSuccess = (state, action) => {
   return {
     ...state,
-    delete_loading: false,
-    delete_finished: true,
+    crepe: {
+      ...state.crepe,
+      delete: {
+        ...state.crepe.delete,
+        loading: false,
+        finished: true,
+      }
+    },
     flashMessage: action.flashMessage,
   };
 }
@@ -92,17 +154,90 @@ const deleteCrepeSuccess = (state, action) => {
 const deleteCrepeFail = (state, action) => {
   return {
     ...state,
-    delete_loading: false,
-    delete_error: true,
+    crepe: {
+      ...state.crepe,
+      delete: {
+        ...state.crepe.delete,
+        loading: false,
+        error: true,
+      }
+    }
   };
 }
 
 const deleteCrepeReset = (state, action) => {
   return {
     ...state,
-    delete_loading: false,
-    delete_finished: false,
-    delete_error: null,
+    crepe: {
+      ...state.crepe,
+      delete: {
+        ...state.crepe.delete,
+        loading: false,
+        finished: false,
+        error: null,
+      }
+    },
+    flashMessage: null,
+  }
+}
+
+const addIngredientStart = (state, action) => {
+  return {
+    ...state,
+    ingredient: {
+      ...state.ingredient,
+      add: {
+        ...state.ingredient.add,
+        loading: true,
+        error: false,
+        finished: false,
+      },
+    },
+    flashMessage: null,
+  };
+}
+
+const addIngredientSuccess = (state, action) => {
+  return {
+    ...state,
+    ingredient: {
+      ...state.ingredient,
+      add: {
+        ...state.ingredient.add,
+        loading: false,
+        finished: true,
+      },
+    },
+    flashMessage: action.flashMessage,
+  };
+};
+
+const addIngredientFail = (state, action) => {
+  return {
+    ...state,
+    ingredient: {
+      ...state.ingredient,
+      add: {
+        ...state.ingredient.add,
+        loading: false,
+        error: true,
+      },
+    },
+  };
+}
+
+const addIngredientReset = (state, action) => {
+  return {
+    ...state,
+    ingredient: {
+      ...state.ingredient,
+      add: {
+        ...state.ingredient.add,
+        loading: false,
+        finished: false,
+        error: null,
+      },
+    },
     flashMessage: null,
   }
 }

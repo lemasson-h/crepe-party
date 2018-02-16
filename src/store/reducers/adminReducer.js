@@ -51,6 +51,20 @@ const reducer = (state = initialState, action) => {
       return removeIngredientToCrepe(state, action);
     case actionTypes.ADMIN_INIT_INGREDIENTS_TO_CREPE:
       return initIngredientsToCrepe(state, action);
+    case actionTypes.ADMIN_LOAD_CREPE_START:
+      return loadCrepeStart(state, action);
+    case actionTypes.ADMIN_LOAD_CREPE_SUCCESS:
+      return loadCrepeSuccess(state, action);
+    case actionTypes.ADMIN_LOAD_CREPE_FAIL:
+      return loadCrepeFail(state, action);
+    case actionTypes.ADMIN_SYNCHRO_INGREDIENTS_TO_CREPE:
+      return synchroIngredientsToCrepe(state, action);
+    case actionTypes.ADMIN_EDIT_CREPE_START:
+      return editCrepeStart(state, action);
+    case actionTypes.ADMIN_EDIT_CREPE_SUCCESS:
+      return editCrepeSuccess(state, action);
+    case actionTypes.ADMIN_EDIT_CREPE_FAIL:
+      return editCrepeFail(state, action);
     case actionTypes.ADMIN_DELETE_CREPE_START:
       return deleteCrepeStart(state, action);
     case actionTypes.ADMIN_DELETE_CREPE_SUCCESS:
@@ -197,6 +211,109 @@ const deleteCrepeReset = (state, action) => {
     },
     flashMessage: null,
   }
+}
+
+const loadCrepeStart = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        loading: true,
+      }
+    },
+    flashMessage: null,
+  };
+}
+
+const loadCrepeSuccess = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        loading: false,
+        currentElement: action.crepe,
+      }
+    }
+  };
+};
+
+const loadCrepeFail = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        loading: false,
+        error: true,
+      }
+    }
+  };
+}
+
+const synchroIngredientsToCrepe = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        currentElement: {
+          ...state.crepe.addOrEdit.currentElement,
+          ingredients: action.ingredients,
+        },
+      },
+    },
+  };
+}
+
+const editCrepeStart = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        loading: true,
+        error: false,
+        finished: false,
+      }
+    },
+    flashMessage: null,
+  };
+}
+
+const editCrepeSuccess = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        loading: false,
+        finished: true,
+      }
+    },
+    flashMessage: action.flashMessage,
+  };
+};
+
+const editCrepeFail = (state, action) => {
+  return {
+    ...state,
+    crepe: {
+      ...state.crepe,
+      addOrEdit: {
+        ...state.crepe.addOrEdit,
+        loading: false,
+        error: true,
+      }
+    }
+  };
 }
 
 const addIngredientStart = (state, action) => {

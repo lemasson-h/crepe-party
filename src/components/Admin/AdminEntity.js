@@ -25,6 +25,7 @@ const adminEntity = (props) => {
     <div>
       <h2>{props.entity.name}</h2>
       {entityContent}
+      <button onClick={() => props.editEntity(props.entity.id)}>Edit</button>
       <button onClick={() => props.deleteEntity(props.entity.id) }>Delete</button>
     </div>
   );

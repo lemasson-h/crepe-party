@@ -1,7 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-//ADMIN CREPE
+//Actions to add a crepe
 
 export const adminAddCrepe = (crepe, token) => {
   return dispatch => {
@@ -58,6 +58,136 @@ export const adminAddCrepeReset = () => {
   };
 }
 
+//Actions to load a crepe
+
+export const adminLoadCrepe = (crepeId) => {
+  return dispatch => {
+    dispatch(adminLoadCrepeStart());
+
+    axios.get(
+      'https://crepe-party.firebaseio.com/crepes/' + crepeId + '.json?'
+    ).then(response => {
+        dispatch(
+          adminLoadCrepeSuccess({
+            ...response.data,
+            id: crepeId,
+          })
+        );
+    })
+    .catch(error => {
+      dispatch(adminLoadCrepeFail());
+    });
+  }
+}
+
+const adminLoadCrepeStart = () => {
+  return {
+    type: actionTypes.ADMIN_LOAD_CREPE_START,
+  };
+}
+
+const adminLoadCrepeSuccess = (crepe) => {
+  return {
+    type: actionTypes.ADMIN_LOAD_CREPE_SUCCESS,
+    crepe: crepe,
+  };
+}
+
+const adminLoadCrepeFail = () => {
+  return {
+    type: actionTypes.ADMIN_LOAD_CREPE_FAIL,
+  };
+}
+
+export const adminSynchroIngredientsToCrepe = (crepe, ingredients) => {
+  let crepeIngredients = {
+    ...crepe.ingredients,
+  };
+
+  let usedIngredientIds = [];
+
+  if (crepe.ingredients !== undefined) {
+    usedIngredientIds = Object.keys(crepe.ingredients);
+  }
+
+  const existingIngredientIds = ingredients.map(ingredient => {
+    return ingredient.id;
+  });
+
+  //Removed not found ingredients
+  usedIngredientIds.forEach(usedIngredientId => {
+    if (!existingIngredientIds.includes(usedIngredientId)) {
+      //May be we need to notify user about it
+      delete crepeIngredients[usedIngredientId];
+    }
+  });
+
+  //Set to 0 ingredients not present
+  existingIngredientIds.forEach(existingIngredientId => {
+    if (!usedIngredientIds.includes(existingIngredientId)) {
+      crepeIngredients[existingIngredientId] = 0;
+    }
+  });
+
+  return {
+    type: actionTypes.ADMIN_SYNCHRO_INGREDIENTS_TO_CREPE,
+    ingredients: crepeIngredients,
+  };
+}
+
+//Actions to edit a crepe
+
+export const adminEditCrepe = (crepe, token) => {
+  return dispatch => {
+    dispatch(adminEditCrepeStart());
+
+    const cleanIngredients = {};
+    Object.keys(crepe.ingredients).forEach(
+      ingredientId => {
+        if (crepe.ingredients[ingredientId] > 0) {
+          cleanIngredients[ingredientId] = crepe.ingredients[ingredientId];
+        }
+      }
+    );
+
+    const updatedCrepe = {
+      ...crepe,
+      ingredients: cleanIngredients,
+    };
+
+    axios.put(
+      'https://crepe-party.firebaseio.com/crepes/' + crepe.id + '.json?auth=' + token,
+      updatedCrepe
+    ).then(response => {
+        dispatch(adminEditCrepeSuccess('Crepe "' + crepe.name +  '" saved!'));
+    })
+    .catch(error => {
+      dispatch(adminEditCrepeFail());
+    });
+  }
+}
+
+const adminEditCrepeStart = () => {
+  return {
+    type: actionTypes.ADMIN_EDIT_CREPE_START,
+  };
+}
+
+const adminEditCrepeSuccess = (flashMessage) => {
+  return {
+    type: actionTypes.ADMIN_EDIT_CREPE_SUCCESS,
+    flashMessage: flashMessage,
+  };
+}
+
+const adminEditCrepeFail = () => {
+  return {
+    type: actionTypes.ADMIN_EDIT_CREPE_FAIL,
+  };
+}
+
+//Actions to delete a crepe
+
 export const adminDeleteCrepe = (crepeId, token) => {
     return dispatch => {
       dispatch(adminDeleteCrepeStart());
@@ -97,7 +227,7 @@ export const adminDeleteCrepeReset = () => {
   };
 }
 
-//ADMIN INGREDIENT
+//Actions to add an ingredient
 
 export const adminAddIngredient = (ingredient, token) => {
   return dispatch => {
@@ -139,6 +269,8 @@ export const adminAddIngredientReset = () => {
     type: actionTypes.ADMIN_ADD_INGREDIENT_RESET,
   };
 }
+
+//Actions on the form of a crepe
 
 export const adminCrepeNameChanged = (name) => {
   return {

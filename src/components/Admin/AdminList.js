@@ -14,7 +14,11 @@ const adminList = (props) => {
     mainContent = props.entityList
       .map(
         entity => {
-          return <AdminEntity key={entity.id} entityName={props.entityName} entity={entity} deleteEntity={props.deleteEntity}/>
+          return <AdminEntity key={entity.id}
+            entityName={props.entityName}
+            entity={entity}
+            editEntity={props.editEntity}
+            deleteEntity={props.deleteEntity}/>
         }
       );
     if (mainContent.length === 0) {

@@ -9,6 +9,10 @@ class AdminCrepes extends Component {
     this.props.onLoadCrepes();
   }
 
+  editCrepeHandler = (crepeId) => {
+    this.props.history.push('/admin/crepes/' + crepeId + '/edit');
+  }
+
   deleteCrepeHandler = (crepeId) => {
     this.props.onDeleteCrepe(crepeId, this.props.token);
   }
@@ -25,6 +29,7 @@ class AdminCrepes extends Component {
           entityName="crepes"
           entityAddLink="/admin/crepes/add"
           entityList={this.props.crepes}
+          editEntity={this.editCrepeHandler}
           deleteEntity={this.deleteCrepeHandler}
           error={this.props.error}
           loading={this.props.loading} />;

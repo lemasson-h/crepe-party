@@ -72,3 +72,54 @@
 .AdminPage .Content {
   margin-top: 50px;
 }
+
+.AdminPage .Ingredients {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.AdminPage .Ingredients .Ingredient {
+  display: flex;
+  align-items: center;
+  margin: 5px;
+}
+
+.AdminPage .Ingredients .Ingredient .IngredientName {
+  padding: 5px 15px;
+}
+
+.AdminPage .Ingredients .Ingredient .IngredientName span {
+  color: grey;
+  font-size: 12px;
+}
+
+.AdminPage .Ingredients .Ingredient .IngredientQuantity {
+ padding-right: 15px;
+}
+
+.AdminPage .Ingredients .Ingredient button {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.AdminPage .Ingredients .Ingredient button:first-child {
+  margin: 0 15px;
+}
+
+.AdminPage .Ingredients .Ingredient button.Plus {
+  background-color: #38b572;
+}
+
+.AdminPage .Ingredients .Ingredient button.Less {
+  background-color: #e55847;
+}
+
+.AdminPage .Ingredients .Ingredient button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}

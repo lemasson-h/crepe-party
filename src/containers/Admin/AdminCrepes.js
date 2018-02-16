@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../store/actions';
 import AdminList from '../../components/Admin/AdminList';
 
-class AdminHomepage extends Component {
+class AdminCrepes extends Component {
   componentDidMount() {
-    this.props.onLoadMenu();
+    this.props.onLoadCrepes();
   }
 
   deleteCrepeHandler = (crepeId) => {
@@ -16,7 +16,7 @@ class AdminHomepage extends Component {
   componentDidUpdate() {
     if (this.props.delete_finished) {
       this.props.onDeleteCrepeReset();
-      this.props.onLoadMenu();
+      this.props.onLoadCrepes();
     }
   }
 
@@ -24,7 +24,7 @@ class AdminHomepage extends Component {
       return <AdminList
           entityName="crepes"
           entityAddLink="/admin/crepes/add"
-          entityList={this.props.menu}
+          entityList={this.props.crepes}
           deleteEntity={this.deleteCrepeHandler}
           error={this.props.error}
           loading={this.props.loading} />;
@@ -33,21 +33,21 @@ class AdminHomepage extends Component {
 
 const mapStateToProps = state => {
   return {
-    token: state.auth.token,
-    menu: state.menu.menu,
-    loading: state.menu.loading,
-    error: state.menu.error,
+    crepes: state.crepes.crepes,
     delete_loading: state.admin.crepe.delete.loading,
     delete_finished: state.admin.crepe.delete.finished,
+    error: state.crepes.error,
+    loading: state.crepes.loading,
+    token: state.auth.token,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLoadMenu: () => dispatch(actionCreators.loadMenu()),
     onDeleteCrepe: (crepeId, token) => dispatch(actionCreators.adminDeleteCrepe(crepeId, token)),
     onDeleteCrepeReset: () => dispatch(actionCreators.adminDeleteCrepeReset()),
+    onLoadCrepes: () => dispatch(actionCreators.loadCrepes()),
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AdminHomepage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminCrepes);

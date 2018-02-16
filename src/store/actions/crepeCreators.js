@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const loadMenu = () => {
+export const loadCrepes = () => {
   return dispatch => {
-    dispatch(loadMenuStart());
+    dispatch(loadCrepesStart());
 
     axios.get(
       'https://crepe-party.firebaseio.com/crepes.json'
@@ -24,30 +24,30 @@ export const loadMenu = () => {
           );
         }
 
-        dispatch(loadMenuSuccess(data));
+        dispatch(loadCrepesSuccess(data));
       })
       .catch(error => {
         console.log(error);
-        dispatch(loadMenuFail());
+        dispatch(loadCrepesFail());
       });
   }
 }
 
-const loadMenuStart = () => {
+const loadCrepesStart = () => {
   return {
-    type: actionTypes.LOAD_MENU_START,
+    type: actionTypes.LOAD_CREPES_START,
   };
 }
 
-const loadMenuSuccess = (menu) => {
+const loadCrepesSuccess = (crepes) => {
   return {
-    type: actionTypes.LOAD_MENU_SUCCESS,
-    menu: menu,
+    type: actionTypes.LOAD_CREPES_SUCCESS,
+    crepes: crepes,
   };
 }
 
-const loadMenuFail = () => {
+const loadCrepesFail = () => {
   return {
-    type: actionTypes.LOAD_MENU_FAIL,
+    type: actionTypes.LOAD_CREPES_FAIL,
   };
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import AdminHomepage from './AdminHomepage';
+import AdminCrepes from './AdminCrepes';
 import AdminIngredients from './AdminIngredients';
 import AdminNewCrepe from './AdminNewCrepe';
 import AdminNewIngredient from './AdminNewIngredient';
@@ -12,7 +12,7 @@ class Admin extends Component {
       return (
         <div>
           <Switch>
-              <Route path={this.props.match.url} exact component={AdminHomepage} />
+              <Route path={this.props.match.url} exact component={AdminCrepes} />
               <Route path={this.props.match.url + '/crepes/add'} exact component={AdminNewCrepe} />
               <Route path={this.props.match.url + '/ingredients'} exact component={AdminIngredients} />
               <Route path={this.props.match.url + '/ingredients/add'} exact component={AdminNewIngredient} />

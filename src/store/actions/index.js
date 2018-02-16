@@ -18,5 +18,5 @@ export {
 } from './ingredientCreators';
 
 export {
-  loadMenu,
-} from './menuCreators';
+  loadCrepes,
+} from './crepeCreators';

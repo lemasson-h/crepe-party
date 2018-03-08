@@ -1,0 +1,100 @@
+.Command {
+  display: flex;
+  flex-direction: column;
+}
+
+.Command .Element {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.Command .Element .Title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.Command .Element .Content {
+  margin: 5px;
+}
+
+.Command .Element .Content .Actions button:first-child {
+  margin-left: 0;
+}
+
+.Command .Element .Content .Actions button {
+  background-color: #c19343;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px;
+  outline:none;
+  padding: 10px 25px;
+  text-decoration: none;
+}
+
+/* Modal */
+.Command .Modal .IngredientsWrapper {
+  width: 300px;
+  margin: auto;
+}
+
+.Command .Modal .Ingredients {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.Command .Modal .Ingredient {
+  display: flex;
+  flex-direction: row;
+  margin: 3px;
+}
+
+.Command .Modal .Ingredient .Name {
+  font-weight: bold;
+  margin: 5px;
+}
+
+.Command .Modal .Quantity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Command .Modal .Quantity button {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 0 10px;
+  outline:none;
+  padding: 10px 20px;
+}
+
+.Command .Modal .Quantity button.Plus {
+  background-color: #38b572;
+}
+
+.Command .Modal .Quantity button.Less {
+  background-color: #e55847;
+}
+
+.Command .Modal .Quantity button:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+.Command .Modal button.Delete {
+  background-color: #dddddd;
+  border-radius: 5px;
+  cursor: pointer;
+  outline:none;
+}
+
+.Command .Modal button.Delete:hover {
+  background-color: #eeeeee;
+}

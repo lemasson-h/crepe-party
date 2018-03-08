@@ -3,8 +3,6 @@ export {
   adminAddCrepeReset,
   adminDeleteCrepe,
   adminDeleteCrepeReset,
-  adminAddIngredient,
-  adminAddIngredientReset,
   adminLoadCrepe,
   adminSynchroIngredientsToCrepe,
   adminEditCrepe,
@@ -12,7 +10,18 @@ export {
   adminAddIngredientToCrepe,
   adminRemoveIngredientToCrepe,
   adminInitIngredientsToCrepe,
-} from './adminCreators';
+} from './adminCrepeCreators';
+
+export {
+  adminAddIngredient,
+  adminAddIngredientReset,
+  adminDeleteIngredient,
+  adminDeleteIngredientReset,
+  adminLoadIngredient,
+  adminIngredientNameChanged,
+  adminIngredientQuantityChanged,
+  adminEditIngredient,
+} from './adminIngredientCreators';
 
 export {
   authLogin,

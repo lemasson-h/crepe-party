@@ -9,11 +9,16 @@ class AdminIngredients extends Component {
     this.props.onLoadIngredients();
   }
 
+  editIngredientHandler = (ingredientId) => {
+    this.props.history.push('/admin/ingredients/' + ingredientId + '/edit');
+  }
+
   render() {
     return (
       <AdminList
         entityName='ingredients'
         entityAddLink="/admin/ingredients/add"
+        editEntity={this.editIngredientHandler}
         entityList={this.props.ingredients}
         loading={this.props.loading}
         error={this.props.error} />

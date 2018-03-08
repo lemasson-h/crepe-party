@@ -227,49 +227,6 @@ export const adminDeleteCrepeReset = () => {
   };
 }
 
-//Actions to add an ingredient
-
-export const adminAddIngredient = (ingredient, token) => {
-  return dispatch => {
-    dispatch(adminAddIngredientStart());
-
-    axios.post(
-      'https://crepe-party.firebaseio.com/ingredients.json?auth=' + token,
-      ingredient
-    ).then(response => {
-        dispatch(adminAddIngredientSuccess('New ingredient added!'));
-    })
-    .catch(error => {
-      dispatch(adminAddIngredientFail());
-    });
-  }
-}
-
-const adminAddIngredientStart = () => {
-  return {
-    type: actionTypes.ADMIN_ADD_INGREDIENT_START,
-  };
-}
-
-const adminAddIngredientSuccess = (flashMessage) => {
-  return {
-    type: actionTypes.ADMIN_ADD_INGREDIENT_SUCCESS,
-    flashMessage: flashMessage,
-  };
-}
-
-const adminAddIngredientFail = () => {
-  return {
-    type: actionTypes.ADMIN_ADD_INGREDIENT_FAIL,
-  };
-}
-
-export const adminAddIngredientReset = () => {
-  return {
-    type: actionTypes.ADMIN_ADD_INGREDIENT_RESET,
-  };
-}
-
 //Actions on the form of a crepe
 
 export const adminCrepeNameChanged = (name) => {

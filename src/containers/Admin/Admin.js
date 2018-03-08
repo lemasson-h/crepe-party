@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import AdminCrepes from './AdminCrepes';
 import AdminEditCrepe from './AdminEditCrepe';
+import AdminEditIngredient from './AdminEditIngredient';
 import AdminIngredients from './AdminIngredients';
 import AdminNewCrepe from './AdminNewCrepe';
 import AdminNewIngredient from './AdminNewIngredient';
@@ -18,6 +19,7 @@ class Admin extends Component {
               <Route path={this.props.match.url + '/crepes/:crepeId/edit'} exact component={AdminEditCrepe} />
               <Route path={this.props.match.url + '/ingredients'} exact component={AdminIngredients} />
               <Route path={this.props.match.url + '/ingredients/add'} exact component={AdminNewIngredient} />
+              <Route path={this.props.match.url + '/ingredients/:ingredientId/edit'} exact component={AdminEditIngredient} />
               <Route component={NotFound} />
           </Switch>
         </div>

@@ -95,10 +95,10 @@ class AdminNewCrepe extends Component {
 
 const mapStateToProps = state => {
   return {
-    crepe: state.admin.crepe.addOrEdit.currentElement,
-    finished: state.admin.crepe.addOrEdit.finished,
+    crepe: state.adminCrepe.addOrEdit.currentElement,
+    finished: state.adminCrepe.addOrEdit.finished,
     ingredients: state.ingredients.ingredients,
-    loading: state.admin.crepe.addOrEdit.loading,
+    loading: state.adminCrepe.addOrEdit.loading,
     token: state.auth.token,
   }
 }

@@ -75,8 +75,8 @@ class AdminNewIngredient extends Component {
 
 const mapStateToProps = state => {
   return {
-    finished: state.admin.ingredient.add.finished,
-    loading: state.admin.ingredient.add.loading,
+    finished: state.adminIngredient.addOrEdit.finished,
+    loading: state.adminIngredient.addOrEdit.loading,
     token: state.auth.token,
   }
 }

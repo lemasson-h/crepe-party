@@ -39,8 +39,8 @@ class AdminCrepes extends Component {
 const mapStateToProps = state => {
   return {
     crepes: state.crepes.crepes,
-    delete_loading: state.admin.crepe.delete.loading,
-    delete_finished: state.admin.crepe.delete.finished,
+    delete_loading: state.adminCrepe.delete.loading,
+    delete_finished: state.adminCrepe.delete.finished,
     error: state.crepes.error,
     loading: state.crepes.loading,
     token: state.auth.token,

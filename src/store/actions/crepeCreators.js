@@ -16,9 +16,16 @@ export const loadCrepes = () => {
         } else {
           data = Object.keys(response.data).map(
             crepeId => {
+              let ingredients = response.data[crepeId].ingredients;
+
+              if (undefined === ingredients) {
+                ingredients = {};
+              }
+
               return {
                 ...response.data[crepeId],
                 id: crepeId,
+                ingredients: ingredients,
               };
             }
           );
@@ -95,5 +102,12 @@ export const addIngredientForCrepe = (ingredientId, ingredients) => {
     type: actionTypes.ADD_INGREDIENT_FOR_CREPE,
     ingredientId: ingredientId,
     ingredients: ingredients,
+  };
+}
+
+export const changeCurrentAdditionalIngredient = (ingredientId) => {
+  return {
+    type: actionTypes.CHANGE_CURRENT_ADDITIONAL_INGREDIENT,
+    ingredientId: ingredientId,
   };
 }

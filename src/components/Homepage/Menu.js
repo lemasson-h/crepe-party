@@ -44,6 +44,7 @@ const menu = (props) => {
           moreIngredientMethod={props.moreIngredientMethod}
           deleteIngredientMethod={props.deleteIngredientMethod}
           addIngredientMethod={props.addIngredientMethod}
+          changeCurrentAdditionalIngredientMethod={props.changeCurrentAdditionalIngredientMethod}
           addCrepeMethod={props.addCrepeMethod}
           modalError={props.modalError}
           show={props.show}

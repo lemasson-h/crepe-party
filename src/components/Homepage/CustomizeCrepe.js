@@ -45,7 +45,7 @@ const customizeCrepe = (props) => {
         <div className="LineSeparator"/>
         <div className="AdditionalIngredients">
           <form onSubmit={props.addIngredientMethod}>
-            <select>
+            <select onChange={props.changeCurrentAdditionalIngredientMethod}>
               {additionalIngredients}
             </select>
             <button className="Submit" onClick={props.addIngredientMethod}>Add</button>

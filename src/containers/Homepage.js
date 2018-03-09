@@ -69,6 +69,10 @@ class Homepage extends Component {
     event.preventDefault();
   }
 
+  changeCurrentAdditionalIngredientHandler = (event) => {
+    this.props.onChangeCurrentAdditionalIngredientHandler(event.target.value);
+  }
+
   render() {
     return (
       <div className="Homepage">
@@ -82,6 +86,7 @@ class Homepage extends Component {
         moreIngredientMethod={this.moreIngredientHandler}
         deleteIngredientMethod={this.deleteIngredientHandler}
         addIngredientMethod={this.addIngredientHandler}
+        changeCurrentAdditionalIngredientMethod={this.changeCurrentAdditionalIngredientHandler}
         addCrepeMethod={this.addCrepeHandler}
         modalError={this.props.modalError}
         show={this.state.showModal}
@@ -138,6 +143,7 @@ const mapDispatchToProps = (dispatch) => {
     onLessIngredient: (ingredientId, ingredients) => dispatch(actionCreators.lessIngredientForCrepe(ingredientId, ingredients)),
     onRemoveIngredient: (ingredientId, ingredients) => dispatch(actionCreators.removeIngredientForCrepe(ingredientId, ingredients)),
     onAddIngredient: (ingredientId, ingredients) => dispatch(actionCreators.addIngredientForCrepe(ingredientId, ingredients)),
+    onChangeCurrentAdditionalIngredientHandler: (ingredientId) => dispatch(actionCreators.changeCurrentAdditionalIngredient(ingredientId)),
   };
 }
 

@@ -12,10 +12,10 @@ const adminCrepeIngredients = (props) => {
       <div className="Ingredient" key={ingredient.id}>
         <div className="IngredientName">{ingredient.name} <span>({ingredient.quantity})</span></div>
         <div className="ingredientQuantity">{quantity}</div>
-        <button className="Less"
+        <button className="QuantityButton Less"
           disabled={quantity < 1}
           onClick={e => props.removeIngredient(e, ingredient.id)}>-</button>
-        <button className="Plus"
+        <button className="QuantityButton Plus"
           onClick={e => props.addIngredient(e, ingredient.id)}>+</button>
       </div>
     );

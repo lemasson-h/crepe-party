@@ -94,7 +94,7 @@ class AdminEditCrepe extends Component {
             adminIngredients={this.props.ingredients}
             addIngredient={this.addIngredientHandler}
             removeIngredient={this.removeIngredientHandler}/>
-          <div className="FormActions">
+          <div className="Actions">
             <button className="Submit" onClick={this.cancelAddCrepeHandler}>Cancel</button>
             <button className="Submit">Save</button>
           </div>

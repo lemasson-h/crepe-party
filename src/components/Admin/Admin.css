@@ -16,20 +16,6 @@
   border-radius: 5px;
 }
 
-.AdminPage .FormActions button:not(:first-child) {
-  margin-left: 15px;
-}
-
-.AdminPage button.Submit {
-  text-decoration: none;
-  color: white;
-  background-color: #c19343;
-  border-radius: 5px;
-  border: none;
-  padding: 10px 25px;
-  font-size: 15px;
-}
-
 .AdminPage form {
   margin: auto;
   border: 1px solid #ffdda0;
@@ -49,24 +35,9 @@
   border: 2px solid #c19343;
 }
 
-.AdminPage form button.Submit {
-  margin: 20px 0;
-  padding: 10px 40px;
-  background-color: #c19343;
-  border: 1px solid #c19343;
-  font-size: 15px;
-  color: #4c3b1d;
-}
-
 .AdminPage form .Error {
   color: red;
   margin-bottom: 0px;
-}
-
-.AdminPage form button.Submit:hover,
-.AdminPage form button.Submit:active {
-  color: #ffe7bc;
-  cursor: pointer;
 }
 
 .AdminPage .Content {
@@ -98,28 +69,6 @@
  padding-right: 15px;
 }
 
-.AdminPage .Ingredients .Ingredient button {
-  border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 10px 20px;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
 .AdminPage .Ingredients .Ingredient button:first-child {
   margin: 0 15px;
-}
-
-.AdminPage .Ingredients .Ingredient button.Plus {
-  background-color: #38b572;
-}
-
-.AdminPage .Ingredients .Ingredient button.Less {
-  background-color: #e55847;
-}
-
-.AdminPage .Ingredients .Ingredient button:disabled {
-  background-color: grey;
-  cursor: not-allowed;
 }

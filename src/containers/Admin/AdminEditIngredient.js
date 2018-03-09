@@ -78,7 +78,7 @@ class AdminEditIngredient extends Component {
           <form onSubmit={this.submitFormHandler}>
             <input type="text" value={this.props.ingredient.name} onChange={this.changedIngredientNameHandler} placeholder="name"/>
             <input type="text" value={this.props.ingredient.quantity} onChange={this.changedIngredientQuantityHandler} placeholder="quantity"/>
-            <div className="FormActions">
+            <div className="Actions">
               <button className="Submit" onClick={this.cancelEditIngredientHandler}>Cancel</button>
               <button className="Submit">Save</button>
             </div>

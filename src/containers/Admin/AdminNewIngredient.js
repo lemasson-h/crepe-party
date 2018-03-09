@@ -63,7 +63,7 @@ class AdminNewIngredient extends Component {
           <input type="text" value={this.state.ingredient.quantity}
              onChange={ (event) => this.changedIngredientInputHandler(event, 'quantity') }
             placeholder="Quantity"/>
-          <div className="FormActions">
+          <div className="Actions">
             <button className="Submit" onClick={this.cancelAddIngredientHandler}>Cancel</button>
             <button className="Submit">Add</button>
           </div>

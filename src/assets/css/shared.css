@@ -1,0 +1,71 @@
+.LineSeparator {
+  background:#D1D1D1;
+  border-bottom:1px solid #D1D1D1;
+  border-radius: 30px;
+  height:1px;
+  margin: 10px 0;
+}
+
+button.Delete {
+  background-color: #dddddd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.Delete:hover {
+  background-color: #eeeeee;
+}
+
+button.Delete:focus {
+  outline:none;
+}
+
+.QuantityButton {
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 0 10px;
+  padding: 10px 20px;
+}
+
+button:focus {
+  outline:none;
+}
+
+button.Plus {
+  background-color: #38b572;
+}
+
+button.Less {
+  background-color: #e55847;
+}
+
+.QuantityButton:disabled {
+  background-color: grey;
+  cursor: not-allowed;
+}
+
+button.Submit {
+  background-color: #c19343;
+  border: 1px solid #c19343;
+  border-radius: 5px;
+  color: #4c3b1d;
+  font-size: 15px;
+  padding: 10px 25px;
+  text-decoration: none;
+}
+
+button.Submit:hover,
+button.Submit:active {
+  color: #ffe7bc;
+  cursor: pointer;
+}
+
+.Actions {
+  margin: 20px 0;
+}
+
+.Actions button:not(:first-child) {
+  margin-left: 15px;
+}

@@ -18,8 +18,10 @@ class Homepage extends Component {
     this.props.onLoadCrepes();
   }
 
-  openModalHandler = (event) => {
+  openModalHandler = (event, crepe) => {
     event.preventDefault();
+
+    this.props.onLoadCustomizedCrepe(crepe, this.props.ingredients);
 
     this.setState({
       showModal: true,
@@ -69,7 +71,7 @@ class Homepage extends Component {
         addIngredientMethod={this.addIngredientHandler}
         addCrepeMethod={this.addCrepeHandler}
         show={this.state.showModal}
-        openModalMethod={this.openModalMethod}
+        openModalMethod={this.openModalHandler}
         closeModalMethod={this.closeModalHandler} />
         <div className="Command">
           <h1 className="Header">My command</h1>
@@ -105,6 +107,8 @@ const mapStateToProps = (state) => {
     crepes: state.crepes.crepes,
     ingredients: state.ingredients.ingredients,
     crepesLoading: state.crepes.loading || state.ingredients.loading,
+    currentCrepe: state.crepes.currentCrepe,
+    additionalIngredients: state.crepes.additionalIngredients,
   };
 }
 
@@ -112,6 +116,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadCrepes: () => dispatch(actionCreators.loadCrepes()),
     onLoadIngredients: () => dispatch(actionCreators.loadIngredients()),
+    onLoadCustomizedCrepe: (crepe, ingredients) => dispatch(actionCreators.loadCustomizedCrepe(crepe, ingredients)),
   };
 }
 

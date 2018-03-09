@@ -35,4 +35,6 @@ export {
 
 export {
   loadCrepes,
+  loadCustomizedCrepe,
+  resetCustomizedCrepe
 } from './crepeCreators';

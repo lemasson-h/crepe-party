@@ -12,11 +12,11 @@ const menu = (props) => {
   if (!props.crepesLoading) {
     const crepes = props.crepes.map(crepe => {
       const ingredientNames = Object.keys(crepe.ingredients).map(ingredientId => {
-          const ingredientKey = Object.keys(props.ingredients).find(key => {
-            return props.ingredients[key].id === ingredientId;
+          const ingredientFound = props.ingredients.find(ingredient => {
+            return ingredient.id === ingredientId;
           })
 
-          return (ingredientKey !== undefined) ? props.ingredients[ingredientKey].name : null;
+          return (ingredientFound !== undefined) ? ingredientFound.name : null;
       }).filter(value => value !== null);
 
       return (
@@ -26,7 +26,7 @@ const menu = (props) => {
             <div>{ingredientNames.join(', ')}</div>
             <div className="Actions">
               <button className="ImageButton"><AddImage message="Add Crepe"/></button>
-              <button className="ImageButton" onClick={props.openModalMethod}><EditImage message="Customize crepe" /></button>
+              <button className="ImageButton" onClick={(e) => props.openModalMethod(e, crepe)}><EditImage message="Customize crepe" /></button>
             </div>
           </div>
         </div>
@@ -45,7 +45,7 @@ const menu = (props) => {
           deleteIngredientMethod={props.deleteIngredientMethod}
           addIngredientMethod={props.addIngredientMethod}
           addCrepeMethod={props.addCrepeMethod}
-          show={props.showModal}
+          show={props.show}
           closeModalMethod={props.closeModalMethod}/>
       </Aux>
     )

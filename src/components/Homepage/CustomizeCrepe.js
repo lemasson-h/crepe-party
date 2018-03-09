@@ -8,13 +8,17 @@ const customizeCrepe = (props) => {
   let additionalIngredients = null;
 
   if (props.crepe !== undefined) {
-    currentIngredients = props.crepe.ingredients.map((quantity, ingredientId) => {
+    currentIngredients = Object.keys(props.crepe.ingredients).map(ingredientId => {
+      const ingredientFound = props.ingredients.find(ingredient => {
+        return ingredient.id === ingredientId;
+      });
+      
       return (
         <div key={ingredientId} className="Ingredient">
-          <div className="Name">{props.ingredients[ingredientId].name}</div>
+          <div className="Name">{ingredientFound.name}</div>
           <div className="Quantity">
             <button className="QuantityButton Less" onClick={props.lessIngredientMethod}>-</button>
-            <div>{quantity}</div>
+            <div>{props.crepe.ingredients[ingredientId]}</div>
             <button className="QuantityButton Plus" onClick={props.moreIngredientMethod}>+</button>
           </div>
           <button className="ImageButton" onClick={props.deleteIngredientMethod}><DeleteImage message="Delete ingredient" /></button>

@@ -51,3 +51,17 @@ const loadCrepesFail = () => {
     type: actionTypes.LOAD_CREPES_FAIL,
   };
 }
+
+export const loadCustomizedCrepe = (crepe, ingredients) => {
+    return {
+      type: actionTypes.LOAD_CUSTOMIZED_CREPE,
+      crepe: crepe,
+      ingredients: ingredients,
+    };
+}
+
+export const resetCustomizedCrepe = () => {
+  return {
+    type: actionTypes.RESET_CUSTOMIZED_CREPE,
+  };
+}

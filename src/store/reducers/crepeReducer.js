@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   error: null,
   crepes: [],
+  currentCrepe: undefined,
+  additionalIngredients: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +16,10 @@ const reducer = (state = initialState, action) => {
       return loadCrepesSuccess(state, action);
     case actionTypes.LOAD_CREPES_FAIL:
       return loadCrepesFail(state, action);
+    case actionTypes.LOAD_CUSTOMIZED_CREPE:
+      return loadCustomizedCrepe(state, action);
+    case actionTypes.RESET_CUSTOMIZED_CREPE:
+      return resetCustomizedCrepe(state, action);
     default:
       return state;
   }
@@ -41,6 +47,45 @@ const loadCrepesFail = (state, action) => {
     ...state,
     loading: false,
     error: true,
+  };
+}
+
+const loadCustomizedCrepe = (state, action) => {
+  const ingredientIds = Object.keys(action.crepe.ingredients);
+  const additionalIngredients = action.ingredients
+    .filter(ingredient => {
+      const exists = ingredientIds.find(id => {
+        return id === ingredient.id;
+      });
+
+      return !exists;
+    })
+    .map(ingredient => {
+      //Clone it to stay immutable
+      return {
+        ...ingredient
+      };
+    });
+
+  return {
+    ...state,
+    currentCrepe: {
+      ...action.crepe,
+      ingredients: {
+        ...action.crepe.ingredients,
+      },
+    },
+    additionalIngredients: [
+      ...additionalIngredients,
+    ]
+  };
+}
+
+const resetCustomizedCrepe = (state, action) => {
+  return {
+    ...state,
+    currentCrepe: undefined,
+    additionalIngredients: [],
   };
 }
 

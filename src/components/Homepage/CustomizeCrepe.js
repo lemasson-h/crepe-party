@@ -8,20 +8,21 @@ const customizeCrepe = (props) => {
   let additionalIngredients = null;
 
   if (props.crepe !== undefined) {
+    console.log(props.crepe.ingredients);
     currentIngredients = Object.keys(props.crepe.ingredients).map(ingredientId => {
       const ingredientFound = props.ingredients.find(ingredient => {
         return ingredient.id === ingredientId;
       });
-      
+
       return (
         <div key={ingredientId} className="Ingredient">
           <div className="Name">{ingredientFound.name}</div>
           <div className="Quantity">
-            <button className="QuantityButton Less" onClick={props.lessIngredientMethod}>-</button>
+            <button className="QuantityButton Less" onClick={(e) => props.lessIngredientMethod(e, ingredientId)}>-</button>
             <div>{props.crepe.ingredients[ingredientId]}</div>
-            <button className="QuantityButton Plus" onClick={props.moreIngredientMethod}>+</button>
+            <button className="QuantityButton Plus" onClick={(e) => props.moreIngredientMethod(e, ingredientId)}>+</button>
           </div>
-          <button className="ImageButton" onClick={props.deleteIngredientMethod}><DeleteImage message="Delete ingredient" /></button>
+          <button className="ImageButton" onClick={(e) => props.deleteIngredientMethod(e, ingredientId)}><DeleteImage message="Delete ingredient" /></button>
         </div>
       );
     });
@@ -37,6 +38,7 @@ const customizeCrepe = (props) => {
     <Modal show={props.show} closeModal={props.closeModalMethod}>
       <div className="IngredientsWrapper">
         <h1 className="Header">Customize crepe {props.crepe ? props.crepe.name : null}</h1>
+        {props.modalError ? <div className="Error">{props.modalError}</div> : null}
         <div className="Ingredients">
           {currentIngredients}
         </div>
@@ -46,7 +48,7 @@ const customizeCrepe = (props) => {
             <select>
               {additionalIngredients}
             </select>
-            <button className="Submit">Add</button>
+            <button className="Submit" onClick={props.addIngredientMethod}>Add</button>
           </form>
         </div>
         <div className="LineSeparator"/>

@@ -36,5 +36,8 @@ export {
 export {
   loadCrepes,
   loadCustomizedCrepe,
-  resetCustomizedCrepe
+  resetCustomizedCrepe,
+  moreIngredientForCrepe,
+  lessIngredientForCrepe,
+  removeIngredientForCrepe,
 } from './crepeCreators';

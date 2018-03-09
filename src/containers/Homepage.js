@@ -31,6 +31,8 @@ class Homepage extends Component {
   closeModalHandler = (event) => {
     event.preventDefault();
 
+    this.props.onResetCustomizedCrepe();
+
     this.setState({
       showModal: false,
     });
@@ -40,16 +42,22 @@ class Homepage extends Component {
     event.preventDefault();
   }
 
-  deleteIngredientHandler = (event) => {
+  deleteIngredientHandler = (event, ingredientId) => {
     event.preventDefault();
+
+    this.props.onRemoveIngredient(ingredientId, this.props.ingredients);
   }
 
-  lessIngredientHandler = (event) => {
+  lessIngredientHandler = (event, ingredientId) => {
     event.preventDefault();
+
+    this.props.onLessIngredient(ingredientId, this.props.ingredients);
   }
 
-  moreIngredientHandler = (event) => {
+  moreIngredientHandler = (event, ingredientId) => {
     event.preventDefault();
+
+    this.props.onMoreIngredient(ingredientId);
   }
 
   addCrepeHandler = (event) => {
@@ -70,6 +78,7 @@ class Homepage extends Component {
         deleteIngredientMethod={this.deleteIngredientHandler}
         addIngredientMethod={this.addIngredientHandler}
         addCrepeMethod={this.addCrepeHandler}
+        modalError={this.props.modalError}
         show={this.state.showModal}
         openModalMethod={this.openModalHandler}
         closeModalMethod={this.closeModalHandler} />
@@ -109,6 +118,7 @@ const mapStateToProps = (state) => {
     crepesLoading: state.crepes.loading || state.ingredients.loading,
     currentCrepe: state.crepes.currentCrepe,
     additionalIngredients: state.crepes.additionalIngredients,
+    modalError: state.crepes.errorModal,
   };
 }
 
@@ -117,6 +127,10 @@ const mapDispatchToProps = (dispatch) => {
     onLoadCrepes: () => dispatch(actionCreators.loadCrepes()),
     onLoadIngredients: () => dispatch(actionCreators.loadIngredients()),
     onLoadCustomizedCrepe: (crepe, ingredients) => dispatch(actionCreators.loadCustomizedCrepe(crepe, ingredients)),
+    onResetCustomizedCrepe: () => dispatch(actionCreators.resetCustomizedCrepe()),
+    onMoreIngredient: (ingredientId) => dispatch(actionCreators.moreIngredientForCrepe(ingredientId)),
+    onLessIngredient: (ingredientId, ingredients) => dispatch(actionCreators.lessIngredientForCrepe(ingredientId, ingredients)),
+    onRemoveIngredient: (ingredientId, ingredients) => dispatch(actionCreators.removeIngredientForCrepe(ingredientId, ingredients)),
   };
 }
 

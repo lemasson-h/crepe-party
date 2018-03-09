@@ -52,16 +52,40 @@ const loadCrepesFail = () => {
   };
 }
 
-export const loadCustomizedCrepe = (crepe, ingredients) => {
+export const loadCustomizedCrepe = (crepe, ingredients, isInit = true) => {
     return {
       type: actionTypes.LOAD_CUSTOMIZED_CREPE,
       crepe: crepe,
       ingredients: ingredients,
+      isInit: isInit,
     };
 }
 
 export const resetCustomizedCrepe = () => {
   return {
     type: actionTypes.RESET_CUSTOMIZED_CREPE,
+  };
+}
+
+export const moreIngredientForCrepe = (ingredientId) => {
+  return {
+    type: actionTypes.MORE_INGREDIENT_FOR_CREPE,
+    ingredientId: ingredientId,
+  };
+}
+
+export const lessIngredientForCrepe = (ingredientId, ingredients) => {
+  return {
+    type: actionTypes.LESS_INGREDIENT_FOR_CREPE,
+    ingredientId: ingredientId,
+    ingredients: ingredients,
+  };
+}
+
+export const removeIngredientForCrepe = (ingredientId, ingredients) => {
+  return {
+    type: actionTypes.REMOVE_INGREDIENT_FOR_CREPE,
+    ingredientId: ingredientId,
+    ingredients: ingredients,
   };
 }

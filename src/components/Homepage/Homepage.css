@@ -39,6 +39,12 @@
 }
 
 /* Modal */
+.Menu .Error {
+  color: red;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .Menu .Modal .IngredientsWrapper {
   margin: auto;
   width: 300px;

@@ -4,10 +4,9 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from './store/actions';
 import Admin from './containers/Admin/Admin';
-import Command from './containers/Command';
+import Homepage from './containers/Homepage';
 import Layout from './components/Layout/Layout';
 import Login from './containers/Auth/Login';
-import Menu from './containers/Menu';
 import NotFound from './components/NotFound/NotFound';
 
 class App extends Component {
@@ -25,8 +24,7 @@ class App extends Component {
     return (
       <Layout isAuthenticated={this.props.isAuthenticated} isAdmin={this.props.isAdmin}>
         <Switch>
-          <Route path="/" exact component={Command}/>
-          <Route path="/menu" component={Menu}/>
+          <Route path="/" exact component={Homepage}/>
           <Route path="/login" component={Login}/>
           {adminRoutes}
           <Route component={NotFound} />

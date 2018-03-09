@@ -44,7 +44,6 @@ class Navigation extends Component {
     return (
       <div className="Navigation">
         <div className="NavLink"><NavLink to="/" exact>Homepage</NavLink></div>
-        <div className="NavLink"><NavLink to="/menu">Menu</NavLink></div>
         {adminLink}
         {authLink}
       </div>

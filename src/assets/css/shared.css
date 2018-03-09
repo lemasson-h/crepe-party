@@ -6,17 +6,18 @@
   margin: 10px 0;
 }
 
-button.Delete {
+button.ImageButton {
   background-color: #dddddd;
   border-radius: 5px;
   cursor: pointer;
+  padding: 3px 6px;
 }
 
-button.Delete:hover {
+button.ImageButton:hover {
   background-color: #eeeeee;
 }
 
-button.Delete:focus {
+button.ImageButton:focus {
   outline:none;
 }
 
@@ -57,7 +58,8 @@ button.Submit {
 }
 
 button.Submit:hover,
-button.Submit:active {
+button.Submit:active,
+button.Submit:focus {
   color: #ffe7bc;
   cursor: pointer;
 }

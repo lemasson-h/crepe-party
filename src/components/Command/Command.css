@@ -1,87 +1,144 @@
-.Command {
+.Homepage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/** Style for Menu */
+
+.Menu {
   display: flex;
   flex-direction: column;
 }
 
-.Command .Element {
+.Menu h1 {
+  text-align: center;
+}
+
+.Menu .Element {
   display: flex;
   flex-direction: column;
   margin: 10px;
 }
 
-.Command .Element .Title {
+.Menu .Element .Title {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-.Command .Element .Content {
+.Menu .Element .Content {
   margin: 5px;
 }
 
-.Command .Element .Content .Actions button:first-child {
+.Menu .Element .Content .Actions button:first-child {
   margin-left: 0;
 }
 
 /* Modal */
-.Command .Modal .IngredientsWrapper {
+.Menu .Modal .IngredientsWrapper {
   width: 300px;
   margin: auto;
 }
 
-.Command .Modal .IngredientsWrapper h1 {
+.Menu .Modal .IngredientsWrapper h1 {
   margin: 0 0 10px 0;
   text-align: center;
   font-size: 25px;
 }
 
-.Command .Modal .Ingredients {
+.Menu .Modal .Ingredients {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
 }
 
-.Command .Modal .Ingredient {
+.Menu .Modal .Ingredient {
   display: flex;
   flex-direction: row;
   margin: 3px;
 }
 
-.Command .Modal .Ingredient .Name {
+.Menu .Modal .Ingredient .Name {
   font-weight: bold;
   margin: 5px;
 }
 
-.Command .Modal .Quantity {
+.Menu .Modal .Quantity {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.Command .Modal .AdditionalIngredients form {
+.Menu .Modal .AdditionalIngredients form {
   display: flex;
   flex-direction: row;
   align-items: stretch;
 }
 
-.Command .Modal .AdditionalIngredients select  {
+.Menu .Modal .AdditionalIngredients select  {
   flex-grow: 2;
   height: 25px;
   margin-right: 10px;
 }
 
 /* Overwrite shared .Actions as the margin is too big */
-.Command .Actions {
+.Menu .Actions {
   margin: 10px 0;
+  display: flex;
+  flex-direction: row;
 }
 
-.Command .Modal .AdditionalIngredients button.Submit {
+.Menu .Modal .AdditionalIngredients button.Submit {
   font-size: 11px;
   padding: 5px 10px;
 }
 
-.Command .Modal .Actions {
+.Menu .Modal .Actions {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+/* Style for Command */
+
+.Command {
+  border: 1px solid #dddddd;
+  padding: 0 0 0 15px;
+  margin: 15px 0 0 15px;
+}
+
+.Command h1 {
+  margin: 0 0 10px 0;
+  text-align: center;
+  font-size: 25px;
+}
+
+.Command .Element .Content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Command .Element .Content .Actions {
+  display: flex;
+  flex-direction: row;
+  margin-right: 5px;
+  margin-left: 15px;
+}
+
+@media (max-width: 500px) {
+
+  .Command .Element .Content .Actions button {
+    margin-left: 5px;
+  }
+
+  .Command .Element .Content .Actions {
+    flex-direction: column;
+    margin-left: 0;
+  }
+
+  .Command .Element .Content .Actions button:not(:first-child) {
+    margin-top: 5px;
+  }
 }

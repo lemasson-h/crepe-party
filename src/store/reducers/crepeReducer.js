@@ -13,6 +13,7 @@ const initialState = {
   additionalIngredients: [],
   errorModal: undefined,
   crepeChanges: 0,
+  currentAdditonalIngredient: undefined,
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +34,8 @@ const reducer = (state = initialState, action) => {
       return lessIngredient(state, action);
     case actionTypes.REMOVE_INGREDIENT_FOR_CREPE:
       return removeIngredient(state, action);
+    case actionTypes.ADD_INGREDIENT_FOR_CREPE:
+      return addIngredient(state, action);
     default:
       return state;
   }
@@ -114,6 +117,7 @@ const resetCustomizedCrepe = (state, action) => {
     additionalIngredients: [],
     errorModal: undefined,
     crepeChanges: 0,
+    currentAdditonalIngredient: undefined,
   };
 }
 
@@ -127,7 +131,6 @@ const moreIngredient = (state, action) => {
     };
   }
 
-  currentQuantity += 1;
   const changes = calculateCrepeChanges(state, action.ingredientId, actionTypes.MORE_INGREDIENT_FOR_CREPE);
 
   if (changes > authorizedCrepeChanges) {
@@ -139,7 +142,7 @@ const moreIngredient = (state, action) => {
 
   const updatedIngredients = {
     ...state.currentCrepe.ingredients,
-    [action.ingredientId]: currentQuantity,
+    [action.ingredientId]: currentQuantity + 1,
   };
 
   return {
@@ -169,7 +172,6 @@ const lessIngredient = (state, action) => {
     return removeIngredient(state, action);
   }
 
-  currentQuantity -= 1;
   const changes = calculateCrepeChanges(state, action.ingredientId, actionTypes.LESS_INGREDIENT_FOR_CREPE);
 
   if (changes > authorizedCrepeChanges) {
@@ -181,7 +183,7 @@ const lessIngredient = (state, action) => {
 
   const updatedIngredients = {
     ...state.currentCrepe.ingredients,
-    [action.ingredientId]: currentQuantity,
+    [action.ingredientId]: currentQuantity - 1,
   };
 
   return {
@@ -207,13 +209,7 @@ const removeIngredient = (state, action) => {
     };
   }
 
-  const updatedIngredients = {
-    ...state.currentCrepe.ingredients
-  };
-
-  delete updatedIngredients[action.ingredientId];
-
-  const changes = calculateCrepeChanges(state, action.ingredientId, actionTypes.REMOVE_INGREDIENT_FOR_CREPE);
+  const changes = calculateCrepeChanges(state, action.ingredientId, action.type);
 
   if (changes > authorizedCrepeChanges) {
     return {
@@ -221,6 +217,12 @@ const removeIngredient = (state, action) => {
       errorModal: 'You can\'t customize more your crepe.',
     };
   }
+
+  const updatedIngredients = {
+    ...state.currentCrepe.ingredients
+  };
+
+  delete updatedIngredients[action.ingredientId];
 
   const updatedCrepe = {
     ...state.currentCrepe,
@@ -235,6 +237,49 @@ const removeIngredient = (state, action) => {
       actionCreators.loadCustomizedCrepe(updatedCrepe, action.ingredients, false)
     ),
     crepeChanges: changes,
+  };
+}
+
+const addIngredient = (state, action) => {
+  const ingredientExist = action.ingredients[action.ingredientId];
+
+  if (ingredientExist === undefined) {
+    return {
+      ...state,
+      errorModal: 'Unable to interact with this ingredient (Invalid one).',
+    };
+  }
+
+  const changes = calculateCrepeChanges(state, action.ingredientId, action.type);
+
+  if (changes > authorizedCrepeChanges) {
+    return {
+      ...state,
+      errorModal: 'You can\'t customize more your crepe.',
+    };
+  }
+
+  let currentQuantity = 1;
+
+  if (state.initialCrepe.ingredients[action.ingredientId] !== undefined) {
+    currentQuantity = state.initialCrepe.ingredients[action.ingredientId];
+  }
+
+  const updatedCrepe = {
+    ...state.currentCrepe,
+    ingredients: {
+      ...state.currentCrepe.ingredients,
+      [action.ingredientId]: currentQuantity,
+    },
+  };
+
+  return {
+    ...loadCustomizedCrepe(
+      state,
+      actionCreators.loadCustomizedCrepe(updatedCrepe, action.ingredients, false)
+    ),
+    crepeChanges: changes,
+    currentAdditonalIngredient: undefined,
   };
 }
 

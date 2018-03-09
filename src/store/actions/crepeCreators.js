@@ -89,3 +89,11 @@ export const removeIngredientForCrepe = (ingredientId, ingredients) => {
     ingredients: ingredients,
   };
 }
+
+export const addIngredientForCrepe = (ingredientId, ingredients) => {
+  return {
+    type: actionTypes.ADD_INGREDIENT_FOR_CREPE,
+    ingredientId: ingredientId,
+    ingredients: ingredients,
+  };
+}

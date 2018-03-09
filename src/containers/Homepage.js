@@ -40,6 +40,11 @@ class Homepage extends Component {
 
   addIngredientHandler = (event) => {
     event.preventDefault();
+
+    this.props.onAddIngredient(
+      this.props.currentAdditonalIngredient,
+      this.props.ingredients
+    );
   }
 
   deleteIngredientHandler = (event, ingredientId) => {
@@ -119,6 +124,7 @@ const mapStateToProps = (state) => {
     currentCrepe: state.crepes.currentCrepe,
     additionalIngredients: state.crepes.additionalIngredients,
     modalError: state.crepes.errorModal,
+    currentAdditonalIngredient: state.crepes.currentAdditonalIngredient,
   };
 }
 
@@ -131,6 +137,7 @@ const mapDispatchToProps = (dispatch) => {
     onMoreIngredient: (ingredientId) => dispatch(actionCreators.moreIngredientForCrepe(ingredientId)),
     onLessIngredient: (ingredientId, ingredients) => dispatch(actionCreators.lessIngredientForCrepe(ingredientId, ingredients)),
     onRemoveIngredient: (ingredientId, ingredients) => dispatch(actionCreators.removeIngredientForCrepe(ingredientId, ingredients)),
+    onAddIngredient: (ingredientId, ingredients) => dispatch(actionCreators.addIngredientForCrepe(ingredientId, ingredients)),
   };
 }
 

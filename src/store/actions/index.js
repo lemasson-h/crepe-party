@@ -40,4 +40,5 @@ export {
   moreIngredientForCrepe,
   lessIngredientForCrepe,
   removeIngredientForCrepe,
+  addIngredientForCrepe,
 } from './crepeCreators';

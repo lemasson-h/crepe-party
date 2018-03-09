@@ -8,6 +8,8 @@ export const calculateCrepeChanges = (state, ingredientId, type) => {
       return calculateChangesForLess(state, ingredientId);
     case actionTypes.REMOVE_INGREDIENT_FOR_CREPE:
       return calculateChangesForRemove(state, ingredientId);
+    case actionTypes.ADD_INGREDIENT_FOR_CREPE:
+      return calculateChangesForAdd(state, ingredientId);
     default:
       return state.crepeChanges;
   }
@@ -21,7 +23,7 @@ const calculateChangesForLess = (state, ingredientId) => {
   const initialQuantity = state.initialCrepe.ingredients[ingredientId];
   const currentQuantity = state.currentCrepe.ingredients[ingredientId];
 
-  if (currentQuantity >= initialQuantity) {
+  if (currentQuantity > initialQuantity) {
     return state.crepeChanges - 1;
   }
 
@@ -36,9 +38,20 @@ const calculateChangesForRemove = (state, ingredientId) => {
       return state.crepeChanges - currentQuantity;
     }
 
-    /**
-     * We reinitialize all changes done by add
+    /*
+     * We substract all changes done by add
      * But remove is still a change, so make sure we count it as a change
      */
     return (state.crepeChanges - Math.abs(initialQuantity - currentQuantity) + 1);
+}
+
+const calculateChangesForAdd = (state, ingredientId) => {
+    const initialQuantity = state.initialCrepe.ingredients[ingredientId];
+
+    if (initialQuantity === undefined) {
+      return state.crepeChanges + 1;
+    }
+
+    //We reset an existing ingredient, so no changes
+    return state.crepeChanges;
 }

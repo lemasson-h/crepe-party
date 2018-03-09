@@ -11,7 +11,8 @@
   flex-direction: column;
 }
 
-.Menu h1 {
+.Menu .Header {
+  margin: 15px 0 0 0;
   text-align: center;
 }
 
@@ -37,14 +38,14 @@
 
 /* Modal */
 .Menu .Modal .IngredientsWrapper {
-  width: 300px;
   margin: auto;
+  width: 300px;
 }
 
-.Menu .Modal .IngredientsWrapper h1 {
+.Menu .Modal .IngredientsWrapper .Header {
+  font-size: 25px;
   margin: 0 0 10px 0;
   text-align: center;
-  font-size: 25px;
 }
 
 .Menu .Modal .Ingredients {
@@ -65,15 +66,15 @@
 }
 
 .Menu .Modal .Quantity {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
 }
 
 .Menu .Modal .AdditionalIngredients form {
+  align-items: stretch;
   display: flex;
   flex-direction: row;
-  align-items: stretch;
 }
 
 .Menu .Modal .AdditionalIngredients select  {
@@ -84,12 +85,12 @@
 
 /* Overwrite shared .Actions as the margin is too big */
 .Menu .Actions {
-  margin: 10px 0;
   display: flex;
   flex-direction: row;
+  margin: 10px 0;
 }
 
-.Menu .Modal .AdditionalIngredients button.Submit {
+.Menu .Modal .AdditionalIngredients .Submit {
   font-size: 11px;
   padding: 5px 10px;
 }
@@ -104,27 +105,27 @@
 
 .Command {
   border: 1px solid #dddddd;
-  padding: 0 0 0 15px;
   margin: 15px 0 0 15px;
+  padding: 0 0 0 15px;
 }
 
-.Command h1 {
+.Command .Header {
+  font-size: 25px;
   margin: 0 0 10px 0;
   text-align: center;
-  font-size: 25px;
 }
 
 .Command .Element .Content {
+  align-items: center;
   display: flex;
   flex-direction: row;
-  align-items: center;
 }
 
 .Command .Element .Content .Actions {
   display: flex;
   flex-direction: row;
-  margin-right: 5px;
   margin-left: 15px;
+  margin-right: 5px;
 }
 
 @media (max-width: 500px) {

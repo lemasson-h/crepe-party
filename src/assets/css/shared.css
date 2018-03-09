@@ -17,7 +17,7 @@ button.ImageButton:hover {
   background-color: #eeeeee;
 }
 
-button.ImageButton:focus {
+.ImageButton:focus {
   outline:none;
 }
 
@@ -34,11 +34,11 @@ button:focus {
   outline:none;
 }
 
-button.Plus {
+.Plus {
   background-color: #38b572;
 }
 
-button.Less {
+.Less {
   background-color: #e55847;
 }
 

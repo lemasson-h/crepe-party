@@ -36,7 +36,7 @@ class Command extends Component {
     return (
       <div className="Homepage">
         <div className="Menu">
-          <h1>Menu</h1>
+          <h1 className="Header">Menu</h1>
           <div className="Element">
             <div className="Title">Tartiflette</div>
             <div className="Content">
@@ -59,7 +59,7 @@ class Command extends Component {
           </div>
           <Modal show={this.state.customizeIsOpen} closeModal={this.closeModalCustomizeModal}>
             <div className="IngredientsWrapper">
-              <h1>Customize your crepe</h1>
+              <h1 className="Header">Customize your crepe</h1>
               <div className="Ingredients">
                 <div className="Ingredient">
                   <div className="Name">Lardon</div>
@@ -101,7 +101,7 @@ class Command extends Component {
           </Modal>
         </div>
         <div className="Command">
-          <h1>My command</h1>
+          <h1 className="Header">My command</h1>
           <div className="Element">
             <div className="Title">Tartiflette</div>
             <div className="Content">

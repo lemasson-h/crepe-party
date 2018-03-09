@@ -17,27 +17,29 @@
 }
 
 .AdminPage form {
-  margin: auto;
-  border: 1px solid #ffdda0;
+  align-items: center;
   background-color: #fff9ef;
-  width: 40%;
-  margin-top: 30px;
+  border: 1px solid #ffdda0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin: auto;
+  margin-top: 30px;
+  width: 40%;
 }
 
 .AdminPage form input {
-  width: 70%;
-  margin-top: 20px;
-  height: 30px;
-  border-radius: 5px;
   border: 2px solid #c19343;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 30px;
+  margin-top: 20px;
+  width: 70%;
 }
 
 .AdminPage form .Error {
   color: red;
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }
 
 .AdminPage .Content {
@@ -45,14 +47,14 @@
 }
 
 .AdminPage .Ingredients {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
 }
 
 .AdminPage .Ingredients .Ingredient {
-  display: flex;
   align-items: center;
+  display: flex;
   margin: 5px;
 }
 

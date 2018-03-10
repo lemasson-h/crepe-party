@@ -86,8 +86,10 @@ const calculateChangesForAdd = (state, ingredientId) => {
 }
 
 export const caclulateNumberOfCrepeChanges = (initialCrepe, currentCrepe) => {
-  const initialIds = Object.keys(initialCrepe);
-  const currentIds = Object.keys(currentCrepe);
+  const initialIngredients = initialCrepe.ingredients;
+  const currentIngredients = currentCrepe.ingredients;
+  const initialIds = Object.keys(initialIngredients);
+  const currentIds = Object.keys(currentIngredients);
   let changes = 0;
 
   //Calculate missing initial ingredients + different quantities
@@ -95,16 +97,17 @@ export const caclulateNumberOfCrepeChanges = (initialCrepe, currentCrepe) => {
     const idx = currentIds.indexOf(initialId);
 
     if (-1 === idx) {
-      changes += initialCrepe[initialId];
-    } else if (currentCrepe[idx] !== initialCrepe[initialId]) {
-      changes += Math.abs(initialCrepe[initialId] - currentCrepe[idx]);
+      //A remove count as one action even if there was multi quantity of it
+      ++changes;
+    } else if (currentIngredients[currentIds[idx]] !== initialIngredients[initialId]) {
+      changes += Math.abs(initialIngredients[initialId] - currentIngredients[currentIds[idx]]);
     }
   });
 
   //Caclulate additional ingredient
   currentIds.forEach(currentId => {
     if (-1 === initialIds.indexOf(currentId)) {
-      changes += currentCrepe[currentId];
+      changes += currentIngredients[currentId];
     }
   });
 

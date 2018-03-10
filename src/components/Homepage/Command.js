@@ -19,7 +19,7 @@ const command = (props) => {
           <div className="Content">
             <div>{ingredientNames.join(', ')}</div>
             <div className="Actions">
-              <button className="ImageButton"><EditImage message="Edit crepe" /></button>
+              <button className="ImageButton" onClick={(e) => props.openModalMethod(e, order)}><EditImage message="Edit crepe" /></button>
               <button className="ImageButton" onClick={(e) => props.deleteCrepeMethod(e, order.uniqueId)}><DeleteImage message="Delete crepe" /></button>
             </div>
           </div>

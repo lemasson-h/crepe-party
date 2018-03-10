@@ -111,3 +111,11 @@ export const changeCurrentAdditionalIngredient = (ingredientId) => {
     ingredientId: ingredientId,
   };
 }
+
+export const loadOrderCrepe = (crepe, ingredients) => {
+  return {
+    type: actionTypes.LOAD_ORDER_CREPE,
+    crepe: crepe,
+    ingredients: ingredients,
+  };
+}

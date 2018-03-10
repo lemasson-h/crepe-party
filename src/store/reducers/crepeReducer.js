@@ -7,7 +7,6 @@ import {
   caclulateNumberOfCrepeChanges
 } from '../../helpers/crepeIngredientHelper';
 import { findCrepeById } from '../../helpers/crepeHelper';
-import { findKeyCrepeInOrder } from '../../helpers/crepeOrderHelper';
 
 const authorizedCrepeChanges = 3;
 
@@ -45,7 +44,7 @@ const reducer = (state = initialState, action) => {
       return addIngredient(state, action);
     case actionTypes.CHANGE_CURRENT_ADDITIONAL_INGREDIENT:
       return changeCurrentAdditionalIngredient(state, action);
-    case actionTypes.CHANGE_CURRENT_ADDITIONAL_INGREDIENT:
+    case actionTypes.LOAD_ORDER_CREPE:
       return loadOrderCrepe(state, action);
     default:
       return state;
@@ -299,14 +298,7 @@ const changeCurrentAdditionalIngredient = (state, action) => {
 }
 
 const loadOrderCrepe = (state, action) => {
-  const key = findKeyCrepeInOrder(action.uniqueId, action.orders);
-
-  if (undefined === key) {
-    return state;
-    //close the modal and display an error
-  }
-
-  const currentCrepe = action.orders[key];
+  const currentCrepe = action.crepe;
   const initialCrepe = findCrepeById(currentCrepe.id, state.crepes);
   const additionalIngredients = getAdditionalIngredients(
     currentCrepe,

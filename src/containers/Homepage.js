@@ -21,7 +21,11 @@ class Homepage extends Component {
   openModalHandler = (event, crepe) => {
     event.preventDefault();
 
-    this.props.onLoadCustomizedCrepe(crepe, this.props.ingredients);
+    if (undefined !== crepe.uniqueId) {
+      this.props.onLoadOrderCrepe(crepe, this.props.ingredients);
+    } else {
+      this.props.onLoadCustomizedCrepe(crepe, this.props.ingredients);
+    }
 
     this.setState({
       showModal: true,
@@ -108,7 +112,8 @@ class Homepage extends Component {
         <Command
           orders={this.props.orders}
           ingredients={this.props.ingredients}
-          deleteCrepeMethod={this.deleteCrepeHandler}/>
+          deleteCrepeMethod={this.deleteCrepeHandler}
+          openModalMethod={this.openModalHandler} />
         <CustomizeCrepe
           crepe={this.props.currentCrepe}
           ingredients={this.props.ingredients}
@@ -156,6 +161,7 @@ const mapDispatchToProps = (dispatch) => {
     onRemoveCrepe: (uniqueId) => dispatch(actionCreators.removeCrepeToOrder(uniqueId)),
     onResetFlashMessage: () => dispatch(actionCreators.resetFlashMessageForOrder()),
     onSetTimerFlashMessage: (timer) => dispatch(actionCreators.setTimerFlashMessageForOrder(timer)),
+    onLoadOrderCrepe: (crepe, ingredients) => dispatch(actionCreators.loadOrderCrepe(crepe, ingredients)),
   };
 }
 

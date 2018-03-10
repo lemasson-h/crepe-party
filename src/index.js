@@ -8,8 +8,9 @@ import { Provider } from 'react-redux';
 import adminCrepeReducer from './store/reducers/adminCrepeReducer';
 import adminIngredientReducer from './store/reducers/adminIngredientReducer';
 import authReducer from './store/reducers/authReducer';
-import ingredientReducer from './store/reducers/ingredientReducer';
 import crepeReducer from './store/reducers/crepeReducer';
+import ingredientReducer from './store/reducers/ingredientReducer';
+import orderReducer from './store/reducers/orderReducer';
 import registerServiceWorker from './registerServiceWorker';
 import thunk from 'redux-thunk';
 
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   auth: authReducer,
   crepes: crepeReducer,
   ingredients: ingredientReducer,
+  order: orderReducer,
 });
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));

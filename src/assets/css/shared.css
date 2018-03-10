@@ -71,3 +71,21 @@ button.Submit:focus {
 .Actions button:not(:first-child) {
   margin-left: 15px;
 }
+
+.Error {
+  background-color: #ff3030;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+  margin: 0 0 0 5px;
+  text-align: center;
+}
+
+.Success {
+  background-color: #5ace77;
+  border-radius: 5px;
+  color: white;
+  padding: 5px;
+  margin: 0 0 0 5px;
+  text-align: center;
+}

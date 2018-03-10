@@ -18,10 +18,10 @@
 }
 
 .Menu .Element {
+  align-items: center;
   display: flex;
   flex-direction: column;
   margin: 10px;
-  align-items: center;
 }
 
 .Menu .Element .Title {
@@ -38,11 +38,14 @@
   margin-left: 0;
 }
 
+.Menu .Error,
+.Menu .Success {
+  margin-top: 10px;
+}
+
 /* Modal */
-.Menu .Error {
-  color: red;
+.Menu .Modal .Error {
   margin-bottom: 10px;
-  text-align: center;
 }
 
 .Menu .Modal .IngredientsWrapper {
@@ -132,6 +135,10 @@
   text-align: center;
 }
 
+.Command .Element .Title {
+  font-weight: bold;
+}
+
 .Command .Element .Content {
   align-items: center;
   display: flex;
@@ -144,6 +151,11 @@
   flex-direction: row;
   margin-left: 15px;
   margin-right: 5px;
+}
+
+.Command .EmptyBasket {
+  margin: 5px;
+  text-align: center;
 }
 
 @media (max-width: 500px) {

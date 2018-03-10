@@ -1,6 +1,6 @@
 import * as actionCreators from '../actions';
 import * as actionTypes from '../actions/actionTypes';
-import { calculateCrepeChanges, getNewCurrentAdditionalIngredientId } from '../../helpers/crepeIngredientHelper';
+import { calculateCrepeChanges, getAdditionalIngredients, getNewCurrentAdditionalIngredientId } from '../../helpers/crepeIngredientHelper';
 
 const authorizedCrepeChanges = 3;
 
@@ -69,21 +69,10 @@ const loadCrepesFail = (state, action) => {
 }
 
 const loadCustomizedCrepe = (state, action) => {
-  const ingredientIds = Object.keys(action.crepe.ingredients);
-  const additionalIngredients = action.ingredients
-    .filter(ingredient => {
-      const exists = ingredientIds.find(id => {
-        return id === ingredient.id;
-      });
-
-      return !exists;
-    })
-    .map(ingredient => {
-      //Clone it to stay immutable
-      return {
-        ...ingredient
-      };
-    });
+  const additionalIngredients = getAdditionalIngredients(
+    action.crepe,
+    action.ingredients
+  );
 
   let updateState = {
     ...state,

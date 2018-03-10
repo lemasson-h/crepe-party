@@ -1,5 +1,24 @@
 import * as actionTypes from '../store/actions/actionTypes';
 
+export const getAdditionalIngredients = (crepe, ingredients) => {
+  const ingredientIds = Object.keys(crepe.ingredients);
+
+  return ingredients
+    .filter(ingredient => {
+      const exists = ingredientIds.find(id => {
+        return id === ingredient.id;
+      });
+
+      return !exists;
+    })
+    .map(ingredient => {
+      //Clone it to stay immutable
+      return {
+        ...ingredient
+      };
+    });
+}
+
 export const getNewCurrentAdditionalIngredientId = (state) => {
   let currentAdditonalIngredient = undefined;
 

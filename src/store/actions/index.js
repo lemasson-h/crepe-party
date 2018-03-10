@@ -43,3 +43,10 @@ export {
   addIngredientForCrepe,
   changeCurrentAdditionalIngredient,
 } from './crepeCreators';
+
+export {
+  addCrepeToOrder,
+  removeCrepeToOrder,
+  resetFlashMessageForOrder,
+  setTimerFlashMessageForOrder,
+} from './orderCreators';

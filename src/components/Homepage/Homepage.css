@@ -44,70 +44,70 @@
 }
 
 /* Modal */
-.Menu .Modal .Error {
+.Homepage .Modal .Error {
   margin-bottom: 10px;
 }
 
-.Menu .Modal .IngredientsWrapper {
+.Homepage .Modal .IngredientsWrapper {
   margin: auto;
   width: 300px;
 }
 
-.Menu .Modal .IngredientsWrapper .Header {
+.Homepage .Modal .IngredientsWrapper .Header {
   font-size: 25px;
   margin: 0 0 10px 0;
   text-align: center;
 }
 
-.Menu .Modal .Ingredients {
+.Homepage .Modal .Ingredients {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
 }
 
-.Menu .Modal .Ingredient {
+.Homepage .Modal .Ingredient {
   display: flex;
   flex-direction: row;
   margin: 3px;
 }
 
-.Menu .Modal .Ingredient .Name {
+.Homepage .Modal .Ingredient .Name {
   font-weight: bold;
   margin: 5px;
 }
 
-.Menu .Modal .Quantity {
+.Homepage .Modal .Quantity {
   align-items: center;
   display: flex;
   flex-direction: row;
 }
 
-.Menu .Modal .AdditionalIngredients form {
+.Homepage .Modal .AdditionalIngredients form {
   align-items: stretch;
   display: flex;
   flex-direction: row;
 }
 
-.Menu .Modal .AdditionalIngredients select  {
+.Homepage .Modal .AdditionalIngredients select  {
   flex-grow: 2;
   height: 25px;
   margin-right: 10px;
 }
 
 /* Overwrite shared .Actions as the margin is too big */
-.Menu .Actions {
+.Homepage .Actions {
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin: 10px 0;
 }
 
-.Menu .Modal .AdditionalIngredients .Submit {
+.Homepage .Modal .AdditionalIngredients .Submit {
   font-size: 11px;
   padding: 5px 10px;
 }
 
-.Menu .Modal .Actions {
+.Homepage .Modal .Actions {
   display: flex;
   flex-direction: row;
   justify-content: center;

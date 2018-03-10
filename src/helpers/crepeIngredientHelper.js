@@ -84,3 +84,29 @@ const calculateChangesForAdd = (state, ingredientId) => {
     //We reset an existing ingredient, so we undo a change
     return state.crepeChanges - 1;
 }
+
+export const caclulateNumberOfCrepeChanges = (initialCrepe, currentCrepe) => {
+  const initialIds = Object.keys(initialCrepe);
+  const currentIds = Object.keys(currentCrepe);
+  let changes = 0;
+
+  //Calculate missing initial ingredients + different quantities
+  initialIds.forEach(initialId => {
+    const idx = currentIds.indexOf(initialId);
+
+    if (-1 === idx) {
+      changes += initialCrepe[initialId];
+    } else if (currentCrepe[idx] !== initialCrepe[initialId]) {
+      changes += Math.abs(initialCrepe[initialId] - currentCrepe[idx]);
+    }
+  });
+
+  //Caclulate additional ingredient
+  currentIds.forEach(currentId => {
+    if (-1 === initialIds.indexOf(currentId)) {
+      changes += currentCrepe[currentId];
+    }
+  });
+
+  return changes;
+}

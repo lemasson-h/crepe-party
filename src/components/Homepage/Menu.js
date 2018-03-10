@@ -2,7 +2,6 @@ import React from 'react';
 
 import AddImage from '../UI/AddImage';
 import Aux from '../../hoc/Aux';
-import CustomizeCrepe from './CustomizeCrepe';
 import EditImage from '../UI/EditImage';
 import { getIngredientNames } from '../../helpers/crepeHelper';
 import Spinner from '../UI/Spinner/Spinner';
@@ -35,19 +34,6 @@ const menu = (props) => {
     content = (
       <Aux>
         {crepes}
-        <CustomizeCrepe
-          crepe={props.currentCrepe}
-          ingredients={props.ingredients}
-          additionalIngredients={props.additionalIngredients}
-          lessIngredientMethod={props.lessIngredientMethod}
-          moreIngredientMethod={props.moreIngredientMethod}
-          deleteIngredientMethod={props.deleteIngredientMethod}
-          addIngredientMethod={props.addIngredientMethod}
-          changeCurrentAdditionalIngredientMethod={props.changeCurrentAdditionalIngredientMethod}
-          addCrepeMethod={props.addCrepeMethod}
-          modalError={props.modalError}
-          show={props.show}
-          closeModalMethod={props.closeModalMethod}/>
       </Aux>
     )
   }

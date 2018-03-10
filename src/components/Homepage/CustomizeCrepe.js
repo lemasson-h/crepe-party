@@ -8,7 +8,6 @@ const customizeCrepe = (props) => {
   let additionalIngredients = null;
 
   if (props.crepe !== undefined) {
-    console.log(props.crepe.ingredients);
     currentIngredients = Object.keys(props.crepe.ingredients).map(ingredientId => {
       const ingredientFound = props.ingredients.find(ingredient => {
         return ingredient.id === ingredientId;
@@ -53,8 +52,8 @@ const customizeCrepe = (props) => {
         </div>
         <div className="LineSeparator"/>
         <div className="Actions">
-          <button className="Submit" onClick={props.addCrepeMethod}>Add</button>
           <button className="Submit" onClick={props.closeModalMethod}>Cancel</button>
+          <button className="Submit" onClick={props.addCrepeMethod}>{props.crepe && props.crepe.uniqueId ? 'Edit' : 'Add'}</button>
         </div>
       </div>
     </Modal>

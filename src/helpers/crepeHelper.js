@@ -9,3 +9,9 @@ export const getIngredientNames = (crepe, ingredients) => {
     })
     .filter(value => value !== null);
 }
+
+export const findCrepeById = (crepeId, crepes) => {
+  return crepes.find(crepe => {
+    return crepe.id === crepeId;
+  });
+}

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../store/actions';
 import Command from '../components/Homepage/Command';
+import CustomizeCrepe from '../components/Homepage/CustomizeCrepe';
 import Menu from '../components/Homepage/Menu';
 import '../components/Homepage/Homepage.css';
 import '../assets/css/shared.css';
@@ -101,7 +102,16 @@ class Homepage extends Component {
           crepesLoading={this.props.crepesLoading}
           crepes={this.props.crepes}
           ingredients={this.props.ingredients}
-          currentCrepe={this.props.currentCrepe}
+          addCrepeMethod={this.addCrepeHandler}
+          show={this.state.showModal}
+          openModalMethod={this.openModalHandler} />
+        <Command
+          orders={this.props.orders}
+          ingredients={this.props.ingredients}
+          deleteCrepeMethod={this.deleteCrepeHandler}/>
+        <CustomizeCrepe
+          crepe={this.props.currentCrepe}
+          ingredients={this.props.ingredients}
           additionalIngredients={this.props.additionalIngredients}
           lessIngredientMethod={this.lessIngredientHandler}
           moreIngredientMethod={this.moreIngredientHandler}
@@ -111,12 +121,7 @@ class Homepage extends Component {
           addCrepeMethod={this.addCrepeHandler}
           modalError={this.props.modalError}
           show={this.state.showModal}
-          openModalMethod={this.openModalHandler}
-          closeModalMethod={this.closeModalHandler} />
-        <Command
-          orders={this.props.orders}
-          ingredients={this.props.ingredients}
-          deleteCrepeMethod={this.deleteCrepeHandler}/>
+          closeModalMethod={this.closeModalHandler}/>
       </div>
     );
   }

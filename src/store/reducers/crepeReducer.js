@@ -1,6 +1,13 @@
 import * as actionCreators from '../actions';
 import * as actionTypes from '../actions/actionTypes';
-import { calculateCrepeChanges, getAdditionalIngredients, getNewCurrentAdditionalIngredientId } from '../../helpers/crepeIngredientHelper';
+import {
+  calculateCrepeChanges,
+  getAdditionalIngredients,
+  getNewCurrentAdditionalIngredientId,
+  caclulateNumberOfCrepeChanges
+} from '../../helpers/crepeIngredientHelper';
+import { findCrepeById } from '../../helpers/crepeHelper';
+import { findKeyCrepeInOrder } from '../../helpers/crepeOrderHelper';
 
 const authorizedCrepeChanges = 3;
 
@@ -38,6 +45,8 @@ const reducer = (state = initialState, action) => {
       return addIngredient(state, action);
     case actionTypes.CHANGE_CURRENT_ADDITIONAL_INGREDIENT:
       return changeCurrentAdditionalIngredient(state, action);
+    case actionTypes.CHANGE_CURRENT_ADDITIONAL_INGREDIENT:
+      return loadOrderCrepe(state, action);
     default:
       return state;
   }
@@ -287,6 +296,51 @@ const changeCurrentAdditionalIngredient = (state, action) => {
     ...state,
     currentAdditonalIngredient: action.ingredientId
   };
+}
+
+const loadOrderCrepe = (state, action) => {
+  const key = findKeyCrepeInOrder(action.uniqueId, action.orders);
+
+  if (undefined === key) {
+    return state;
+    //close the modal and display an error
+  }
+
+  const currentCrepe = action.orders[key];
+  const initialCrepe = findCrepeById(currentCrepe.id, state.crepes);
+  const additionalIngredients = getAdditionalIngredients(
+    currentCrepe,
+    action.ingredients
+  );
+  const crepeChanges = caclulateNumberOfCrepeChanges(initialCrepe, currentCrepe);
+
+  let updateState = {
+    ...state,
+    errorModal: undefined,
+    currentCrepe: {
+      ...currentCrepe,
+      ingredients: {
+        ...currentCrepe.ingredients,
+      },
+    },
+    additionalIngredients: [
+      ...additionalIngredients,
+    ],
+    initialCrepe: {
+      ...initialCrepe,
+      ingredients: {
+        ...initialCrepe.ingredients,
+      },
+    },
+    crepeChanges: crepeChanges,
+  };
+
+  updateState = {
+    ...updateState,
+    currentAdditonalIngredient: getNewCurrentAdditionalIngredientId(updateState),
+  };
+
+  return updateState;
 }
 
 export default reducer;

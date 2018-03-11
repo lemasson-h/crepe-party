@@ -48,6 +48,4 @@ export {
 export {
   addCrepeToOrder,
   removeCrepeToOrder,
-  resetFlashMessageForOrder,
-  setTimerFlashMessageForOrder,
 } from './orderCreators';

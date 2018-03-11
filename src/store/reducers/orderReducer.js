@@ -1,7 +1,7 @@
 import uuid from 'uuid/v1';
 
 import * as actionTypes from '../actions/actionTypes';
-import { removeOrderFromOrders } from '../../helpers/crepeOrderHelper';
+import { findKeyCrepeInOrder, removeOrderFromOrders } from '../../helpers/crepeOrderHelper';
 
 const initialState = {
   orders: [],
@@ -25,9 +25,15 @@ const reducer = (state = initialState, action) => {
 }
 
 const addCrepe = (state, action) => {
+  let uniqueId = action.crepe.uniqueId;
+
+  if (undefined === uniqueId) {
+    uniqueId = uuid();
+  }
+
   const updatedCrepe = {
     ...action.crepe,
-    uniqueId: uuid(),
+    uniqueId: uniqueId,
     ingredients: {
       ...action.crepe.ingredients
     },
@@ -36,9 +42,24 @@ const addCrepe = (state, action) => {
     ...state.orders
   ];
 
-  updatedOrders.push(updatedCrepe);
+  if (undefined !== action.crepe.uniqueId) {
+    const key = findKeyCrepeInOrder(action.crepe.uniqueId, state.orders);
 
-  if (clearTimeout !== undefined) {
+    if (undefined === key) {
+      return {
+        ...state,
+        flashMessage: {
+          type: 'error',
+          message: 'Unable to find this crepe in the orders (Invalid one).'
+        },
+      };
+    }
+    updatedOrders[key] = updatedCrepe;
+  } else {
+    updatedOrders.push(updatedCrepe);
+  }
+
+  if (undefined !== state.timer) {
     clearTimeout(state.timer);
   }
 
@@ -48,7 +69,7 @@ const addCrepe = (state, action) => {
     orders: updatedOrders,
     flashMessage: {
       type: 'success',
-      message: 'Crepe ' + updatedCrepe.name +  ' added',
+      message: 'Crepe ' + updatedCrepe.name +  (undefined !== action.crepe.uniqueId ? ' edited.' : ' added.'),
     },
     timer: undefined,
   };

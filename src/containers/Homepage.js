@@ -80,10 +80,6 @@ class Homepage extends Component {
     if (this.state.showModal) {
       this.closeModalHandler(event);
     }
-
-    this.props.onSetTimerFlashMessage(
-      setTimeout(() => this.props.onResetFlashMessage(), 5000)
-    );
   }
 
   changeCurrentAdditionalIngredientHandler = (event) => {
@@ -92,10 +88,6 @@ class Homepage extends Component {
 
   deleteCrepeHandler = (event, uniqueId) => {
     this.props.onRemoveCrepe(uniqueId);
-
-    this.props.onSetTimerFlashMessage(
-      setTimeout(() => this.props.onResetFlashMessage(), 5000)
-    );
   }
 
   render() {
@@ -159,8 +151,6 @@ const mapDispatchToProps = (dispatch) => {
     onChangeCurrentAdditionalIngredientHandler: (ingredientId) => dispatch(actionCreators.changeCurrentAdditionalIngredient(ingredientId)),
     onAddCrepe: (crepe) => dispatch(actionCreators.addCrepeToOrder(crepe)),
     onRemoveCrepe: (uniqueId) => dispatch(actionCreators.removeCrepeToOrder(uniqueId)),
-    onResetFlashMessage: () => dispatch(actionCreators.resetFlashMessageForOrder()),
-    onSetTimerFlashMessage: (timer) => dispatch(actionCreators.setTimerFlashMessageForOrder(timer)),
     onLoadOrderCrepe: (crepe, ingredients) => dispatch(actionCreators.loadOrderCrepe(crepe, ingredients)),
   };
 }

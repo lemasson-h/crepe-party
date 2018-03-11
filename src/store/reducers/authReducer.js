@@ -7,6 +7,7 @@ const initialState = {
   loading: false,
   logoutTimer: null,
   error: false,
+  redirectTo: undefined,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -21,6 +22,8 @@ const authReducer = (state = initialState, action) => {
       return logout(state, action);
     case actionTypes.AUTH_LOGOUT_TIMER:
       return logoutTimer(state, action);
+    case actionTypes.AUTH_REDIRECT_TO_AFTER_LOGIN:
+      return setRedirectToAfterLogin(state, action);
     default:
       return state;
   }
@@ -87,6 +90,13 @@ const logoutTimer = (state, action) => {
   return {
     ...state,
     logoutTimer: action.logoutTimer,
+  };
+}
+
+const setRedirectToAfterLogin = (state, action) => {
+  return {
+    ...state,
+    redirectTo: action.redirectTo,
   };
 }
 

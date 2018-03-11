@@ -115,7 +115,7 @@
 
 /* Style for Command */
 
-.Command {
+.Order {
   border: 1px solid #dddddd;
   box-sizing: border-box;
   height: fit-content;
@@ -124,55 +124,55 @@
   width: 30%;
 }
 
-.Command .LineSeparator {
+.Order .LineSeparator {
   margin-left: -5px;
   margin-right: 5px;
 }
 
-.Command .Header {
+.Order .Header {
   font-size: 25px;
   margin: 0 0 10px 0;
   text-align: center;
 }
 
-.Command .Element .Title {
+.Order .Element .Title {
   font-weight: bold;
 }
 
-.Command .Element .Content {
+.Order .Element .Content {
   align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.Command .Element .Content .Actions {
+.Order .Element .Content .Actions {
   display: flex;
   flex-direction: row;
   margin-left: 15px;
   margin-right: 5px;
 }
 
-.Command .EmptyBasket {
+.Order .EmptyBasket {
   margin: 5px;
   text-align: center;
 }
 
 @media (max-width: 500px) {
-  .Command {
+  .Order {
     width: inherit;
   }
 
-  .Command .Element .Content .Actions button {
+  .Order .Element .Content .Actions button {
     margin-left: 5px;
   }
 
-  .Command .Element .Content .Actions {
+  .Order .Element .Content .Actions {
     flex-direction: column;
     margin-left: 0;
   }
 
-  .Command .Element .Content .Actions button:not(:first-child) {
+  .Order .Element .Content .Actions button:not(:first-child) {
     margin-top: 5px;
   }
 }

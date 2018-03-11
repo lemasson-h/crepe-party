@@ -1,4 +1,6 @@
 import * as actionTypes from './actionTypes';
+import * as authCreators from './authCreators';
+import * as redirectCreators from './redirectCreators';
 
 export const addCrepeToOrder = (crepe) => {
   return dispatch => {
@@ -52,5 +54,26 @@ const setTimerFlashMessageForOrder = (timer) => {
   return {
     type: actionTypes.TIMER_FLASH_MESSAGE_FOR_ORDER,
     timer: timer,
+  };
+}
+
+export const sendOrder = (token, userId) => {
+  return dispatch => {
+    if (null === token) {
+      dispatch(authCreators.setRedirectToAfterLogin('/?submit=1'));
+      dispatch(redirectCreators.setGlobalRedirectTo('/login'));
+
+      return ;
+    }
+
+    dispatch(internalSendOrder(token, userId));
+  }
+}
+
+const internalSendOrder = (token, userId) => {
+  return {
+    type: actionTypes.ORDER_SEND_ORDER,
+    token: token,
+    userId: userId,
   };
 }

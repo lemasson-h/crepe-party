@@ -95,3 +95,10 @@ const authLogoutTimer = (logoutTimer) => {
     logoutTimer: logoutTimer,
   };
 }
+
+export const setRedirectToAfterLogin = (redirectTo) => {
+  return {
+    type: actionTypes.AUTH_REDIRECT_TO_AFTER_LOGIN,
+    redirectTo: redirectTo,
+  };
+}

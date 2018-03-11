@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actionCreators from '../store/actions';
-import Command from '../components/Homepage/Command';
 import CustomizeCrepe from '../components/Homepage/CustomizeCrepe';
 import Menu from '../components/Homepage/Menu';
+import Order from '../components/Homepage/Order';
 import '../components/Homepage/Homepage.css';
 import '../assets/css/shared.css';
 
@@ -90,6 +90,12 @@ class Homepage extends Component {
     this.props.onRemoveCrepe(uniqueId);
   }
 
+  sendOrderHandler = (event) => {
+    event.preventDefault();
+
+    this.props.onSendOrder(this.props.token, this.props.userId);
+  }
+
   render() {
     return (
       <div className="Homepage">
@@ -101,11 +107,12 @@ class Homepage extends Component {
           addCrepeMethod={this.addCrepeHandler}
           show={this.state.showModal}
           openModalMethod={this.openModalHandler} />
-        <Command
+        <Order
           orders={this.props.orders}
           ingredients={this.props.ingredients}
           deleteCrepeMethod={this.deleteCrepeHandler}
-          openModalMethod={this.openModalHandler} />
+          openModalMethod={this.openModalHandler}
+          sendOrderMethod={this.sendOrderHandler} />
         <CustomizeCrepe
           crepe={this.props.currentCrepe}
           ingredients={this.props.ingredients}
@@ -135,6 +142,8 @@ const mapStateToProps = (state) => {
     currentAdditonalIngredient: state.crepes.currentAdditonalIngredient,
     orders: state.order.orders,
     flashMessage: state.order.flashMessage,
+    userId: state.auth.userId,
+    token: state.auth.token,
   };
 }
 
@@ -152,6 +161,7 @@ const mapDispatchToProps = (dispatch) => {
     onAddCrepe: (crepe) => dispatch(actionCreators.addCrepeToOrder(crepe)),
     onRemoveCrepe: (uniqueId) => dispatch(actionCreators.removeCrepeToOrder(uniqueId)),
     onLoadOrderCrepe: (crepe, ingredients) => dispatch(actionCreators.loadOrderCrepe(crepe, ingredients)),
+    onSendOrder: (token, userId) => dispatch(actionCreators.sendOrder(token, userId)),
   };
 }
 

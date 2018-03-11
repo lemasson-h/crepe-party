@@ -8,6 +8,7 @@ import Homepage from './containers/Homepage';
 import Layout from './components/Layout/Layout';
 import Login from './containers/Auth/Login';
 import NotFound from './components/NotFound/NotFound';
+import redirectHoc from './hoc/RedirectHoc';
 
 class App extends Component {
   componentDidMount() {
@@ -47,4 +48,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default redirectHoc(withRouter(connect(mapStateToProps, mapDispatchToProps)(App)));

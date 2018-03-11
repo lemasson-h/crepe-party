@@ -11,6 +11,7 @@ import authReducer from './store/reducers/authReducer';
 import crepeReducer from './store/reducers/crepeReducer';
 import ingredientReducer from './store/reducers/ingredientReducer';
 import orderReducer from './store/reducers/orderReducer';
+import redirectReducer from './store/reducers/redirectReducer';
 import registerServiceWorker from './registerServiceWorker';
 import thunk from 'redux-thunk';
 
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   crepes: crepeReducer,
   ingredients: ingredientReducer,
   order: orderReducer,
+  globalRedirect: redirectReducer,
 });
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));

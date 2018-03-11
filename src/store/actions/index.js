@@ -27,6 +27,7 @@ export {
   authLogin,
   authLogout,
   authAutoLogin,
+  setRedirectToAfterLogin,
 } from './authCreators';
 
 export {
@@ -48,4 +49,9 @@ export {
 export {
   addCrepeToOrder,
   removeCrepeToOrder,
+  sendOrder,
 } from './orderCreators';
+
+export {
+  setGlobalRedirectTo
+} from './redirectCreators';

@@ -38,7 +38,7 @@ const order = (props) => {
       <h1 className="Header">My order</h1>
       {orders}
       <div className="Actions">
-        <button className="Submit">Order</button>
+        <button className="Submit" onClick={props.sendOrderMethod}>Order</button>
       </div>
     </div>
   );

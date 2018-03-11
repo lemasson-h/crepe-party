@@ -24,9 +24,18 @@ class Login extends Component {
     this.props.onLogin(this.state.email, this.state.password);
   }
 
+  componentWillUnmount() {
+    //Once we are authenticated, we reset the redirectTo
+    this.props.onSetRedirectTo(undefined);
+  }
+
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+      if (undefined === this.props.redirectTo) {
+        return <Redirect to="/" />;
+      }
+
+      return <Redirect to={this.props.redirectTo} />;
     }
 
     let form = <Spinner />;
@@ -55,12 +64,14 @@ const mapStateToProps = state => {
     isAuthenticated: state.auth.isAuthenticated,
     loading: state.auth.loading,
     error: state.auth.error,
+    redirectTo: state.auth.redirectTo,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: (email, password) => dispatch(actionCreators.authLogin(email, password)),
+    onSetRedirectTo: (redirectTo) => dispatch(actionCreators.setRedirectToAfterLogin(redirectTo)),
   };
 }
 

@@ -4,6 +4,7 @@ import Aux from '../../hoc/Aux';
 import DeleteImage from '../UI/DeleteImage';
 import EditImage from '../UI/EditImage';
 import { getIngredientNames } from '../../helpers/crepeHelper';
+import Spinner from '../UI/Spinner/Spinner';
 
 const order = (props) => {
   const length = props.orders.length;
@@ -33,12 +34,18 @@ const order = (props) => {
     orders = <div className="EmptyBasket">Empty basket.</div>
   }
 
+  let actions = <button disabled={props.orders.length === 0} className="Submit" onClick={props.sendOrderMethod}>Order</button>;
+
+  if (props.sendingOrder) {
+    actions = <Spinner small={1}/>;
+  }
+
   return (
     <div className="Order">
       <h1 className="Header">My order</h1>
       {orders}
       <div className="Actions">
-        <button className="Submit" onClick={props.sendOrderMethod}>Order</button>
+        {actions}
       </div>
     </div>
   );

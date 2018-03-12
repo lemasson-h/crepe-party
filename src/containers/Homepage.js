@@ -137,7 +137,8 @@ class Homepage extends Component {
           ingredients={this.props.ingredients}
           deleteCrepeMethod={this.deleteCrepeHandler}
           openModalMethod={this.openModalHandler}
-          sendOrderMethod={this.sendOrderHandler} />
+          sendOrderMethod={this.sendOrderHandler}
+          sendingOrder={this.props.sendingOrder} />
         <CustomizeCrepe
           crepe={this.props.currentCrepe}
           ingredients={this.props.ingredients}
@@ -171,6 +172,7 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     orderId: state.order.orderId,
     requestSendOrder: state.order.submitRequested,
+    sendingOrder: state.order.loading,
   };
 }
 

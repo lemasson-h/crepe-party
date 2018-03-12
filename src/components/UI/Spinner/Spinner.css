@@ -1,12 +1,19 @@
 .loader,
 .loader:after {
   border-radius: 50%;
-  width: 10em;
-  height: 10em;
+  height: 7em;
+  width: 7em;
+}
+
+.loaderSmall,
+.loaderSmall:after {
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
 }
 
 .loader {
-  margin: 60px auto;
+  margin: 30px auto;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
@@ -19,6 +26,10 @@
   transform: translateZ(0);
   -webkit-animation: load8 1.1s infinite linear;
   animation: load8 1.1s infinite linear;
+}
+
+.loaderSmall {
+  margin: 5px auto;
 }
 
 @-webkit-keyframes load8 {

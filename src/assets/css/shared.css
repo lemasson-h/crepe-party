@@ -47,6 +47,16 @@ button:focus {
   cursor: not-allowed;
 }
 
+.Submit:disabled,
+.Submit:disabled:hover,
+.Submit:disabled:active,
+.Submit:disabled:focus {
+  background-color: grey;
+  border: grey;
+  color: white;
+  cursor: not-allowed;
+}
+
 button.Submit {
   background-color: #c19343;
   border: 1px solid #c19343;

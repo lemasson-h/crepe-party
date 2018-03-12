@@ -32,6 +32,12 @@ const reducer = (state = initialState, action) => {
       return sendOrderFail(state, action);
     case actionTypes.ORDER_RESET_ON_LOGOUT:
       return resetOnLogout(state, action);
+    case actionTypes.LOAD_ORDER_START:
+      return loadOrderStart(state, action);
+    case actionTypes.LOAD_ORDER_SUCCESS:
+      return loadOrderSuccess(state, action);
+    case actionTypes.LOAD_ORDER_FAIL:
+      return loadOrderFail(state, action);
     default:
       return state;
   }
@@ -179,6 +185,37 @@ const resetOnLogout = (state, action) => {
     loading: false,
     submitRequested: false,
   }
+}
+
+//Done inside the login
+//It will be done during the spinner of the login
+//So no additional UI needed
+const loadOrderStart = (state, action) => {
+  return state;
+}
+
+const loadOrderSuccess = (state, action) => {
+  let updatedOrders = state.orders;
+
+  if (action.orderId !== undefined) {
+    updatedOrders = action.orders;
+  }
+
+  return {
+    ...state,
+    orderId: action.orderId,
+    orders: updatedOrders,
+  };
+}
+
+const loadOrderFail = (state, action) => {
+  return {
+    ...state,
+    flashMessage: {
+      type: 'error',
+      message: 'Unable to load your orders',
+    },
+  };
 }
 
 export default reducer;

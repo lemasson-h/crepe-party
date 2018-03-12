@@ -23,7 +23,6 @@ export const authLogin = (email, password) => {
           response.data.localId,
           new Date((new Date()).getTime() + (response.data.expiresIn * 1000))
         ));
-        dispatch(authSetLogout(response.data.expiresIn * 1000)); //Transform in milliseconds
       })
       .catch(error => {
         dispatch(authLoginFail());
@@ -59,7 +58,6 @@ export const authAutoLogin = () => {
     }
 
     dispatch(authLoginSuccess(token, userId, expiresAt));
-    dispatch(authSetLogout(expiresAt.getTime() - (new Date()).getTime()));
   }
 }
 
@@ -70,6 +68,14 @@ const authLoginStart = () => {
 }
 
 const authLoginSuccess = (token, userId, expiresAt) => {
+  return dispatch => {
+    dispatch(orderCreators.loadOrder(token, userId));
+    dispatch(internalAuthLoginSuccess(token, userId, expiresAt));
+    dispatch(authSetLogout(expiresAt.getTime() - (new Date()).getTime()));
+  };
+}
+
+const internalAuthLoginSuccess = (token, userId, expiresAt) => {
   return {
     type: actionTypes.AUTH_LOGIN_SUCCESS,
     token: token,

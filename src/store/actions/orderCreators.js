@@ -129,3 +129,54 @@ export const resetOrderOnLogout = () => {
     type: actionTypes.ORDER_RESET_ON_LOGOUT,
   };
 }
+
+export const loadOrder = (token, userId) => {
+  return dispatch => {
+    dispatch(loadOrderStart());
+
+    Axios.get(
+      'https://crepe-party.firebaseio.com/orders.json?auth='
+      + token
+      + '&orderBy="userId"&equalTo="'
+      + userId
+      + '"'
+    )
+      .then(response => {
+        console.log(response);
+        const firstKey = Object.keys(response.data).shift();
+        let orders = [];
+        let orderId = undefined;
+
+        if (firstKey !== undefined) {
+          orderId = firstKey;
+          orders = response.data[orderId];
+        }
+
+        dispatch(loadOrderSuccess(orderId, orders.crepes));
+      })
+      .catch(error => {
+        dispatch(loadOrderFail());
+        resetFlashMessage(dispatch, 5000);
+      });
+  }
+}
+
+const loadOrderStart = () => {
+  return {
+    type: actionTypes.LOAD_ORDER_START,
+  };
+}
+
+const loadOrderSuccess = (orderId, orders) => {
+  return {
+    type: actionTypes.LOAD_ORDER_SUCCESS,
+    orderId: orderId,
+    orders: orders,
+  };
+}
+
+const loadOrderFail = () => {
+  return {
+    type: actionTypes.LOAD_ORDER_FAIL,
+  };
+}

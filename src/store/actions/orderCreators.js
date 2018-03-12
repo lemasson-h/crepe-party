@@ -74,10 +74,14 @@ export const sendOrder = (token, userId, orderId, orders) => {
 
     dispatch(sendOrderStart());
 
+    const crepesWithUniqueId = {};
+
+    orders.forEach(order => {
+      crepesWithUniqueId[order.uniqueId] = order;
+    });
+
     const updatedOrders = {
-      crepes: [
-        ...orders,
-      ],
+      crepes: crepesWithUniqueId,
       userId: userId,
     };
 
@@ -149,10 +153,12 @@ export const loadOrder = (token, userId) => {
 
         if (firstKey !== undefined) {
           orderId = firstKey;
-          orders = response.data[orderId];
+          orders = Object.keys(response.data[orderId].crepes).map(crepeUniqueId => {
+            return response.data[orderId].crepes[crepeUniqueId];
+          });
         }
 
-        dispatch(loadOrderSuccess(orderId, orders.crepes));
+        dispatch(loadOrderSuccess(orderId, orders));
       })
       .catch(error => {
         dispatch(loadOrderFail());

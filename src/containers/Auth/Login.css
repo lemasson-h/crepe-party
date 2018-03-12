@@ -22,12 +22,20 @@
 }
 
 .Login form button {
-  margin: 20px 0;
-  padding: 10px 40px;
-  background-color: #c19343;
-  border: 1px solid #c19343;
+  margin-top: 20px;
+}
+
+.Login form button:last-child {
+  margin-bottom: 20px;
+}
+
+.Login form .ActionButton {
+  background-color: #ffe7bc;
+  border: 1px solid #ffe7bc;
+  border-radius: 5px;
+  color: #999999;
   font-size: 15px;
-  color: #4c3b1d;
+  padding: 5px 10px;
 }
 
 .Login form .Error {
@@ -35,9 +43,9 @@
   margin-bottom: 0px;
 }
 
-.Login form button:hover,
-.Login form button:active {
-  color: #ffe7bc;
+.Login form .ActionButton:hover,
+.Login form .ActionButton:active {
+  color: black;
   cursor: pointer;
 }
 

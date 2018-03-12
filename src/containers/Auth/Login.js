@@ -46,7 +46,8 @@ class Login extends Component {
           { this.props.error ? <p className="Error">Invalid credentials</p> : null }
           <input type="email" name="email" onChange={(inputValue) => { this.onInputChange('email', inputValue) }} value={this.state.email} placeholder="E-Mail" />
           <input type="password" name="password" onChange={(inputValue) => { this.onInputChange('password', inputValue) } } value={this.state.password} placeholder="Password" />
-          <button>Login</button>
+          <button className="ActionButton">Switch to Sign Up</button>
+          <button className="Submit">Login</button>
         </form>
       );
     }

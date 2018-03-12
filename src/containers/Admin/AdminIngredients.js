@@ -40,9 +40,9 @@ class AdminIngredients extends Component {
 
 const mapStateToProps = state => {
   return {
-    loading: state.ingredients.ingredients_loading,
+    loading: state.ingredients.ingredientsLoading,
     ingredients: state.ingredients.ingredients,
-    error: state.ingredients.ingredients_error,
+    error: state.ingredients.ingredientsError,
     delete_finished: state.adminIngredient.delete.finished,
     token: state.auth.token,
   };

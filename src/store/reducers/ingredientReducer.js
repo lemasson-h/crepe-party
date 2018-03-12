@@ -1,8 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  ingredients_loading: false,
-  ingredients_error: null,
+  ingredientsLoading: false,
+  ingredientsError: null,
   ingredients: [],
   loadedAt: undefined,
 };
@@ -23,8 +23,8 @@ const reducer = (state = initialState, action) => {
 const loadIngredientsStart = (state, action) => {
   return {
     ...state,
-    ingredients_loading: true,
-    ingredients_error: null,
+    ingredientsLoading: true,
+    ingredientsError: null,
     flashMessage: null,
   };
 }
@@ -32,7 +32,7 @@ const loadIngredientsStart = (state, action) => {
 const loadIngredientsSuccess = (state, action) => {
   return {
     ...state,
-    ingredients_loading: false,
+    ingredientsLoading: false,
     ingredients: action.ingredients,
     loadedAt: action.loadedAt,
   };
@@ -41,8 +41,8 @@ const loadIngredientsSuccess = (state, action) => {
 const loadIngredientsFail = (state, action) => {
   return {
     ...state,
-    ingredients_loading: false,
-    ingredients_error: true,
+    ingredientsLoading: false,
+    ingredientsError: true,
   };
 }
 

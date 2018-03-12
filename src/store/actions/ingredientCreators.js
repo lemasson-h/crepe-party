@@ -2,7 +2,13 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 export const loadIngredients = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const state = getState();
+    
+    if (state.ingredients.ingredients.length > 0 && state.ingredients.loadedAt + 600  < Date.now()) {
+      return ;
+    }
+
     dispatch(loadIngredientsStart());
 
     axios.get('https://crepe-party.firebaseio.com/ingredients.json')
@@ -37,6 +43,7 @@ const loadIngredientsSuccess = (ingredients) => {
   return {
     type: actionTypes.LOAD_INGREDIENTS_SUCCESS,
     ingredients: ingredients,
+    loadedAt: Date.now(),
   };
 }
 

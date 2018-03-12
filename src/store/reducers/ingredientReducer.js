@@ -4,6 +4,7 @@ const initialState = {
   ingredients_loading: false,
   ingredients_error: null,
   ingredients: [],
+  loadedAt: undefined,
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +34,7 @@ const loadIngredientsSuccess = (state, action) => {
     ...state,
     ingredients_loading: false,
     ingredients: action.ingredients,
+    loadedAt: action.loadedAt,
   };
 }
 

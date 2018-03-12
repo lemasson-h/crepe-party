@@ -20,6 +20,7 @@ const initialState = {
   errorModal: undefined,
   crepeChanges: 0,
   currentAdditonalIngredient: undefined,
+  loadedAt: undefined,
 };
 
 const reducer = (state = initialState, action) => {
@@ -65,6 +66,7 @@ const loadCrepesSuccess = (state, action) => {
     ...state,
     loading: false,
     crepes: action.crepes,
+    loadedAt: action.loadedAt,
   };
 }
 

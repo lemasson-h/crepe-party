@@ -2,7 +2,13 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 export const loadCrepes = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const state = getState();
+
+    if (state.crepes.crepes.length > 0 && state.crepes.loadedAt + 600  < Date.now()) {
+      return ;
+    }
+
     dispatch(loadCrepesStart());
 
     axios.get(
@@ -50,6 +56,7 @@ const loadCrepesSuccess = (crepes) => {
   return {
     type: actionTypes.LOAD_CREPES_SUCCESS,
     crepes: crepes,
+    loadedAt: Date.now(),
   };
 }
 

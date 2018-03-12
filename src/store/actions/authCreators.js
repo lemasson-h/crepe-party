@@ -122,3 +122,9 @@ export const switchLogin = () => {
     type: actionTypes.AUTH_SWITCH_LOGIN,
   };
 }
+
+export const authResetError = () => {
+  return {
+    type: actionTypes.AUTH_RESET_ERROR,
+  };
+}

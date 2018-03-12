@@ -10,6 +10,7 @@ class Login extends Component {
     email: '',
     password: '',
     name: '',
+    error: undefined,
   };
 
   onInputChange = (key, event) => {
@@ -22,7 +23,21 @@ class Login extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
+    if (!this.props.isLogin && this.state.name.trim() === '') {
+        this.setState({
+          error: 'You need to provide your name.',
+        });
+
+        return;
+    }
+
     this.props.onLogin(this.state.email, this.state.password);
+  }
+
+  switchLoginHandler = (event) => {
+    event.preventDefault();
+
+    this.props.onSwitchLogin();
   }
 
   componentWillUnmount() {
@@ -30,10 +45,19 @@ class Login extends Component {
     this.props.onSetRedirectTo(undefined);
   }
 
-  switchLoginHandler = (event) => {
-    event.preventDefault();
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.isLogin !== this.props.isLogin) {
+      if (this.state.error) {
+        this.setState({
+          error: undefined,
+        });
+      }
 
-    this.props.onSwitchLogin();
+      if (this.props.error) {
+        this.props.onResetError();
+      }
+    }
+
   }
 
   render() {
@@ -48,13 +72,25 @@ class Login extends Component {
     let form = <Spinner />;
 
     if (!this.props.loading) {
+      let additionalInput = null;
+
+      if (!this.props.isLogin) {
+        additionalInput = <input
+          type="text"
+          name="name"
+          onChange={(inputValue) => { this.onInputChange('name', inputValue) } }
+          value={this.state.name} placeholder="Your name" />;
+      }
+
       form = (
         <form onSubmit={this.submitHandler}>
-          { this.props.error ? <p className="Error">Invalid credentials</p> : null }
+          {this.state.error ? <p className="Error">{this.state.error}</p> : null}
+          {this.props.error ? <p className="Error">Invalid credentials</p> : null}
           <input type="email" name="email" onChange={(inputValue) => { this.onInputChange('email', inputValue) }} value={this.state.email} placeholder="E-Mail" />
           <input type="password" name="password" onChange={(inputValue) => { this.onInputChange('password', inputValue) } } value={this.state.password} placeholder="Password" />
-          <button className="ActionButton" onClick={this.switchLoginHandler}>Switch to {this.props.useLogin ? 'Sign Up' : 'Login' }</button>
-          <button className="Submit">{this.props.useLogin ? 'Login' : 'Sign up' }</button>
+          {additionalInput}
+          <button className="ActionButton" onClick={this.switchLoginHandler}>Switch to {this.props.isLogin ? 'Sign Up' : 'Login' }</button>
+          <button className="Submit">{this.props.isLogin ? 'Login' : 'Sign up' }</button>
         </form>
       );
     }
@@ -73,7 +109,7 @@ const mapStateToProps = state => {
     loading: state.auth.loading,
     error: state.auth.error,
     redirectTo: state.auth.redirectTo,
-    useLogin: state.auth.useLogin,
+    isLogin: state.auth.isLogin,
   };
 }
 
@@ -82,6 +118,7 @@ const mapDispatchToProps = dispatch => {
     onLogin: (email, password) => dispatch(actionCreators.authLogin(email, password)),
     onSetRedirectTo: (redirectTo) => dispatch(actionCreators.setRedirectToAfterLogin(redirectTo)),
     onSwitchLogin: () => dispatch(actionCreators.switchLogin()),
+    onResetError: () => dispatch(actionCreators.authResetError()),
   };
 }
 

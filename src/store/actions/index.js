@@ -28,6 +28,7 @@ export {
   authLogout,
   authAutoLogin,
   setRedirectToAfterLogin,
+  switchLogin,
 } from './authCreators';
 
 export {

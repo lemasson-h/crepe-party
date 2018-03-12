@@ -116,3 +116,9 @@ export const setRedirectToAfterLogin = (redirectTo) => {
     redirectTo: redirectTo,
   };
 }
+
+export const switchLogin = () => {
+  return {
+    type: actionTypes.AUTH_SWITCH_LOGIN,
+  };
+}

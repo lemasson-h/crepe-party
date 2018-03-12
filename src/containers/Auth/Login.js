@@ -9,6 +9,7 @@ class Login extends Component {
   state = {
     email: '',
     password: '',
+    name: '',
   };
 
   onInputChange = (key, event) => {
@@ -29,6 +30,12 @@ class Login extends Component {
     this.props.onSetRedirectTo(undefined);
   }
 
+  switchLoginHandler = (event) => {
+    event.preventDefault();
+
+    this.props.onSwitchLogin();
+  }
+
   render() {
     if (this.props.isAuthenticated) {
       if (undefined === this.props.redirectTo) {
@@ -46,8 +53,8 @@ class Login extends Component {
           { this.props.error ? <p className="Error">Invalid credentials</p> : null }
           <input type="email" name="email" onChange={(inputValue) => { this.onInputChange('email', inputValue) }} value={this.state.email} placeholder="E-Mail" />
           <input type="password" name="password" onChange={(inputValue) => { this.onInputChange('password', inputValue) } } value={this.state.password} placeholder="Password" />
-          <button className="ActionButton">Switch to Sign Up</button>
-          <button className="Submit">Login</button>
+          <button className="ActionButton" onClick={this.switchLoginHandler}>Switch to {this.props.useLogin ? 'Sign Up' : 'Login' }</button>
+          <button className="Submit">{this.props.useLogin ? 'Login' : 'Sign up' }</button>
         </form>
       );
     }
@@ -66,6 +73,7 @@ const mapStateToProps = state => {
     loading: state.auth.loading,
     error: state.auth.error,
     redirectTo: state.auth.redirectTo,
+    useLogin: state.auth.useLogin,
   };
 }
 
@@ -73,6 +81,7 @@ const mapDispatchToProps = dispatch => {
   return {
     onLogin: (email, password) => dispatch(actionCreators.authLogin(email, password)),
     onSetRedirectTo: (redirectTo) => dispatch(actionCreators.setRedirectToAfterLogin(redirectTo)),
+    onSwitchLogin: () => dispatch(actionCreators.switchLogin()),
   };
 }
 

@@ -8,6 +8,7 @@ const initialState = {
   logoutTimer: null,
   error: false,
   redirectTo: undefined,
+  useLogin: true,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -24,6 +25,8 @@ const authReducer = (state = initialState, action) => {
       return logoutTimer(state, action);
     case actionTypes.AUTH_REDIRECT_TO_AFTER_LOGIN:
       return setRedirectToAfterLogin(state, action);
+    case actionTypes.AUTH_SWITCH_LOGIN:
+      return switchLogin(state, action);
     default:
       return state;
   }
@@ -83,6 +86,7 @@ const logout = (state, action) => {
     userId: null,
     isAuthenticated: false,
     logoutTimer: null,
+    useLogin: true,
   }
 }
 
@@ -97,6 +101,13 @@ const setRedirectToAfterLogin = (state, action) => {
   return {
     ...state,
     redirectTo: action.redirectTo,
+  };
+}
+
+const switchLogin = (state, action) => {
+  return {
+    ...state,
+    useLogin: !state.useLogin,
   };
 }
 

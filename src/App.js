@@ -7,6 +7,7 @@ import Admin from './containers/Admin/Admin';
 import Homepage from './containers/Homepage';
 import Layout from './components/Layout/Layout';
 import Login from './containers/Auth/Login';
+import Logout from './containers/Auth/Logout';
 import NotFound from './components/NotFound/NotFound';
 import redirectHoc from './hoc/RedirectHoc';
 
@@ -28,6 +29,7 @@ class App extends Component {
           <Route path="/" exact component={Homepage}/>
           <Route path="/login" component={Login}/>
           {adminRoutes}
+          <Route path="/logout" component={Logout} />
           <Route component={NotFound} />
         </Switch>
       </Layout>

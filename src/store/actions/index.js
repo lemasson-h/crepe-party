@@ -50,6 +50,7 @@ export {
   addCrepeToOrder,
   removeCrepeToOrder,
   sendOrder,
+  resetOrderOnLogout,
 } from './orderCreators';
 
 export {

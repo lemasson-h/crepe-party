@@ -56,10 +56,17 @@ const setTimerFlashMessageForOrder = (timer) => {
   };
 }
 
+const requestSendOrder = () => {
+  return {
+    type: actionTypes.ORDER_REQUEST_SEND_ORDER,
+  };
+}
+
 export const sendOrder = (token, userId, orderId, orders) => {
   return dispatch => {
     if (null === token) {
-      dispatch(authCreators.setRedirectToAfterLogin('/?submit=1'));
+      dispatch(requestSendOrder());
+      dispatch(authCreators.setRedirectToAfterLogin('/'));
       dispatch(redirectCreators.setGlobalRedirectTo('/login'));
 
       return ;
@@ -114,5 +121,11 @@ const sendOrderSuccess = (orderId) => {
 const sendOrderFail = () => {
   return {
     type: actionTypes.ORDER_SEND_ORDER_FAIL,
+  };
+}
+
+export const resetOrderOnLogout = () => {
+  return {
+    type: actionTypes.ORDER_RESET_ON_LOGOUT,
   };
 }

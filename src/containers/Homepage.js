@@ -14,10 +14,7 @@ class Homepage extends Component {
   }
 
   componentDidUpdate() {
-    const query = this.props.location.search;
-    const params = new URLSearchParams(query);
-
-    if (!this.props.crepesLoading && params.get('submit')) {
+    if (!this.props.crepesLoading && this.props.requestSendOrder) {
       this.props.onSendOrder(
         this.props.token,
         this.props.userId,
@@ -31,10 +28,7 @@ class Homepage extends Component {
     this.props.onLoadIngredients();
     this.props.onLoadCrepes();
 
-    const query = this.props.location.search;
-    const params = new URLSearchParams(query);
-
-    if (!this.props.crepesLoading && params.get('submit')) {
+    if (!this.props.crepesLoading && this.props.requestSendOrder) {
       this.props.onSendOrder(
         this.props.token,
         this.props.userId,
@@ -176,6 +170,7 @@ const mapStateToProps = (state) => {
     userId: state.auth.userId,
     token: state.auth.token,
     orderId: state.order.orderId,
+    requestSendOrder: state.order.submitRequested,
   };
 }
 

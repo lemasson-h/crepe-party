@@ -9,6 +9,7 @@ const initialState = {
   flashMessage: undefined,
   timer: undefined,
   loading: false,
+  submitRequested: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -21,12 +22,16 @@ const reducer = (state = initialState, action) => {
       return resetFlashMessage(state, action);
     case actionTypes.TIMER_FLASH_MESSAGE_FOR_ORDER:
       return setTimer(state, action);
+    case actionTypes.ORDER_REQUEST_SEND_ORDER:
+      return requestSendOrder(state, action);
     case actionTypes.ORDER_SEND_ORDER_START:
       return sendOrderStart(state, action);
     case actionTypes.ORDER_SEND_ORDER_SUCCESS:
       return sendOrderSuccess(state, action);
     case actionTypes.ORDER_SEND_ORDER_FAIL:
       return sendOrderFail(state, action);
+    case actionTypes.ORDER_RESET_ON_LOGOUT:
+      return resetOnLogout(state, action);
     default:
       return state;
   }
@@ -119,10 +124,18 @@ const setTimer = (state, action) => {
   };
 }
 
+const requestSendOrder = (state, action) => {
+  return {
+    ...state,
+    submitRequested: true,
+  };
+}
+
 const sendOrderStart = (state, action) => {
   return {
     ...state,
     loading: true,
+    submitRequested: false,
   };
 }
 
@@ -148,11 +161,24 @@ const sendOrderFail = (state, action) => {
     ...state,
     loading: false,
     flashMessage: {
-      type: 'success',
+      type: 'error',
       message: 'Unable to submit the order.',
     },
     timer: undefined,
   };
+}
+
+const resetOnLogout = (state, action) => {
+  cleanTimer(state);
+
+  return {
+    orderId: undefined,
+    orders: [],
+    flashMessage: undefined,
+    timer: undefined,
+    loading: false,
+    submitRequested: false,
+  }
 }
 
 export default reducer;

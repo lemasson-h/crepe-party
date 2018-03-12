@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as orderCreators from './orderCreators';
 
 export const authLogin = (email, password) => {
   return dispatch => {
@@ -31,8 +32,15 @@ export const authLogin = (email, password) => {
 }
 
 export const authLogout = () => {
+  return dispatch => {
+    dispatch(orderCreators.resetOrderOnLogout());
+    dispatch(internalLogout());
+  };
+}
+
+const internalLogout = () => {
   return {
-    type: actionTypes.AUTH_LOGOUT,
+    type: actionTypes.AUTH_LOGOUT
   };
 }
 

@@ -4,9 +4,11 @@ import * as actionTypes from '../actions/actionTypes';
 import { findKeyCrepeInOrder, removeOrderFromOrders } from '../../helpers/crepeOrderHelper';
 
 const initialState = {
+  orderId: undefined,
   orders: [],
   flashMessage: undefined,
   timer: undefined,
+  loading: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -19,9 +21,21 @@ const reducer = (state = initialState, action) => {
       return resetFlashMessage(state, action);
     case actionTypes.TIMER_FLASH_MESSAGE_FOR_ORDER:
       return setTimer(state, action);
+    case actionTypes.ORDER_SEND_ORDER_START:
+      return sendOrderStart(state, action);
+    case actionTypes.ORDER_SEND_ORDER_SUCCESS:
+      return sendOrderSuccess(state, action);
+    case actionTypes.ORDER_SEND_ORDER_FAIL:
+      return sendOrderFail(state, action);
     default:
       return state;
   }
+}
+
+const cleanTimer = (state) => {
+    if (undefined !== state.timer) {
+      clearTimeout(state.timer);
+    }
 }
 
 const addCrepe = (state, action) => {
@@ -59,9 +73,7 @@ const addCrepe = (state, action) => {
     updatedOrders.push(updatedCrepe);
   }
 
-  if (undefined !== state.timer) {
-    clearTimeout(state.timer);
-  }
+  cleanTimer(state);
 
   return {
     ...state,
@@ -78,9 +90,7 @@ const addCrepe = (state, action) => {
 const removeCrepe = (state, action) => {
   const updatedOrders = removeOrderFromOrders(action.uniqueId, state.orders);
 
-  if (clearTimeout !== undefined) {
-    clearTimeout(state.timer);
-  }
+  cleanTimer(state);
 
   return {
     ...state,
@@ -89,7 +99,7 @@ const removeCrepe = (state, action) => {
     ],
     flashMessage: {
       type: 'success',
-      message: 'Crepe removed',
+      message: 'Crepe removed.',
     },
     timer: undefined,
   }
@@ -106,6 +116,42 @@ const setTimer = (state, action) => {
   return {
     ...state,
     timer: action.timer,
+  };
+}
+
+const sendOrderStart = (state, action) => {
+  return {
+    ...state,
+    loading: true,
+  };
+}
+
+const sendOrderSuccess = (state, action) => {
+  cleanTimer(state);
+
+  return {
+    ...state,
+    loading: false,
+    orderId: action.orderId,
+    flashMessage: {
+      type: 'success',
+      message: 'Order submitted.',
+    },
+    timer: undefined,
+  };
+}
+
+const sendOrderFail = (state, action) => {
+  cleanTimer(state);
+
+  return {
+    ...state,
+    loading: false,
+    flashMessage: {
+      type: 'success',
+      message: 'Unable to submit the order.',
+    },
+    timer: undefined,
   };
 }
 

@@ -1,18 +1,23 @@
 import * as actionTypes from './actionTypes';
 import * as authCreators from './authCreators';
 import * as redirectCreators from './redirectCreators';
+import Axios from 'axios';
+
+const resetFlashMessage = (dispatch, time) => {
+  dispatch(
+    setTimerFlashMessageForOrder(
+      setTimeout(() => {
+        dispatch(resetFlashMessageForOrder())
+      }, time)
+    )
+  );
+}
 
 export const addCrepeToOrder = (crepe) => {
   return dispatch => {
     dispatch(internalAddCrepeToOrder(crepe));
 
-    dispatch(
-      setTimerFlashMessageForOrder(
-        setTimeout(() => {
-          dispatch(resetFlashMessageForOrder())
-        }, 5000)
-      )
-    );
+    resetFlashMessage(dispatch, 5000);
   };
 }
 
@@ -27,13 +32,7 @@ export const removeCrepeToOrder = (uniqueId) => {
   return dispatch => {
     dispatch(internalRemoveCrepeToOrder(uniqueId));
 
-    dispatch(
-      setTimerFlashMessageForOrder(
-        setTimeout(() => {
-          dispatch(resetFlashMessageForOrder())
-        }, 5000)
-      )
-    );
+    resetFlashMessage(dispatch, 5000);
   };
 }
 
@@ -57,7 +56,7 @@ const setTimerFlashMessageForOrder = (timer) => {
   };
 }
 
-export const sendOrder = (token, userId) => {
+export const sendOrder = (token, userId, orderId, orders) => {
   return dispatch => {
     if (null === token) {
       dispatch(authCreators.setRedirectToAfterLogin('/?submit=1'));
@@ -66,14 +65,54 @@ export const sendOrder = (token, userId) => {
       return ;
     }
 
-    dispatch(internalSendOrder(token, userId));
+    dispatch(sendOrderStart());
+
+    const updatedOrders = {
+      crepes: [
+        ...orders,
+      ],
+      userId: userId,
+    };
+
+    let promise = undefined;
+    if (undefined !== orderId) {
+      promise = Axios.put(
+        'https://crepe-party.firebaseio.com/orders/' + orderId +'.json?auth=' + token,
+        updatedOrders
+      );
+    } else {
+      promise = Axios.post(
+        'https://crepe-party.firebaseio.com/orders.json?auth=' + token,
+        updatedOrders
+      );
+    }
+
+    promise.then(response => {
+        dispatch(sendOrderSuccess(undefined !== orderId ? orderId : response.data.name));
+        resetFlashMessage(dispatch, 5000);
+      })
+      .catch(error => {
+        dispatch(sendOrderFail());
+        resetFlashMessage(dispatch, 5000);
+      })
   }
 }
 
-const internalSendOrder = (token, userId) => {
+const sendOrderStart = () => {
   return {
-    type: actionTypes.ORDER_SEND_ORDER,
-    token: token,
-    userId: userId,
+    type: actionTypes.ORDER_SEND_ORDER_START,
+  };
+}
+
+const sendOrderSuccess = (orderId) => {
+  return {
+    type: actionTypes.ORDER_SEND_ORDER_SUCCESS,
+    orderId: orderId,
+  };
+}
+
+const sendOrderFail = () => {
+  return {
+    type: actionTypes.ORDER_SEND_ORDER_FAIL,
   };
 }

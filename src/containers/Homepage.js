@@ -13,9 +13,35 @@ class Homepage extends Component {
     showModal: false,
   }
 
+  componentDidUpdate() {
+    const query = this.props.location.search;
+    const params = new URLSearchParams(query);
+
+    if (!this.props.crepesLoading && params.get('submit')) {
+      this.props.onSendOrder(
+        this.props.token,
+        this.props.userId,
+        this.props.orderId,
+        this.props.orders
+      );
+    }
+  }
+
   componentDidMount() {
     this.props.onLoadIngredients();
     this.props.onLoadCrepes();
+
+    const query = this.props.location.search;
+    const params = new URLSearchParams(query);
+
+    if (!this.props.crepesLoading && params.get('submit')) {
+      this.props.onSendOrder(
+        this.props.token,
+        this.props.userId,
+        this.props.orderId,
+        this.props.orders
+      );
+    }
   }
 
   openModalHandler = (event, crepe) => {
@@ -93,7 +119,12 @@ class Homepage extends Component {
   sendOrderHandler = (event) => {
     event.preventDefault();
 
-    this.props.onSendOrder(this.props.token, this.props.userId);
+    this.props.onSendOrder(
+      this.props.token,
+      this.props.userId,
+      this.props.orderId,
+      this.props.orders
+    );
   }
 
   render() {
@@ -144,6 +175,7 @@ const mapStateToProps = (state) => {
     flashMessage: state.order.flashMessage,
     userId: state.auth.userId,
     token: state.auth.token,
+    orderId: state.order.orderId,
   };
 }
 
@@ -161,7 +193,7 @@ const mapDispatchToProps = (dispatch) => {
     onAddCrepe: (crepe) => dispatch(actionCreators.addCrepeToOrder(crepe)),
     onRemoveCrepe: (uniqueId) => dispatch(actionCreators.removeCrepeToOrder(uniqueId)),
     onLoadOrderCrepe: (crepe, ingredients) => dispatch(actionCreators.loadOrderCrepe(crepe, ingredients)),
-    onSendOrder: (token, userId) => dispatch(actionCreators.sendOrder(token, userId)),
+    onSendOrder: (token, userId, orderId, orders) => dispatch(actionCreators.sendOrder(token, userId, orderId, orders)),
   };
 }
 

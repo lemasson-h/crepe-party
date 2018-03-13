@@ -5,16 +5,20 @@ import { NavLink } from 'react-router-dom';
 import * as actionCreators from '../store/actions';
 
 class SmartLink extends Component {
-  clickHandler = (event) => {
+  resetRequestSendOrder = () => {
     this.props.onResetRequestSendOrder();
-
-    return true;
   }
 
   render() {
+    const props = {
+      ...this.props
+    };
+
+    delete props.onResetRequestSendOrder;
+
     return (
-      <NavLink onClick={this.clickHandler} {...this.props}>
-        {this.props.children}
+      <NavLink {...props} onClick={this.resetRequestSendOrder}>
+        {props.children}
       </NavLink>
     );
   }
@@ -26,4 +30,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(undefined, mapDispatchToProps)(SmartLink);
+export default connect(null, mapDispatchToProps)(SmartLink);

@@ -267,3 +267,50 @@ export const authResetError = () => {
     type: actionTypes.AUTH_RESET_ERROR,
   };
 }
+
+export const authUpdateUsername = (userId, token, name) => {
+  return dispatch => {
+      dispatch(updateUsernameStart());
+
+      axios.put(
+        'https://crepe-party.firebaseio.com/users/'
+          + userId
+          + '.json?auth='
+          + token,
+        {
+            'name': name,
+        }
+      )
+      .then(response => {
+        dispatch(updateUsernameSuccess(name));
+      })
+      .catch(error => {
+        dispatch(updateUsernameFail());
+      });
+  };
+}
+
+const updateUsernameStart = () => {
+  return {
+    type: actionTypes.AUTH_UPDATE_USERNAME_START,
+  };
+}
+
+const updateUsernameSuccess = (name) => {
+  return {
+    type: actionTypes.AUTH_UPDATE_USERNAME_SUCCESS,
+    name: name
+  };
+}
+
+const updateUsernameFail = () => {
+  return {
+    type: actionTypes.AUTH_UPDATE_USERNAME_FAIL,
+  };
+}
+
+export const authResetUpdateUsername = () => {
+  return {
+    type: actionTypes.AUTH_RESET_UPDATE_USERNAME,
+  };
+}

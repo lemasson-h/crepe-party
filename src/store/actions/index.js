@@ -30,6 +30,8 @@ export {
   setRedirectToAfterLogin,
   switchLogin,
   authResetError,
+  authUpdateUsername,
+  authResetUpdateUsername,
 } from './authCreators';
 
 export {

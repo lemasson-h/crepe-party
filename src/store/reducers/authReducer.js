@@ -10,6 +10,10 @@ const initialState = {
   redirectTo: undefined,
   isLogin: true,
   username: undefined,
+  profile: {
+    loading: false,
+    error: undefined
+  }
 }
 
 const authReducer = (state = initialState, action) => {
@@ -30,6 +34,14 @@ const authReducer = (state = initialState, action) => {
       return switchLogin(state, action);
     case actionTypes.AUTH_RESET_ERROR:
       return resetError(state, action);
+    case actionTypes.AUTH_UPDATE_USERNAME_START:
+      return updateUsernameStart(state, action);
+    case actionTypes.AUTH_UPDATE_USERNAME_SUCCESS:
+      return updateUsernameSuccess(state, action);
+    case actionTypes.AUTH_UPDATE_USERNAME_FAIL:
+      return updateUsernameFail(state, action);
+    case actionTypes.AUTH_RESET_UPDATE_USERNAME:
+      return resetUpdateUsername(state, action);
     default:
       return state;
   }
@@ -120,6 +132,50 @@ const resetError = (state, action) => {
   return {
     ...state,
     error: undefined,
+  };
+}
+
+const updateUsernameStart = (state, action) => {
+  return {
+    ...state,
+    profile: {
+      ...state.profile,
+      loading: true,
+      error: undefined,
+    }
+  };
+}
+
+const updateUsernameSuccess = (state, action) => {
+  return {
+    ...state,
+    username: action.name,
+    profile: {
+      ...state.profile,
+      loading: false,
+    }
+  };
+}
+
+const updateUsernameFail = (state, action) => {
+  return {
+    ...state,
+    profile: {
+      ...state.profile,
+      loading: false,
+      error: 'Unable to update your username. Try later.'
+    }
+  };
+}
+
+const resetUpdateUsername = (state, action) => {
+  return {
+    ...state,
+    profile: {
+      ...state.profile,
+      loading: false,
+      error: undefined,
+    }
   };
 }
 

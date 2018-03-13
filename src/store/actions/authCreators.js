@@ -2,7 +2,88 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as orderCreators from './orderCreators';
 
-export const authLogin = (email, password) => {
+const ERROR_MAP = [
+  'EMAIL_EXISTS': '',
+  'OPERATION_NOT_ALLOWED': '',
+  'TOO_MANY_ATTEMPTS_TRY_LATER': '',
+  'WEAK_PASSWORD': '',
+  'EMAIL_NOT_FOUND': '',
+  'INVALID_PASSWORD': '',
+  'USER_DISABLED': '',
+];
+
+export const authenticate = (isLogin, formData) => {
+  if (isLogin) {
+    return authLogin(formData.email, formData.password);
+  }
+
+  return authSignUp(formData);
+}
+
+const authSignUp = (formData) => {
+  return dispatch => {
+    dispatch(authLoginStart());
+
+    axios.post(
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDJeHNhLP5fa1Yhsv3ArcURxRhnvBFIWdw',
+      {
+        email: formData.email,
+        password: formData.password,
+        returnSecureToken: true,
+      }
+    )
+    .then(loginResponse => {
+      postUserNameOnSignUp(loginResponse, formData, dispatch);
+    })
+    .catch(error => {
+      console.log(error.response);
+      dispatch(authLoginFail());
+    });
+  }
+}
+
+const postUserNameOnSignUp = (loginResponse, formData, dispatch) => {
+  axios.put(
+    'https://crepe-party.firebaseio.com/users/'
+      + loginResponse.data.localId
+      + '.json?auth='
+      + loginResponse.data.idToken,
+    {
+        'name': formData.name,
+    }
+  )
+  .then(userResponse => {
+    console.log(userResponse);
+
+    dispatch(authLoginSuccess(
+      loginResponse.data.idToken,
+      loginResponse.data.localId,
+      new Date((new Date()).getTime() + (loginResponse.data.expiresIn * 1000))
+    ));
+  })
+  .catch(error => {
+    deleteAccountWhenErrorOnSignUp(loginResponse.data.idToken, dispatch, error);
+  });
+}
+
+const deleteAccountWhenErrorOnSignUp = (token, dispatch, error) => {
+  axios.post(
+    'https://www.googleapis.com/identitytoolkit/v3/relyingparty/deleteAccount?key=AIzaSyDJeHNhLP5fa1Yhsv3ArcURxRhnvBFIWdw',
+    {
+      idToken: token,
+    }
+  )
+  .then(deleteResponse => {
+      console.log(error);
+      dispatch(authLoginFail());
+  })
+  .catch(deleteError => {
+      console.log(error);
+      dispatch(authLoginFail());
+  });
+}
+
+const authLogin = (formData) => {
   return dispatch => {
     dispatch(authLoginStart());
 
@@ -12,8 +93,8 @@ export const authLogin = (email, password) => {
     axios.post(
       'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDJeHNhLP5fa1Yhsv3ArcURxRhnvBFIWdw',
       {
-        email: email,
-        password: password,
+        email: formData.email,
+        password: formData.password,
         returnSecureToken: true,
       }
     )

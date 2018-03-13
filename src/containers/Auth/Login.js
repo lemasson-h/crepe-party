@@ -31,7 +31,14 @@ class Login extends Component {
         return;
     }
 
-    this.props.onLogin(this.state.email, this.state.password);
+    this.props.onAuthenticate(
+      this.props.isLogin,
+      {
+        email: this.state.email,
+        password: this.state.password,
+        name: this.state.name,
+      }
+    );
   }
 
   switchLoginHandler = (event) => {
@@ -115,7 +122,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: (email, password) => dispatch(actionCreators.authLogin(email, password)),
+    onAuthenticate: (isLogin, formData) => dispatch(actionCreators.authenticate(isLogin, formData)),
     onSetRedirectTo: (redirectTo) => dispatch(actionCreators.setRedirectToAfterLogin(redirectTo)),
     onSwitchLogin: () => dispatch(actionCreators.switchLogin()),
     onResetError: () => dispatch(actionCreators.authResetError()),

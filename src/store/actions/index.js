@@ -24,7 +24,7 @@ export {
 } from './adminIngredientCreators';
 
 export {
-  authLogin,
+  authenticate,
   authLogout,
   authAutoLogin,
   setRedirectToAfterLogin,

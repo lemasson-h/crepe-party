@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import * as actionCreators from '../../store/actions';
 import { connect } from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import './Login.css';
+import '../../assets/css/form.css';
 
 class Login extends Component {
   state = {
@@ -108,7 +108,7 @@ class Login extends Component {
     }
 
     return (
-      <div className="Login">
+      <div className="Form">
         {form}
       </div>
     );

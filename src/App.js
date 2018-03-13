@@ -9,6 +9,7 @@ import Layout from './components/Layout/Layout';
 import Login from './containers/Auth/Login';
 import Logout from './containers/Auth/Logout';
 import NotFound from './components/NotFound/NotFound';
+import Profile from './containers/Auth/Profile';
 import redirectHoc from './hoc/RedirectHoc';
 
 class App extends Component {
@@ -18,9 +19,14 @@ class App extends Component {
 
   render() {
     let adminRoutes = null;
+    let authenticatedRoutes = null;
 
     if (this.props.isAdmin) {
       adminRoutes = <Route path="/admin" component={Admin}/>;
+    }
+
+    if (this.props.isAuthenticated) {
+      authenticatedRoutes = <Route path="/profile" component={Profile}/>;
     }
 
     return (
@@ -29,6 +35,7 @@ class App extends Component {
           <Route path="/" exact component={Homepage}/>
           <Route path="/login" component={Login}/>
           {adminRoutes}
+          {authenticatedRoutes}
           <Route path="/logout" component={Logout} />
           <Route component={NotFound} />
         </Switch>

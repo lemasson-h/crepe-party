@@ -1,19 +1,18 @@
-.Login {
-  margin: auto;
-  border: 1px solid #ffdda0;
+.Form {
   background-color: #fff9ef;
-  width: 40%;
+  border: 1px solid #ffdda0;
+  margin: auto;
   margin-top: 30px;
-
+  width: 40%;
 }
 
-.Login form {
+.Form form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.Login form input {
+.Form form input {
   width: 70%;
   margin-top: 20px;
   height: 30px;
@@ -21,15 +20,19 @@
   border: 2px solid #c19343;
 }
 
-.Login form button {
+.Form form button {
   margin-top: 20px;
 }
 
-.Login form button:last-child {
+.Form form button:last-child {
   margin-bottom: 20px;
 }
 
-.Login form .ActionButton {
+.Form form .Error {
+  margin: 10px 15px 0 15px;
+}
+
+.Form form .ActionButton {
   background-color: #ffe7bc;
   border: 1px solid #ffe7bc;
   border-radius: 5px;
@@ -38,18 +41,14 @@
   padding: 5px 10px;
 }
 
-.Login form .Error {
-  margin: 10px 15px 0 15px;
-}
-
-.Login form .ActionButton:hover,
-.Login form .ActionButton:active {
+.Form form .ActionButton:hover,
+.Form form .ActionButton:active {
   color: black;
   cursor: pointer;
 }
 
 @media (max-width: 401px) {
-  .Login {
+  .Form {
     width: 80%;
   }
 }

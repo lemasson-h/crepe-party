@@ -34,7 +34,7 @@ const order = (props) => {
     orders = <div className="EmptyBasket">Empty basket.</div>
   }
 
-  let actions = <button disabled={props.orders.length === 0} className="Submit" onClick={props.sendOrderMethod}>Order</button>;
+  let actions = <button disabled={props.orders.length === 0 || props.loadingOrder} className="Submit" onClick={props.sendOrderMethod}>Order</button>;
 
   if (props.sendingOrder) {
     actions = <Spinner small={1}/>;

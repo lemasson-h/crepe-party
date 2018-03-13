@@ -8,7 +8,8 @@ const initialState = {
   orders: [],
   flashMessage: undefined,
   timer: undefined,
-  loading: false,
+  loadingSend: false,
+  loadingOrder: false,
   submitRequested: false,
 };
 
@@ -149,7 +150,7 @@ const resetRequestSendOrder = (state, action) => {
 const sendOrderStart = (state, action) => {
   return {
     ...state,
-    loading: true,
+    loadingSend: true,
     submitRequested: false,
   };
 }
@@ -159,7 +160,7 @@ const sendOrderSuccess = (state, action) => {
 
   return {
     ...state,
-    loading: false,
+    loadingSend: false,
     orderId: action.orderId,
     flashMessage: {
       type: 'success',
@@ -174,7 +175,7 @@ const sendOrderFail = (state, action) => {
 
   return {
     ...state,
-    loading: false,
+    loadingSend: false,
     flashMessage: {
       type: 'error',
       message: 'Unable to submit the order.',
@@ -191,7 +192,7 @@ const resetOnLogout = (state, action) => {
     orders: [],
     flashMessage: undefined,
     timer: undefined,
-    loading: false,
+    loadingSend: false,
     submitRequested: false,
   }
 }
@@ -200,7 +201,10 @@ const resetOnLogout = (state, action) => {
 //It will be done during the spinner of the login
 //So no additional UI needed
 const loadOrderStart = (state, action) => {
-  return state;
+  return {
+    ...state,
+    loadingOrder: true,
+  };
 }
 
 const loadOrderSuccess = (state, action) => {
@@ -214,12 +218,14 @@ const loadOrderSuccess = (state, action) => {
     ...state,
     orderId: action.orderId,
     orders: updatedOrders,
+    loadingOrder: false,
   };
 }
 
 const loadOrderFail = (state, action) => {
   return {
     ...state,
+    loadingOrder: false,
     flashMessage: {
       type: 'error',
       message: 'Unable to load your orders',

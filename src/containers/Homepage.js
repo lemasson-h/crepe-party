@@ -13,29 +13,27 @@ class Homepage extends Component {
     showModal: false,
   }
 
-  componentDidUpdate() {
-    if (!this.props.crepesLoading && this.props.requestSendOrder) {
+  submitOrderIfNecessary = () => {
+      if (this.props.crepesLoading || !this.props.requestSendOrder || this.props.loadingOrder) {
+        return ;
+      }
+
       this.props.onSendOrder(
         this.props.token,
         this.props.userId,
         this.props.orderId,
         this.props.orders
       );
-    }
+  }
+
+  componentDidUpdate() {
+    this.submitOrderIfNecessary();
   }
 
   componentDidMount() {
     this.props.onLoadIngredients();
     this.props.onLoadCrepes();
-
-    if (!this.props.crepesLoading && this.props.requestSendOrder) {
-      this.props.onSendOrder(
-        this.props.token,
-        this.props.userId,
-        this.props.orderId,
-        this.props.orders
-      );
-    }
+    this.submitOrderIfNecessary();
   }
 
   openModalHandler = (event, crepe) => {
@@ -138,6 +136,7 @@ class Homepage extends Component {
           deleteCrepeMethod={this.deleteCrepeHandler}
           openModalMethod={this.openModalHandler}
           sendOrderMethod={this.sendOrderHandler}
+          loadingOrder={this.props.loadingOrder}
           sendingOrder={this.props.sendingOrder} />
         <CustomizeCrepe
           crepe={this.props.currentCrepe}
@@ -172,7 +171,8 @@ const mapStateToProps = (state) => {
     token: state.auth.token,
     orderId: state.order.orderId,
     requestSendOrder: state.order.submitRequested,
-    sendingOrder: state.order.loading,
+    loadingOrder: state.order.loadingOrder,
+    sendingOrder: state.order.loadingSend,
   };
 }
 

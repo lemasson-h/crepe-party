@@ -38,7 +38,14 @@ class Navigation extends Component {
     }
 
     if (this.props.isAuthenticated) {
-      authLink = <div className="NavLink"><SmartLink to="/logout">Logout</SmartLink></div>;
+      authLink = (
+        <SubNavigation
+          parentPath="/profile"
+          parentName="Profile">
+            <SmartLink to="/logout" exact>Logout</SmartLink>
+        </SubNavigation>
+      );
+      // <div className="NavLink"><SmartLink to="/logout">Logout</SmartLink></div>;
     }
 
     return (

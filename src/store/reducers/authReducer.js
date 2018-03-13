@@ -6,7 +6,7 @@ const initialState = {
   isAuthenticated: false,
   loading: false,
   logoutTimer: null,
-  error: false,
+  error: undefined,
   redirectTo: undefined,
   isLogin: true,
   username: undefined,
@@ -47,7 +47,7 @@ const loginStart = (state, action) => {
     isAuthenticated: false,
     loading: true,
     logoutTimer: null,
-    error: false,
+    error: undefined,
   };
 }
 
@@ -62,7 +62,7 @@ const loginSuccess = (state, action) => {
     userId: action.userId,
     loading: false,
     isAuthenticated: true,
-    error: false,
+    error: undefined,
     username: action.username,
   };
 }
@@ -71,7 +71,7 @@ const loginFail = (state, action) => {
   return {
     ...state,
     loading: false,
-    error: true,
+    error: action.error,
   }
 }
 
@@ -119,7 +119,7 @@ const switchLogin = (state, action) => {
 const resetError = (state, action) => {
   return {
     ...state,
-    error: false,
+    error: undefined,
   };
 }
 

@@ -39,8 +39,7 @@
 }
 
 .Login form .Error {
-  margin-top: 10px;
-  margin-bottom: 0px;
+  margin: 10px 15px 0 15px;
 }
 
 .Login form .ActionButton:hover,

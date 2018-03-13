@@ -2,15 +2,32 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as orderCreators from './orderCreators';
 
-const ERROR_MAP = [
-  'EMAIL_EXISTS': '',
-  'OPERATION_NOT_ALLOWED': '',
-  'TOO_MANY_ATTEMPTS_TRY_LATER': '',
-  'WEAK_PASSWORD': '',
-  'EMAIL_NOT_FOUND': '',
-  'INVALID_PASSWORD': '',
-  'USER_DISABLED': '',
-];
+const errorMap = {
+  EMAIL_EXISTS: 'The email address is already in use by another account.',
+  OPERATION_NOT_ALLOWED: 'Password sign-in is disabled for this project.',
+  TOO_MANY_ATTEMPTS_TRY_LATER: 'All requests from this device are currently blocked due to unusual activity. Try again later.',
+  WEAK_PASSWORD: 'You need to provide a password of at least 6 characters.',
+  EMAIL_NOT_FOUND: 'There is no user record corresponding to this identifier.',
+  INVALID_PASSWORD: 'The password is invalid or the user does not have a password.',
+  USER_DISABLED: 'The user account has been disabled by an administrator.',
+};
+
+const getAuthenticateError = (isLogin, error)  => {
+  let errorKey = undefined;
+
+  try {
+    errorKey = error.response.data.error.message;
+  } catch (e) {
+  }
+
+  const errorMessage = errorKey ? errorMap[errorKey] : undefined;
+
+  if (undefined !== errorMessage) {
+    return errorMessage;
+  }
+
+  return 'Unable to ' + (isLogin ? 'login.' : 'signUp.');
+}
 
 export const authenticate = (isLogin, formData) => {
   if (isLogin) {
@@ -36,8 +53,7 @@ const authSignUp = (formData) => {
       postUserNameOnSignUp(loginResponse, formData, dispatch);
     })
     .catch(error => {
-      console.log(error.response);
-      dispatch(authLoginFail());
+      dispatch(authLoginFail(getAuthenticateError(false, error)));
     });
   }
 }
@@ -75,12 +91,10 @@ const deleteAccountWhenErrorOnSignUp = (token, dispatch, error) => {
     }
   )
   .then(deleteResponse => {
-      console.log(error);
-      dispatch(authLoginFail());
+      dispatch(authLoginFail(getAuthenticateError(false, error)));
   })
   .catch(deleteError => {
-      console.log(error);
-      dispatch(authLoginFail());
+      dispatch(authLoginFail(getAuthenticateError(false, error)));
   });
 }
 
@@ -107,7 +121,7 @@ const authLogin = (formData) => {
         ));
       })
       .catch(error => {
-        dispatch(authLoginFail());
+        dispatch(authLoginFail(getAuthenticateError(true, error)));
       });
   }
 }
@@ -208,9 +222,10 @@ const internalAuthLoginSuccess = (token, userId, expiresAt, username) => {
   };
 }
 
-const authLoginFail = () => {
+const authLoginFail = (error) => {
   return {
     type: actionTypes.AUTH_LOGIN_FAIL,
+    error: error,
   };
 }
 

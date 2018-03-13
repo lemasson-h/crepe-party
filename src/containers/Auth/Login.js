@@ -23,6 +23,8 @@ class Login extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
+    this.resetErrors();
+
     if (!this.props.isLogin && this.state.name.trim() === '') {
         this.setState({
           error: 'You need to provide your name.',
@@ -54,17 +56,20 @@ class Login extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.isLogin !== this.props.isLogin) {
-      if (this.state.error) {
-        this.setState({
-          error: undefined,
-        });
-      }
+      this.resetErrors();
+    }
+  }
 
-      if (this.props.error) {
-        this.props.onResetError();
-      }
+  resetErrors = () => {
+    if (this.state.error) {
+      this.setState({
+        error: undefined,
+      });
     }
 
+    if (this.props.error) {
+      this.props.onResetError();
+    }
   }
 
   render() {
@@ -92,7 +97,7 @@ class Login extends Component {
       form = (
         <form onSubmit={this.submitHandler}>
           {this.state.error ? <p className="Error">{this.state.error}</p> : null}
-          {this.props.error ? <p className="Error">Invalid credentials</p> : null}
+          {this.props.error ? <p className="Error">{this.props.error}</p> : null}
           <input type="email" name="email" onChange={(inputValue) => { this.onInputChange('email', inputValue) }} value={this.state.email} placeholder="E-Mail" />
           <input type="password" name="password" onChange={(inputValue) => { this.onInputChange('password', inputValue) } } value={this.state.password} placeholder="Password" />
           {additionalInput}

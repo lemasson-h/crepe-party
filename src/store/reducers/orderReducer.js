@@ -24,6 +24,8 @@ const reducer = (state = initialState, action) => {
       return setTimer(state, action);
     case actionTypes.ORDER_REQUEST_SEND_ORDER:
       return requestSendOrder(state, action);
+    case actionTypes.ORDER_RESET_REQUEST_SEND_ORDER:
+      return resetRequestSendOrder(state, action);
     case actionTypes.ORDER_SEND_ORDER_START:
       return sendOrderStart(state, action);
     case actionTypes.ORDER_SEND_ORDER_SUCCESS:
@@ -134,6 +136,13 @@ const requestSendOrder = (state, action) => {
   return {
     ...state,
     submitRequested: true,
+  };
+}
+
+const resetRequestSendOrder = (state, action) => {
+  return {
+    ...state,
+    submitRequested: false,
   };
 }
 

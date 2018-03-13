@@ -1,10 +1,11 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+
+import SmartLink from '../../../hoc/SmartLink';
 
 const subNavigation = (props) => {
   return (
     <div className="NavLink">
-      <NavLink to={props.parentPath}>{props.parentName}</NavLink>
+      <SmartLink to={props.parentPath}>{props.parentName}</SmartLink>
       <div className="Navigation">
           {props.children.map((child, key) => {
               const duplicateChild = {

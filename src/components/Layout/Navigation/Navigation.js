@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
 
+import SmartLink from '../../../hoc/SmartLink';
 import SubNavigation from './SubNavigation';
 
 class Navigation extends Component {
@@ -24,26 +24,26 @@ class Navigation extends Component {
 
   render() {
     let adminLink = null;
-    let authLink = <div className="NavLink"><NavLink to="/login">Login</NavLink></div>;
+    let authLink = <div className="NavLink"><SmartLink to="/login">Login</SmartLink></div>;
 
     if (this.props.isAdmin) {
       adminLink = (
         <SubNavigation
           parentPath="/admin"
           parentName="Admin">
-            <NavLink to="/admin" exact>Manage Menu</NavLink>
-            <NavLink to="/admin/ingredients">Manage Ingredients</NavLink>
+            <SmartLink to="/admin" exact>Manage Menu</SmartLink>
+            <SmartLink to="/admin/ingredients">Manage Ingredients</SmartLink>
         </SubNavigation>
       );
     }
 
     if (this.props.isAuthenticated) {
-      authLink = <div className="NavLink"><NavLink to="/logout">Logout</NavLink></div>;
+      authLink = <div className="NavLink"><SmartLink to="/logout">Logout</SmartLink></div>;
     }
 
     return (
       <div className="Navigation">
-        <div className="NavLink"><NavLink to="/" exact>Homepage</NavLink></div>
+        <div className="NavLink"><SmartLink to="/" exact>Homepage</SmartLink></div>
         {adminLink}
         {authLink}
       </div>

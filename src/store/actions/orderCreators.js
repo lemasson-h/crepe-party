@@ -56,6 +56,12 @@ const setTimerFlashMessageForOrder = (timer) => {
   };
 }
 
+export const resetRequestSendOrder = () => {
+  return {
+    type: actionTypes.ORDER_RESET_REQUEST_SEND_ORDER,
+  };
+}
+
 const requestSendOrder = () => {
   return {
     type: actionTypes.ORDER_REQUEST_SEND_ORDER,

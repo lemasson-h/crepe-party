@@ -14,7 +14,7 @@ const ERROR_MAP = [
 
 export const authenticate = (isLogin, formData) => {
   if (isLogin) {
-    return authLogin(formData.email, formData.password);
+    return authLogin(formData);
   }
 
   return authSignUp(formData);
@@ -58,7 +58,8 @@ const postUserNameOnSignUp = (loginResponse, formData, dispatch) => {
     dispatch(authLoginSuccess(
       loginResponse.data.idToken,
       loginResponse.data.localId,
-      new Date((new Date()).getTime() + (loginResponse.data.expiresIn * 1000))
+      new Date((new Date()).getTime() + (loginResponse.data.expiresIn * 1000)),
+      formData.name
     ));
   })
   .catch(error => {
@@ -148,20 +149,62 @@ const authLoginStart = () => {
   };
 }
 
-const authLoginSuccess = (token, userId, expiresAt) => {
+const authLoginSuccess = (token, userId, expiresAt, username = undefined) => {
   return dispatch => {
-    dispatch(orderCreators.loadOrder(token, userId));
-    dispatch(internalAuthLoginSuccess(token, userId, expiresAt));
-    dispatch(authSetLogout(expiresAt.getTime() - (new Date()).getTime()));
+    if (undefined === username) {
+      axios.get(
+        'https://crepe-party.firebaseio.com/users/'
+        + userId
+        + '.json?auth='
+        + token
+      ).then(response => {
+        dispatch(
+          dispatchActionsAfterLoginSuccess(
+            token,
+            userId,
+            expiresAt,
+            response.data.name
+          )
+        );
+      })
+      .catch(err => {
+        dispatch(
+          dispatchActionsAfterLoginSuccess(
+            token,
+            userId,
+            expiresAt,
+            'John Doe'
+          )
+        );
+      });
+    } else {
+      dispatch(
+        dispatchActionsAfterLoginSuccess(
+          token,
+          userId,
+          expiresAt,
+          username
+        )
+      );
+    }
   };
 }
 
-const internalAuthLoginSuccess = (token, userId, expiresAt) => {
+const dispatchActionsAfterLoginSuccess = (token, userId, expiresAt, username) => {
+  return dispatch => {
+    dispatch(orderCreators.loadOrder(token, userId));
+    dispatch(internalAuthLoginSuccess(token, userId, expiresAt, username));
+    dispatch(authSetLogout(expiresAt.getTime() - (new Date()).getTime()));
+  }
+}
+
+const internalAuthLoginSuccess = (token, userId, expiresAt, username) => {
   return {
     type: actionTypes.AUTH_LOGIN_SUCCESS,
     token: token,
     userId: userId,
     expiresAt: expiresAt,
+    username: username,
   };
 }
 

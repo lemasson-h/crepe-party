@@ -9,6 +9,7 @@ const initialState = {
   error: false,
   redirectTo: undefined,
   isLogin: true,
+  username: undefined,
 }
 
 const authReducer = (state = initialState, action) => {
@@ -62,7 +63,8 @@ const loginSuccess = (state, action) => {
     loading: false,
     isAuthenticated: true,
     error: false,
-  }
+    username: action.username,
+  };
 }
 
 const loginFail = (state, action) => {
@@ -89,6 +91,7 @@ const logout = (state, action) => {
     isAuthenticated: false,
     logoutTimer: null,
     isLogin: true,
+    username: undefined,
   }
 }
 

@@ -1,24 +1,41 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import * as actionCreators from '../store/actions';
+
+const acceptedProperties = [
+  'to',
+  'activeClassName',
+  'activeStyle',
+  'exact',
+  'strict',
+  'isActive'
+];
 
 class SmartLink extends Component {
   resetRequestSendOrder = () => {
     this.props.onResetRequestSendOrder();
   }
 
+  getCleanProps = () => {
+    const props = {};
+
+    acceptedProperties.forEach(propertyName => {
+      if (undefined !== this.props[propertyName]) {
+        props[propertyName] = this.props[propertyName];
+      }
+    });
+
+    return props;
+  }
+
   render() {
-    const props = {
-      ...this.props
-    };
-
-    delete props.onResetRequestSendOrder;
-
     return (
-      <NavLink {...props} onClick={this.resetRequestSendOrder}>
-        {props.children}
+      <NavLink
+        {...this.getCleanProps()}
+         onClick={this.resetRequestSendOrder}>
+        {this.props.children}
       </NavLink>
     );
   }
@@ -30,4 +47,4 @@ const mapDispatchToProps = dispatch => {
   };
 }
 
-export default connect(null, mapDispatchToProps)(SmartLink);
+export default withRouter(connect(null, mapDispatchToProps)(SmartLink));

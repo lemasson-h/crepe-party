@@ -4,11 +4,30 @@ import * as flashMessageCreators from './flashMessageCreators';
 
 export const adminResetOrders = (token) => {
   return dispatch => {
+    dispatch(resetOrdersStart());
+
     axios.delete('https://crepe-party.firebaseio.com/orders.json?auth=' + token)
       .then(response => {
+        dispatch(flashMessageCreators.setFlashMessage(
+          'success',
+          'All orders has been reset.'
+        ));
+
+        dispatch(resetOrdersFinish());
+        dispatch(adminLoadUsers(token));
       })
       .catch(error => {
+        let message = '';
 
+        if (error.response !== undefined) {
+          message = ' Error: ' + error.response.data.error + '.';
+        }
+
+        dispatch(flashMessageCreators.setFlashMessage(
+          'error',
+          'Unable to reset all orders.' + message
+        ));
+        dispatch(resetOrdersFinish());
       });
   }
 }
@@ -81,4 +100,16 @@ const loadUsersSuccess = (users) => {
       type: actionTypes.ADMIN_LOAD_USERS_SUCCESS,
       users: users,
     };
+}
+
+const resetOrdersStart = () => {
+  return {
+    type: actionTypes.ADMIN_RESET_ORDERS_START,
+  };
+}
+
+const resetOrdersFinish = () => {
+  return {
+    type: actionTypes.ADMIN_RESET_ORDERS_FINISH,
+  };
 }

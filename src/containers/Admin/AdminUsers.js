@@ -14,10 +14,13 @@ class AdminUser extends Component {
 
     submitResetOrder = (e) => {
       e.preventDefault();
+
+      this.props.onResetOrders(this.props.token);
     }
 
     render() {
       let content = <Spinner />;
+      let actions = <Spinner small/>;
 
       if (!this.props.loading) {
         content = (
@@ -44,13 +47,22 @@ class AdminUser extends Component {
         );
       }
 
+      if (!this.props.resetLoading) {
+        actions = (
+          <button disabled={this.props.loading}
+            className="Submit"
+            style={{marginTop: '20px'}}
+            onClick={this.submitResetOrder}>Reset orders</button>
+        );
+      }
+
       return (
         <div className="AdminPage">
             <h1>Users</h1>
             <div className="Content" style={{marginTop: '-20px'}}>
               <FlashMessage message={this.props.flashMessage} />
               {content}
-              <button className="Submit" style={{marginTop: '20px'}} onClick={this.submitResetOrder}>Reset orders</button>
+              {actions}
             </div>
         </div>
       );
@@ -62,13 +74,15 @@ const mapStateToProps = state => {
     token: state.auth.token,
     loading: state.adminUser.loading,
     users: state.adminUser.users,
-    flashMessage: state.flashMessage.message
+    flashMessage: state.flashMessage.message,
+    resetLoading: state.adminUser.resetLoading,
   };
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onLoadUsers: (token) => dispatch(actionCreators.adminLoadUsers(token)),
+    onResetOrders: (token) => dispatch(actionCreators.adminResetOrders(token)),
   };
 }
 

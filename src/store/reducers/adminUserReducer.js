@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   error: undefined,
   users: [],
+  resetLoading: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -14,6 +15,10 @@ const reducer = (state = initialState, action) => {
       return loadUsersFail(state, action);
     case actionTypes.ADMIN_LOAD_USERS_SUCCESS:
       return loadUsersSuccess(state, action);
+    case actionTypes.ADMIN_RESET_ORDERS_START:
+      return resetOrdersStart(state, action);
+    case actionTypes.ADMIN_RESET_ORDERS_FINISH:
+      return resetOrdersFinish(state, action);
     default:
       return state;
   }
@@ -40,6 +45,20 @@ const loadUsersSuccess = (state, action) => {
     ...state,
     loading: false,
     users: action.users,
+  };
+}
+
+const resetOrdersStart = (state, action) => {
+  return {
+    ...state,
+    resetLoading: true,
+  };
+}
+
+const resetOrdersFinish = (state, action) => {
+  return {
+    ...state,
+    resetLoading: false,
   };
 }
 

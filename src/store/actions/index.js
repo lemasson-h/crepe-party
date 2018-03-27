@@ -63,7 +63,8 @@ export {
 } from './redirectCreators';
 
 export {
-  adminLoadUsers
+  adminLoadUsers,
+  adminResetOrders
 } from './adminUserCreators';
 
 export {

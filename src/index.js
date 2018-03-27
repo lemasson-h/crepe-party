@@ -7,6 +7,7 @@ import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import adminCrepeReducer from './store/reducers/adminCrepeReducer';
 import adminIngredientReducer from './store/reducers/adminIngredientReducer';
+import adminShoppingReducer from './store/reducers/adminShoppingReducer';
 import adminUserReducer from './store/reducers/adminUserReducer';
 import authReducer from './store/reducers/authReducer';
 import crepeReducer from './store/reducers/crepeReducer';
@@ -21,6 +22,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const reducer = combineReducers({
   adminCrepe: adminCrepeReducer,
   adminIngredient: adminIngredientReducer,
+  adminShopping: adminShoppingReducer,
   adminUser: adminUserReducer,
   auth: authReducer,
   crepes: crepeReducer,

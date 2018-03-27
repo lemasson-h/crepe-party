@@ -68,7 +68,6 @@ const addCrepe = (state, action) => {
 
   return {
     ...state,
-    error: undefined,
     orders: updatedOrders,
   };
 }

@@ -5,8 +5,6 @@ const ucfirst = (str) => {
 }
 
 const flashMessage = (props) => {
-  console.log(props);
-
   return (
     props.message ?
       <div className={"FlashMessage " + ucfirst(props.message.type)}>{props.message.value}</div>

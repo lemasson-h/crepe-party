@@ -2,7 +2,6 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   loading: false,
-  error: undefined,
   users: [],
   resetLoading: false,
 }
@@ -28,7 +27,6 @@ const loadUsersStart = (state, action) => {
   return {
     ...state,
     loading: true,
-    error: undefined,
     users: [],
   };
 }

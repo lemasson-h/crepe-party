@@ -32,7 +32,6 @@ const loadUsersFail = (state, action) => {
   return {
     ...state,
     loading: false,
-    error: action.error,
   };
 }
 

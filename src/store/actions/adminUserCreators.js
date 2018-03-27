@@ -46,10 +46,20 @@ export const adminLoadUsers = (token) => {
 
             dispatch(loadUsersSuccess(users));
           })
-          .catch(loadUsersFail('Fail to load users\' orders.'));
+          .catch(error => {
+            dispatch(loadUsersFail());
+            dispatch(flashMessageCreators.setFlashMessage(
+              'error',
+              'Fail to load users\' orders.'
+            ));
+          });
       })
       .catch(error => {
-        dispatch(loadUsersFail('Fail to load users.'));
+        dispatch(loadUsersFail());
+        dispatch(flashMessageCreators.setFlashMessage(
+          'error',
+          'Fail to load users.'
+        ));
       });
   }
 }
@@ -60,10 +70,9 @@ const loadUsersStart = () => {
   };
 }
 
-const loadUsersFail = (error) => {
+const loadUsersFail = () => {
   return {
-    type: actionTypes.ADMIN_LOAD_USERS_FAIL,
-    error: error,
+    type: actionTypes.ADMIN_LOAD_USERS_FAIL
   };
 }
 

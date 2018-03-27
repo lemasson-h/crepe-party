@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes';
 
-export const setFlashMessage = (messageType, messageValue, time) => {
+export const setFlashMessage = (messageType, messageValue, time = 5000) => {
   return dispatch => {
     dispatch(
       internalSetFlashMessage(

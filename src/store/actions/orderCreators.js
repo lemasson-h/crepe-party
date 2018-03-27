@@ -9,8 +9,7 @@ export const addCrepeToOrder = (crepe) => {
     dispatch(internalAddCrepeToOrder(crepe));
     dispatch(flashMessageCreators.setFlashMessage(
         'success',
-        'Crepe ' + crepe.name +  (undefined !== crepe.uniqueId ? ' edited.' : ' added.'),
-        5000
+        'Crepe ' + crepe.name +  (undefined !== crepe.uniqueId ? ' edited.' : ' added.')
     ));
   };
 }
@@ -27,8 +26,7 @@ export const removeCrepeToOrder = (uniqueId) => {
     dispatch(internalRemoveCrepeToOrder(uniqueId));
     dispatch(flashMessageCreators.setFlashMessage(
         'success',
-        'Crepe removed.',
-        5000
+        'Crepe removed.'
     ));
   };
 }
@@ -92,16 +90,14 @@ export const sendOrder = (token, userId, orderId, orders) => {
         dispatch(sendOrderSuccess(undefined !== orderId ? orderId : response.data.name));
         dispatch(flashMessageCreators.setFlashMessage(
           'success',
-          'Order submitted.',
-          5000
+          'Order submitted.'
         ));
       })
       .catch(error => {
         dispatch(sendOrderFail());
         dispatch(flashMessageCreators.setFlashMessage(
           'error',
-          'Unable to submit the order.',
-          5000
+          'Unable to submit the order.'
         ));
       })
   }
@@ -161,8 +157,7 @@ export const loadOrder = (token, userId) => {
         dispatch(loadOrderFail());
         dispatch(flashMessageCreators.setFlashMessage(
           'error',
-          'Unable to load your orders.',
-          5000
+          'Unable to load your orders.'
         ));
       });
   }

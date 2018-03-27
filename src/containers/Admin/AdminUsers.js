@@ -47,7 +47,7 @@ class AdminUser extends Component {
       return (
         <div className="AdminPage">
             <h1>Users</h1>
-            <div className="Content">
+            <div className="Content" style={{marginTop: '-20px'}}>
               <FlashMessage message={this.props.flashMessage} />
               {content}
               <button className="Submit" style={{marginTop: '20px'}} onClick={this.submitResetOrder}>Reset orders</button>

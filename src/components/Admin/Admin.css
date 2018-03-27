@@ -1,7 +1,7 @@
 .AdminPage {
-  width: 100%;
   margin: 0 auto;
   text-align: center;
+  width: 100%;
 }
 
 .AdminPage h1 {
@@ -9,11 +9,11 @@
 }
 
 .AdminPage nav a {
-  text-decoration: none;
-  color: white;
   background-color: #c19343;
-  padding: 15px 20px;
   border-radius: 5px;
+  color: white;
+  padding: 15px 20px;
+  text-decoration: none;
 }
 
 .AdminPage form {
@@ -73,4 +73,8 @@
 
 .AdminPage .Ingredients .Ingredient button:first-child {
   margin: 0 15px;
+}
+
+.AdminPage .FlashMessage {
+  margin-bottom: 20px;
 }

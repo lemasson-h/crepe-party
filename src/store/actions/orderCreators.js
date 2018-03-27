@@ -152,7 +152,6 @@ export const loadOrder = (token, userId) => {
       + '"'
     )
       .then(response => {
-        console.log(response);
         const firstKey = Object.keys(response.data).shift();
         let orders = [];
         let orderId = undefined;

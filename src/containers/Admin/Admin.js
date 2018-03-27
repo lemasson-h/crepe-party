@@ -7,6 +7,7 @@ import AdminEditIngredient from './AdminEditIngredient';
 import AdminIngredients from './AdminIngredients';
 import AdminNewCrepe from './AdminNewCrepe';
 import AdminNewIngredient from './AdminNewIngredient';
+import AdminUsers from './AdminUsers';
 import NotFound from '../../components/NotFound/NotFound';
 
 class Admin extends Component {
@@ -14,7 +15,8 @@ class Admin extends Component {
       return (
         <div>
           <Switch>
-              <Route path={this.props.match.url} exact component={AdminCrepes} />
+              <Route path={this.props.match.url} exact component={AdminUsers} />
+              <Route path={this.props.match.url + '/crepes'} exact component={AdminCrepes} />
               <Route path={this.props.match.url + '/crepes/add'} exact component={AdminNewCrepe} />
               <Route path={this.props.match.url + '/crepes/:crepeId/edit'} exact component={AdminEditCrepe} />
               <Route path={this.props.match.url + '/ingredients'} exact component={AdminIngredients} />

@@ -61,3 +61,7 @@ export {
 export {
   setGlobalRedirectTo
 } from './redirectCreators';
+
+export {
+  adminLoadUsers
+} from './adminUserCreators';

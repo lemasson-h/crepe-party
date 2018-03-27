@@ -31,7 +31,8 @@ class Navigation extends Component {
         <SubNavigation
           parentPath="/admin"
           parentName="Admin">
-            <SmartLink to="/admin" exact>Manage Menu</SmartLink>
+            <SmartLink to="/admin" exact>Users</SmartLink>
+            <SmartLink to="/admin/crepes">Manage Crepes</SmartLink>
             <SmartLink to="/admin/ingredients">Manage Ingredients</SmartLink>
         </SubNavigation>
       );

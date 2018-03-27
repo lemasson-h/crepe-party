@@ -1,0 +1,17 @@
+.AdminPage table,
+.AdminPage td,
+.AdminPage th {
+  border: black solid 1px;
+  border-collapse: collapse;
+}
+
+.AdminPage table {
+  margin-top: -20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.AdminPage td,
+.AdminPage th {
+  padding: 5px 10px;
+}

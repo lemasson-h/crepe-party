@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as orderCreators from './orderCreators';
+import * as flashMessageCreators from './flashMessageCreators';
 
 const errorMap = {
   EMAIL_EXISTS: 'The email address is already in use by another account.',
@@ -129,6 +130,7 @@ const authLogin = (formData) => {
 export const authLogout = () => {
   return dispatch => {
     dispatch(orderCreators.resetOrderOnLogout());
+    dispatch(flashMessageCreators.resetFlashMessage());
     dispatch(internalLogout());
   };
 }

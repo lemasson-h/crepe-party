@@ -3,12 +3,9 @@ import React from 'react';
 import AddImage from '../UI/AddImage';
 import Aux from '../../hoc/Aux';
 import EditImage from '../UI/EditImage';
+import FlashMessage from '../../components/UI/FlashMessage';
 import { getIngredientNames } from '../../helpers/crepeHelper';
 import Spinner from '../UI/Spinner/Spinner';
-
-const ucfirst = (str) => {
-  return str[0].toUpperCase() + str.substr(1);
-}
 
 const menu = (props) => {
   let content = <Spinner />;
@@ -41,7 +38,7 @@ const menu = (props) => {
   return (
     <div className="Menu">
       <h1 className="Header">Menu</h1>
-        {!props.show && props.flashMessage ? <div className={ucfirst(props.flashMessage.type)}>{props.flashMessage.message}</div> : null}
+        <FlashMessage message={props.flashMessage} />
         {content}
     </div>
   );

@@ -1,0 +1,15 @@
+import React from 'react';
+
+const ucfirst = (str) => {
+  return str[0].toUpperCase() + str.substr(1);
+}
+
+const flashMessage = (props) => {
+  return (
+    props.message ?
+      <div className={ucfirst(props.message.type)}>{props.message.value}</div>
+      : null
+  );
+}
+
+export default flashMessage;

@@ -10,6 +10,7 @@ import adminIngredientReducer from './store/reducers/adminIngredientReducer';
 import adminUserReducer from './store/reducers/adminUserReducer';
 import authReducer from './store/reducers/authReducer';
 import crepeReducer from './store/reducers/crepeReducer';
+import flashMessageReducer from './store/reducers/flashMessageReducer';
 import ingredientReducer from './store/reducers/ingredientReducer';
 import orderReducer from './store/reducers/orderReducer';
 import redirectReducer from './store/reducers/redirectReducer';
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   adminUser: adminUserReducer,
   auth: authReducer,
   crepes: crepeReducer,
+  flashMessage: flashMessageReducer,
   ingredients: ingredientReducer,
   order: orderReducer,
   globalRedirect: redirectReducer,

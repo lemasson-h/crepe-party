@@ -1,5 +1,17 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as flashMessageCreators from './flashMessageCreators';
+
+export const adminResetOrders = (token) => {
+  return dispatch => {
+    axios.delete('https://crepe-party.firebaseio.com/orders.json?auth=' + token)
+      .then(response => {
+      })
+      .catch(error => {
+
+      });
+  }
+}
 
 export const adminLoadUsers = (token) => {
   return dispatch => {
@@ -7,19 +19,37 @@ export const adminLoadUsers = (token) => {
 
     axios.get('https://crepe-party.firebaseio.com/users.json?auth=' + token)
       .then(response => {
-        const users = Object.keys(response.data).map(
-          userId => {
-            return {
-              ...response.data[userId],
-              id: userId,
-            };
-          }
-        );
+        axios.get('https://crepe-party.firebaseio.com/orders.json?auth=' + token)
+          .then(ordersResponse => {
+            let orderIds = [];
 
-        dispatch(loadUsersSuccess(users));
+            if (ordersResponse.data !== null) {
+              orderIds = Object.keys(ordersResponse.data);
+            }
+
+            let users = [];
+            if (response.data !== null) {
+              users = Object.keys(response.data).map(
+                userId => {
+                  const orderIdx = orderIds.find(orderId => {
+                    return ordersResponse.data[orderId].userId === userId;
+                  });
+
+                  return {
+                    ...response.data[userId],
+                    id: userId,
+                    crepes: (orderIdx !== undefined ? Object.keys(ordersResponse.data[orderIdx].crepes).length : 0),
+                  };
+                }
+              );
+            }
+
+            dispatch(loadUsersSuccess(users));
+          })
+          .catch(loadUsersFail('Fail to load users\' orders.'));
       })
       .catch(error => {
-        dispatch(loadUsersFail());
+        dispatch(loadUsersFail('Fail to load users.'));
       });
   }
 }
@@ -30,9 +60,10 @@ const loadUsersStart = () => {
   };
 }
 
-const loadUsersFail = () => {
+const loadUsersFail = (error) => {
   return {
     type: actionTypes.ADMIN_LOAD_USERS_FAIL,
+    error: error,
   };
 }
 

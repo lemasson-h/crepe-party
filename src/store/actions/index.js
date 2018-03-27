@@ -65,3 +65,8 @@ export {
 export {
   adminLoadUsers
 } from './adminUserCreators';
+
+export {
+  setFlashMessage,
+  resetFlashMessage
+} from './flashMessageCreators';

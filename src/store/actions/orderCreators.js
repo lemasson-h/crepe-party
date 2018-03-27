@@ -1,23 +1,17 @@
 import * as actionTypes from './actionTypes';
 import * as authCreators from './authCreators';
-import * as redirectCreators from './redirectCreators';
 import Axios from 'axios';
-
-const resetFlashMessage = (dispatch, time) => {
-  dispatch(
-    setTimerFlashMessageForOrder(
-      setTimeout(() => {
-        dispatch(resetFlashMessageForOrder())
-      }, time)
-    )
-  );
-}
+import * as flashMessageCreators from './flashMessageCreators';
+import * as redirectCreators from './redirectCreators';
 
 export const addCrepeToOrder = (crepe) => {
   return dispatch => {
     dispatch(internalAddCrepeToOrder(crepe));
-
-    resetFlashMessage(dispatch, 5000);
+    dispatch(flashMessageCreators.setFlashMessage(
+        'success',
+        'Crepe ' + crepe.name +  (undefined !== crepe.uniqueId ? ' edited.' : ' added.'),
+        5000
+    ));
   };
 }
 
@@ -31,8 +25,11 @@ const internalAddCrepeToOrder = (crepe) => {
 export const removeCrepeToOrder = (uniqueId) => {
   return dispatch => {
     dispatch(internalRemoveCrepeToOrder(uniqueId));
-
-    resetFlashMessage(dispatch, 5000);
+    dispatch(flashMessageCreators.setFlashMessage(
+        'success',
+        'Crepe removed.',
+        5000
+    ));
   };
 }
 
@@ -40,19 +37,6 @@ const internalRemoveCrepeToOrder = (uniqueId) => {
   return {
     type: actionTypes.REMOVE_CREPE_TO_ORDER,
     uniqueId: uniqueId,
-  };
-}
-
-const resetFlashMessageForOrder = () => {
-  return {
-    type: actionTypes.RESET_FLASH_MESSAGE_FOR_ORDER,
-  };
-}
-
-const setTimerFlashMessageForOrder = (timer) => {
-  return {
-    type: actionTypes.TIMER_FLASH_MESSAGE_FOR_ORDER,
-    timer: timer,
   };
 }
 
@@ -106,11 +90,19 @@ export const sendOrder = (token, userId, orderId, orders) => {
 
     promise.then(response => {
         dispatch(sendOrderSuccess(undefined !== orderId ? orderId : response.data.name));
-        resetFlashMessage(dispatch, 5000);
+        dispatch(flashMessageCreators.setFlashMessage(
+          'success',
+          'Order submitted.',
+          5000
+        ));
       })
       .catch(error => {
         dispatch(sendOrderFail());
-        resetFlashMessage(dispatch, 5000);
+        dispatch(flashMessageCreators.setFlashMessage(
+          'error',
+          'Unable to submit the order.',
+          5000
+        ));
       })
   }
 }
@@ -167,7 +159,11 @@ export const loadOrder = (token, userId) => {
       })
       .catch(error => {
         dispatch(loadOrderFail());
-        resetFlashMessage(dispatch, 5000);
+        dispatch(flashMessageCreators.setFlashMessage(
+          'error',
+          'Unable to load your orders.',
+          5000
+        ));
       });
   }
 }

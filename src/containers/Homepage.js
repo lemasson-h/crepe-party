@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import * as actionCreators from '../store/actions';
 import CustomizeCrepe from '../components/Homepage/CustomizeCrepe';
+import flashMessageHoc from '../hoc/FlashMessageHoc';
 import Menu from '../components/Homepage/Menu';
 import Order from '../components/Homepage/Order';
 import '../components/Homepage/Homepage.css';
@@ -166,7 +167,7 @@ const mapStateToProps = (state) => {
     modalError: state.crepes.errorModal,
     currentAdditonalIngredient: state.crepes.currentAdditonalIngredient,
     orders: state.order.orders,
-    flashMessage: state.order.flashMessage,
+    flashMessage: state.flashMessage.message,
     userId: state.auth.userId,
     token: state.auth.token,
     orderId: state.order.orderId,
@@ -194,4 +195,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default connect(mapStateToProps, mapDispatchToProps)(flashMessageHoc(Homepage));

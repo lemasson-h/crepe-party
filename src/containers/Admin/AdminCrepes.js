@@ -21,7 +21,9 @@ class AdminCrepes extends Component {
     if (this.props.delete_finished) {
       this.props.onDeleteCrepeReset();
       this.props.onLoadCrepes(this.props.ingredients);
-    } else if(prevProps.ingredients !== this.props.ingredients) {
+    } else if(prevProps.ingredientsLoading === true
+      && this.props.ingredientsLoading === false
+    ) {
       this.props.onLoadCrepes(this.props.ingredients);
     }
   }
@@ -44,7 +46,8 @@ const mapStateToProps = state => {
     delete_loading: state.adminCrepe.delete.loading,
     delete_finished: state.adminCrepe.delete.finished,
     error: state.crepes.error,
-    loading: state.crepes.loading,
+    ingredientsLoading: state.ingredients.loading,
+    loading: state.ingredients.loading || state.crepes.loading,
     token: state.auth.token,
     ingredients: state.ingredients.ingredients,
   };

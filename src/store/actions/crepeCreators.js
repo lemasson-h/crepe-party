@@ -3,15 +3,27 @@ import { cleanUnexistingIngredientsFromCrepe } from '../../helpers/crepeIngredie
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
+export const loadCrepesExpires = () => {
+  return {
+      type: actionTypes.LOAD_CREPES_EXPIRES,
+  };
+}
+
 export const loadCrepes = (dbIngredients) => {
   return (dispatch, getState) => {
+    dispatch(loadCrepesStart());
+
     const state = getState();
 
-    if (state.crepes.crepes.length > 0 && state.crepes.loadedAt + 600  < Date.now()) {
+    if (state.crepes.crepes.length > 0 && state.crepes.loadedAt + 600000  > Date.now()) {
+      const triggerLoadLater = new Promise((resolve, reject) => {
+        setTimeout(resolve, 100);
+      })
+
+      triggerLoadLater.then(() => dispatch(loadCrepesSuccess(state.crepes.crepes)));
+
       return ;
     }
-
-    dispatch(loadCrepesStart());
 
     axios.get(
       'https://crepe-party.firebaseio.com/crepes.json'

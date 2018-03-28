@@ -14,7 +14,8 @@ export const adminAddIngredient = (ingredient, token) => {
       'https://crepe-party.firebaseio.com/ingredients.json?auth=' + token,
       ingredient
     ).then(response => {
-        dispatch(adminAddIngredientSuccess('New ingredient added!'));
+      dispatch(ingredientCreators.loadIngredientsExpires());
+      dispatch(adminAddIngredientSuccess('New ingredient added!'));
     })
     .catch(error => {
       dispatch(adminAddIngredientFail());
@@ -99,6 +100,7 @@ export const adminEditIngredient = (ingredient, token) => {
       'https://crepe-party.firebaseio.com/ingredients/' + ingredient.id + '.json?auth=' + token,
       ingredient
     ).then(response => {
+        dispatch(ingredientCreators.loadIngredientsExpires());
         dispatch(adminEditIngredientSuccess('Ingredient "' + ingredient.name +  '" saved!'));
     })
     .catch(error => {
@@ -134,6 +136,7 @@ export const adminDeleteIngredient = (crepeId, token) => {
 
       axios.delete('https://crepe-party.firebaseio.com/ingredients/' + crepeId + '.json?auth=' + token)
         .then(response => {
+            dispatch(ingredientCreators.loadIngredientsExpires());
             dispatch(adminDeleteIngredientSuccess());
         })
         .catch(error => {

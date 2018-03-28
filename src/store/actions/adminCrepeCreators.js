@@ -2,6 +2,7 @@ import { cleanUnexistingIngredientsFromCrepe } from '../../helpers/crepeIngredie
 
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as crepeCreators from './crepeCreators';
 
 //Actions to add a crepe
 
@@ -27,6 +28,7 @@ export const adminAddCrepe = (crepe, token) => {
       'https://crepe-party.firebaseio.com/crepes.json?auth=' + token,
       updatedCrepe
     ).then(response => {
+        dispatch(crepeCreators.loadCrepesExpires());
         dispatch(adminAddCrepeSuccess('New crepe added!'));
     })
     .catch(error => {
@@ -134,6 +136,7 @@ export const adminEditCrepe = (crepe, token) => {
       'https://crepe-party.firebaseio.com/crepes/' + crepe.id + '.json?auth=' + token,
       updatedCrepe
     ).then(response => {
+        dispatch(crepeCreators.loadCrepesExpires());
         dispatch(adminEditCrepeSuccess('Crepe "' + crepe.name +  '" saved!'));
     })
     .catch(error => {
@@ -169,6 +172,7 @@ export const adminDeleteCrepe = (crepeId, token) => {
 
       axios.delete('https://crepe-party.firebaseio.com/crepes/' + crepeId + '.json?auth=' + token)
         .then(response => {
+            dispatch(crepeCreators.loadCrepesExpires());
             dispatch(adminDeleteCrepeSuccess());
         })
         .catch(error => {

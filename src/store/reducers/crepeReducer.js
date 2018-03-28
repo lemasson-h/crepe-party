@@ -31,6 +31,8 @@ const reducer = (state = initialState, action) => {
       return loadCrepesSuccess(state, action);
     case actionTypes.LOAD_CREPES_FAIL:
       return loadCrepesFail(state, action);
+    case actionTypes.LOAD_CREPES_EXPIRES:
+      return loadCrepesExpires(state, action);
     case actionTypes.LOAD_CUSTOMIZED_CREPE:
       return loadCustomizedCrepe(state, action);
     case actionTypes.RESET_CUSTOMIZED_CREPE:
@@ -75,6 +77,13 @@ const loadCrepesFail = (state, action) => {
     ...state,
     loading: false,
     error: true,
+  };
+}
+
+const loadCrepesExpires = (state, action) => {
+  return {
+    ...state,
+    loadedAt: 0,
   };
 }
 

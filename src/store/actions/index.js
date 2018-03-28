@@ -35,10 +35,12 @@ export {
 } from './authCreators';
 
 export {
-  loadIngredients
+  loadIngredients,
+  loadIngredientsExpires,
 } from './ingredientCreators';
 
 export {
+  loadCrepesExpires,
   loadCrepes,
   loadCustomizedCrepe,
   resetCustomizedCrepe,

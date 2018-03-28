@@ -24,7 +24,7 @@ class AdminUser extends Component {
 
       if (!this.props.loading) {
         content = (
-          <table>
+          <table className="TableBorder">
             <thead>
               <tr>
                 <th>Name</th>

@@ -17,11 +17,11 @@ class AdminShopping extends Component {
       if (!this.props.loading) {
         content = Object.keys(this.props.shoppingList).map(ingredientName => {
           return (
-            <div className="ShoppingItem"
+            <tr className="ShoppingItem"
               key={ingredientName}>
-              <div className="ShoppingName">{ingredientName}</div>
-              <div className="ShoppingValue">{this.props.shoppingList[ingredientName]}</div>
-            </div>
+              <td>{ingredientName}</td>
+              <td>{this.props.shoppingList[ingredientName]}</td>
+            </tr>
           );
         });
       }
@@ -29,9 +29,11 @@ class AdminShopping extends Component {
       return (
         <div className="AdminPage">
           <h1>Shopping List</h1>
-          <div className="Content" style={{marginTop: '-20px'}}>
+          <div className="Content" style={{marginTop: '-10px'}}>
             <FlashMessage message={this.props.flashMessage} />
-            {content}
+            <table className="ShoppingList List">
+              {content}
+            </table>
           </div>
         </div>
       );

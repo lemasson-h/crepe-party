@@ -78,3 +78,8 @@
 .AdminPage .FlashMessage {
   margin-bottom: 20px;
 }
+
+.AdminPage ul.ShoppingList {
+  display: inline-block;
+  text-align: left;
+}

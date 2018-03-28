@@ -1,4 +1,5 @@
 import { extractError } from '../../helpers/errorHelper';
+import { transformObjectToIngredientQuantity } from '../../helpers/ingredientValidationHelper';
 
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
@@ -44,7 +45,10 @@ export const loadShopping = (token) => {
               Object.keys(quantities).forEach(ingredientId => {
                 if (undefined !== ingredientsResponse.data[ingredientId]) {
                   const ingredient = ingredientsResponse.data[ingredientId];
-                  realQuantities[ingredient.name] = ingredient.quantity + ' * ' + quantities[ingredientId];
+                  realQuantities[ingredient.name] = transformObjectToIngredientQuantity({
+                    type: ingredient.quantity.type,
+                    value: ingredient.quantity.value * quantities[ingredientId]
+                  });
                 }
               });
 

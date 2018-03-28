@@ -15,15 +15,21 @@ class AdminShopping extends Component {
       let content = <Spinner />;
 
       if (!this.props.loading) {
-        content = Object.keys(this.props.shoppingList).map(ingredientName => {
-          return (
-            <tr className="ShoppingItem"
-              key={ingredientName}>
-              <td>{ingredientName}</td>
-              <td>{this.props.shoppingList[ingredientName]}</td>
-            </tr>
-          );
-        });
+        content = (
+          <table className="ShoppingList List">
+            <tbody>
+              {Object.keys(this.props.shoppingList).map(ingredientName => {
+                return (
+                  <tr className="ShoppingItem"
+                    key={ingredientName}>
+                    <td>{ingredientName}</td>
+                    <td>{this.props.shoppingList[ingredientName]}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        );
       }
 
       return (
@@ -31,9 +37,7 @@ class AdminShopping extends Component {
           <h1>Shopping List</h1>
           <div className="Content" style={{marginTop: '-10px'}}>
             <FlashMessage message={this.props.flashMessage} />
-            <table className="ShoppingList List">
-              {content}
-            </table>
+            {content}
           </div>
         </div>
       );

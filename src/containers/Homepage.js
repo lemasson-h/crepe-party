@@ -27,13 +27,16 @@ class Homepage extends Component {
       );
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     this.submitOrderIfNecessary();
+
+    if (prevProps.ingredients !== this.props.ingredients) {
+      this.props.onLoadCrepes(this.props.ingredients);
+    }
   }
 
   componentDidMount() {
     this.props.onLoadIngredients();
-    this.props.onLoadCrepes();
     this.submitOrderIfNecessary();
   }
 
@@ -179,7 +182,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onLoadCrepes: () => dispatch(actionCreators.loadCrepes()),
+    onLoadCrepes: (ingredients) => dispatch(actionCreators.loadCrepes(ingredients)),
     onLoadIngredients: () => dispatch(actionCreators.loadIngredients()),
     onLoadCustomizedCrepe: (crepe, ingredients) => dispatch(actionCreators.loadCustomizedCrepe(crepe, ingredients)),
     onResetCustomizedCrepe: () => dispatch(actionCreators.resetCustomizedCrepe()),

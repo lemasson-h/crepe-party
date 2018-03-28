@@ -113,3 +113,38 @@ export const caclulateNumberOfCrepeChanges = (initialCrepe, currentCrepe) => {
 
   return changes;
 }
+
+export const cleanUnexistingIngredientsFromCrepe = (crepe, ingredients, isAdmin = false) => {
+  let crepeIngredients = {
+    ...crepe.ingredients,
+  };
+
+  let usedIngredientIds = [];
+
+  if (crepe.ingredients !== undefined) {
+    usedIngredientIds = Object.keys(crepe.ingredients);
+  }
+
+  const existingIngredientIds = ingredients.map(ingredient => {
+    return ingredient.id;
+  });
+
+  //Removed not found ingredients
+  usedIngredientIds.forEach(usedIngredientId => {
+    if (!existingIngredientIds.includes(usedIngredientId)) {
+      //May be we need to notify user about it
+      delete crepeIngredients[usedIngredientId];
+    }
+  });
+
+  if (isAdmin) {
+      //Set to 0 ingredients not present
+      existingIngredientIds.forEach(existingIngredientId => {
+        if (!usedIngredientIds.includes(existingIngredientId)) {
+          crepeIngredients[existingIngredientId] = 0;
+        }
+      });
+  }
+
+  return crepeIngredients;
+}

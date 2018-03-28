@@ -1,3 +1,5 @@
+import { cleanUnexistingIngredientsFromCrepe } from '../../helpers/crepeIngredientHelper';
+
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
@@ -100,34 +102,7 @@ const adminLoadCrepeFail = () => {
 }
 
 export const adminSynchroIngredientsToCrepe = (crepe, ingredients) => {
-  let crepeIngredients = {
-    ...crepe.ingredients,
-  };
-
-  let usedIngredientIds = [];
-
-  if (crepe.ingredients !== undefined) {
-    usedIngredientIds = Object.keys(crepe.ingredients);
-  }
-
-  const existingIngredientIds = ingredients.map(ingredient => {
-    return ingredient.id;
-  });
-
-  //Removed not found ingredients
-  usedIngredientIds.forEach(usedIngredientId => {
-    if (!existingIngredientIds.includes(usedIngredientId)) {
-      //May be we need to notify user about it
-      delete crepeIngredients[usedIngredientId];
-    }
-  });
-
-  //Set to 0 ingredients not present
-  existingIngredientIds.forEach(existingIngredientId => {
-    if (!usedIngredientIds.includes(existingIngredientId)) {
-      crepeIngredients[existingIngredientId] = 0;
-    }
-  });
+  let crepeIngredients = cleanUnexistingIngredientsFromCrepe(crepe, ingredients, true);
 
   return {
     type: actionTypes.ADMIN_SYNCHRO_INGREDIENTS_TO_CREPE,

@@ -4,8 +4,8 @@ import axios from 'axios';
 export const loadIngredients = () => {
   return (dispatch, getState) => {
     const state = getState();
-    
-    if (state.ingredients.ingredients.length > 0 && state.ingredients.loadedAt + 600  < Date.now()) {
+
+    if (state.ingredients.ingredients.length > 0 && state.ingredients.loadedAt + 600000  > Date.now()) {
       return ;
     }
 

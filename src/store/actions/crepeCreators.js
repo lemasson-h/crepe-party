@@ -1,7 +1,9 @@
+import { cleanUnexistingIngredientsFromCrepe } from '../../helpers/crepeIngredientHelper';
+
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
-export const loadCrepes = () => {
+export const loadCrepes = (dbIngredients) => {
   return (dispatch, getState) => {
     const state = getState();
 
@@ -34,7 +36,12 @@ export const loadCrepes = () => {
                 ingredients: ingredients,
               };
             }
-          );
+          ).map(crepe => {
+            return {
+              ...crepe,
+              ingredients: cleanUnexistingIngredientsFromCrepe(crepe, dbIngredients),
+            };
+          });
         }
 
         dispatch(loadCrepesSuccess(data));

@@ -47,7 +47,7 @@ class AdminEditCrepe extends Component {
   cancelAddCrepeHandler = (event) => {
     event.preventDefault();
 
-    this.props.history.push("/admin");
+    this.props.history.push("/admin/crepes");
   }
 
   addIngredientHandler = (event, id) => {
@@ -80,7 +80,7 @@ class AdminEditCrepe extends Component {
     }
 
     if (this.props.finished) {
-      return <Redirect to="/admin" />;
+      return <Redirect to="/admin/crepes" />;
     }
 
     return (

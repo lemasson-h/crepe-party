@@ -6,7 +6,7 @@ import AdminList from '../../components/Admin/AdminList';
 
 class AdminCrepes extends Component {
   componentDidMount() {
-    this.props.onLoadCrepes();
+    this.props.onLoadIngredients();
   }
 
   editCrepeHandler = (crepeId) => {
@@ -17,10 +17,12 @@ class AdminCrepes extends Component {
     this.props.onDeleteCrepe(crepeId, this.props.token);
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.props.delete_finished) {
       this.props.onDeleteCrepeReset();
-      this.props.onLoadCrepes();
+      this.props.onLoadCrepes(this.props.ingredients);
+    } else if(prevProps.ingredients !== this.props.ingredients) {
+      this.props.onLoadCrepes(this.props.ingredients);
     }
   }
 
@@ -44,6 +46,7 @@ const mapStateToProps = state => {
     error: state.crepes.error,
     loading: state.crepes.loading,
     token: state.auth.token,
+    ingredients: state.ingredients.ingredients,
   };
 }
 
@@ -51,7 +54,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onDeleteCrepe: (crepeId, token) => dispatch(actionCreators.adminDeleteCrepe(crepeId, token)),
     onDeleteCrepeReset: () => dispatch(actionCreators.adminDeleteCrepeReset()),
-    onLoadCrepes: () => dispatch(actionCreators.loadCrepes()),
+    onLoadCrepes: (ingredients) => dispatch(actionCreators.loadCrepes(ingredients)),
+    onLoadIngredients: () => dispatch(actionCreators.loadIngredients()),
   }
 }
 

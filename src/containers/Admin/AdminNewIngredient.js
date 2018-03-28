@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { transformIngredientQuantityToObject } from '../../helpers/ingredientValidationHelper';
 
 import * as actionCreators from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -11,7 +12,8 @@ class AdminNewIngredient extends Component {
       ingredient: {
         name: '',
         quantity: '',
-      }
+      },
+      error: undefined,
   };
 
   componentWillUnmount() {
@@ -30,7 +32,24 @@ class AdminNewIngredient extends Component {
   submitFormHandler = (event) => {
     event.preventDefault();
 
-    this.props.onAddIngredient(this.state.ingredient, this.props.token);
+    const ingredientObject = transformIngredientQuantityToObject(this.state.ingredient.quantity);
+
+    if (undefined === ingredientObject) {
+      this.setState({
+        error: 'Invalid quantity value.'
+      });
+
+      return ;
+    }
+
+    const ingredient = {
+      ...this.state.ingredient,
+      quantity: {
+        ...ingredientObject
+      },
+    };
+
+    this.props.onAddIngredient(ingredient, this.props.token);
   }
 
   cancelAddIngredientHandler = (event) => {
@@ -57,6 +76,7 @@ class AdminNewIngredient extends Component {
       <div className="AdminPage">
         <h1>New Ingredient</h1>
         <form onSubmit={this.submitFormHandler}>
+          {this.state.error ? <div className="Error">{this.state.error}</div> : null }
           <input type="text" value={this.state.ingredient.name}
              onChange={ (event) => this.changedIngredientInputHandler(event, 'name') }
             placeholder="name"/>

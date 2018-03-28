@@ -1,5 +1,8 @@
+import { transformObjectToIngredientQuantity } from '../../helpers/ingredientValidationHelper';
+
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
+import * as ingredientCreators from './ingredientCreators';
 
 //Actions to add an ingredient
 
@@ -56,6 +59,7 @@ export const adminLoadIngredient = (ingredientId) => {
         dispatch(
           adminLoadIngredientSuccess({
             ...response.data,
+            quantity: transformObjectToIngredientQuantity(response.data.quantity),
             id: ingredientId,
           })
         );

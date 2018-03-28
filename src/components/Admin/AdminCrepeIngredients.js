@@ -1,4 +1,5 @@
 import React from 'react';
+import { transformObjectToIngredientQuantity } from '../../helpers/ingredientValidationHelper';
 
 const adminCrepeIngredients = (props) => {
   const ingredients = props.adminIngredients.map(ingredient => {
@@ -10,7 +11,7 @@ const adminCrepeIngredients = (props) => {
 
     return (
       <div className="Ingredient" key={ingredient.id}>
-        <div className="IngredientName">{ingredient.name} <span>({ingredient.quantity})</span></div>
+        <div className="IngredientName">{ingredient.name} <span>({transformObjectToIngredientQuantity(ingredient.quantity)})</span></div>
         <div className="ingredientQuantity">{quantity}</div>
         <button className="QuantityButton Less"
           disabled={quantity < 1}

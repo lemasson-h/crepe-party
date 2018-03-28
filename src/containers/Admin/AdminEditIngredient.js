@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { transformIngredientQuantityToObject } from '../../helpers/ingredientValidationHelper';
 
 import * as actionCreators from '../../store/actions';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -33,7 +34,24 @@ class AdminEditIngredient extends Component {
   submitFormHandler = (event) => {
     event.preventDefault();
 
-    this.props.onEditIngredient(this.props.ingredient, this.props.token);
+    const ingredientObject = transformIngredientQuantityToObject(this.props.ingredient.quantity);
+
+    if (undefined === ingredientObject) {
+      this.setState({
+        error: 'Invalid quantity value.'
+      });
+
+      return ;
+    }
+
+    const ingredient = {
+      ...this.props.ingredient,
+      quantity: {
+        ...ingredientObject
+      },
+    };
+
+    this.props.onEditIngredient(ingredient, this.props.token);
   }
 
   changedIngredientNameHandler = (event) => {

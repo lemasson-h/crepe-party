@@ -127,6 +127,19 @@ export const changeCurrentAdditionalIngredient = (ingredientId) => {
 }
 
 export const loadOrderCrepe = (crepe, ingredients) => {
+  return dispatch => {
+    const updatedCrepe = {
+      ...crepe,
+      ingredients: {
+        ...cleanUnexistingIngredientsFromCrepe(crepe, ingredients),
+      }
+    };
+
+    dispatch(internalLoadOrderCrepe(updatedCrepe, ingredients));
+  };
+}
+
+const internalLoadOrderCrepe = (crepe, ingredients) => {
   return {
     type: actionTypes.LOAD_ORDER_CREPE,
     crepe: crepe,

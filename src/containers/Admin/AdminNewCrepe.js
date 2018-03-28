@@ -16,8 +16,10 @@ class AdminNewCrepe extends Component {
     this.props.onReset();
   }
 
-  componentDidUpdate() {
-    if (this.props.ingredients.length > 0 && !this.state.ingredientsSynchronized) {
+  componentDidUpdate(prevProps) {
+    if (prevProps.ingredientsLoading === true
+      && this.props.ingredientsLoading === false
+      && !this.state.ingredientsSynchronized) {
       this.props.onInitIngredients(this.props.ingredients);
 
       this.setState({
@@ -95,6 +97,7 @@ class AdminNewCrepe extends Component {
 
 const mapStateToProps = state => {
   return {
+    ingredientsLoading: state.ingredients.loading,
     crepe: state.adminCrepe.addOrEdit.currentElement,
     finished: state.adminCrepe.addOrEdit.finished,
     ingredients: state.ingredients.ingredients,

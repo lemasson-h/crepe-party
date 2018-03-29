@@ -1,4 +1,8 @@
 export const getIngredientNames = (crepe, ingredients) => {
+  if (undefined === crepe.ingredients) {
+    return [];
+  }
+  
   return Object.keys(crepe.ingredients)
     .map(ingredientId => {
       const ingredientFound = ingredients.find(ingredient => {
